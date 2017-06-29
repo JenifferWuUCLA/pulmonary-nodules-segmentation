@@ -73,26 +73,7 @@ Also, this code should be compatible with Python versions 2.7-3.5.
 
 ### Prepare the data
 
-In order to extract raw images and save them to *.npy* files,
-you should first prepare its structure. Make sure that ```raw``` dir is located in the root of this project.
-Also, the tree of ```raw``` dir must be like:
-
-```
--raw
- |
- ---- train
- |    |
- |    ---- 1_1.tif
- |    |
- |    ---- …
- |
- ---- test
-      |
-      ---- 1.tif
-      |
-      ---- …
-```
-
+In order to extract raw images and save them to *.npy* files, you should first prepare its structure. 
 * Now run ```python data.py```.
 
 Running this script will create train and test images and save them to **.npy** files.

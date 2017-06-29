@@ -138,8 +138,8 @@ for img_file in file_list:
         '''
 
         new_img = imgs_to_process[i, :, :] * mask
-        filename = img_file.replace(os.path.join(output_path, "test/"), "")
+        filename = img_file.replace(os.path.join(output_path, "preds/"), "")
         new_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
-        image_path = os.path.join(output_path, "ROI/test/")
+        image_path = os.path.join(output_path, "ROI/preds/")
         print(new_name, image_path)
         cv2.imwrite(os.path.join(image_path, new_name), new_img)

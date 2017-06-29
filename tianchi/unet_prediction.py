@@ -125,7 +125,7 @@ def predict():
     print('Saving predicted masks to files...')
     print('-' * 30)
 
-    pred_dir = os.path.join(output_path, 'preds')
+    pred_dir = os.path.join(output_path, 'pred-images/')
     if not os.path.exists(pred_dir):
         os.mkdir(pred_dir)
 

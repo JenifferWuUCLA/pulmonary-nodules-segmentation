@@ -10,9 +10,6 @@ The architecture was inspired by [U-Net: Convolutional Networks for Biomedical I
 
 ---
 
-## Update 02.04.2017.
-
-Changes:
 - using Keras 2
 - using TF backend instead of Theano
 - using scikit-image instead of cv2

@@ -60,8 +60,8 @@ def create_train_data():
 
 
 def load_train_data():
-    imgs_train = np.load('imgs_train.npy')
-    imgs_mask_train = np.load('imgs_mask_train.npy')
+    imgs_train = np.load(os.path.join(output_path, "train/imgs_train.npy"))
+    imgs_mask_train = np.load(os.path.join(output_path, "train/imgs_mask_train.npy"))
     return imgs_train, imgs_mask_train
 
 
@@ -104,8 +104,8 @@ def create_test_data():
 
 
 def load_test_data():
-    imgs_test = np.load('imgs_test.npy')
-    imgs_id = np.load('imgs_id_test.npy')
+    imgs_test = np.load(os.path.join(output_path, "test/imgs_test.npy"))
+    imgs_id = np.load(os.path.join(output_path, "test/imgs_id_test.npy"))
     return imgs_test, imgs_id
 
 

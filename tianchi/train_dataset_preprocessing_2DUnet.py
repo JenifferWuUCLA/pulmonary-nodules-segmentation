@@ -114,6 +114,8 @@ class Alibaba_tianchi(object):
 
     def myselfhandler(self):
         """自己处理"""
+        out_images = []  # final set of images
+        out_nodemasks = []  # final set of nodemasks
         for fcount, img_file in enumerate(tqdm(self.ls_all_patients)):
             mini_df = self.df_annotations[self.df_annotations["file"] == img_file]  # 获取这个病人的所有结节信息
             if mini_df.shape[0] > 0:  # 有些病人可能没有结节，跳过这些病人some files may not have a nodule--skipping those
@@ -152,6 +154,10 @@ class Alibaba_tianchi(object):
                     slice = scipy.ndimage.interpolation.zoom(slice, [0.5, 0.5], mode='nearest')
                     slice = 255.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
+
+                    out_images.append(slice)
+                    out_nodemasks.append(nodule_mask)
+
                     np.save(os.path.join(self.tmp_workspace,
                                          "%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)),
                             slice)
@@ -165,10 +171,26 @@ class Alibaba_tianchi(object):
                     nodule_mask = nodule_mask.astype(np.uint8)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
                     cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%04d_%04d_%04d_%s.jpg" % (
-                    fcount, node_idx, i_z, cur_row["seriesuid"])), slice)
+                        fcount, node_idx, i_z, cur_row["seriesuid"])), slice)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
                     cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%04d_%04d_%04d_%s_o.jpg" % (
-                    fcount, node_idx, i_z, cur_row["seriesuid"])), nodule_mask)
+                        fcount, node_idx, i_z, cur_row["seriesuid"])), nodule_mask)
+
+        num_images = len(out_images)
+        #
+        #  Writing out images and masks as 1 channel arrays for input into network
+        #
+        final_images = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
+        final_masks = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
+        for i in range(num_images):
+            final_images[i, 0] = out_images[i]
+            final_masks[i, 0] = out_nodemasks[i]
+
+        rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
+        # test_i = int(0.2*num_images)
+
+        np.save(os.path.join(self.tmp_workspace, "trainImages.npy"), final_images[rand_i[:]])
+        np.save(os.path.join(self.tmp_workspace, "trainMasks.npy"), final_masks[rand_i[:]])
 
 
 if __name__ == '__main__':

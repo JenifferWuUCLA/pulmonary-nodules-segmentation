@@ -151,7 +151,7 @@ def train_and_predict(use_existing):
         # mean+=dice_coef_np(imgs_mask_test_true[i,0], imgs_mask_test[i,0])
         # np.save(os.path.join(working_path + "predictions/", 'imgs_mask_test_true_%04d.npy' % (i)), imgs_mask_test_true[i,0])
         np.save(os.path.join(output_path + "preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
-        cv2.imwrite(os.path.join(output_path + "ROI/preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
+        cv2.imwrite(os.path.join(output_path + "ROI/preds/", 'imgs_mask_test_%04d.jpg' % (i)), imgs_mask_test[i,0])
 
 
 if __name__ == '__main__':

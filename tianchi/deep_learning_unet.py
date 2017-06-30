@@ -8,18 +8,19 @@ from keras.optimizers import SGD
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as K
 import os
+import cv2
 
 
 # subset = "train_dataset/"
-subset = "nerve/"
+subset = "nerve-tianchi/"
 # working_path = "/home/ucla/Downloads/tianchi/" + subset
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
 
 K.set_image_dim_ordering('th')  # Theano dimension ordering in this code
 
-img_rows = 512
-img_cols = 512
+img_rows = 256
+img_cols = 256
 
 smooth = 1.
 
@@ -109,7 +110,7 @@ def train_and_predict(use_existing):
     print('-' * 30)
     model = get_unet()
     # Saving weights to unet.hdf5 at checkpoints
-    model_checkpoint = ModelCheckpoint(output_path + 'unet.hdf5', monitor='loss', save_best_only=True)
+    model_checkpoint = ModelCheckpoint(os.path.join(output_path, 'preds/') + 'unet.hdf5', monitor='loss', save_best_only=True)
     #
     # Should we load existing weights? 
     # Set argument for call to train_and_predict to true at end of script
@@ -141,7 +142,7 @@ def train_and_predict(use_existing):
     print('-' * 30)
     num_test = len(imgs_test)
     print("num_test: %d" % num_test)
-    imgs_mask_test = np.ndarray([num_test, 1, 512, 512], dtype=np.float32)
+    imgs_mask_test = np.ndarray([num_test, 1, 256, 256], dtype=np.float32)
     for i in range(num_test):
         imgs_mask_test[i] = model.predict([imgs_test[i:i + 1]], verbose=0)[0]
     np.save(os.path.join(output_path + "preds/", 'masksTestPredicted.npy'), imgs_mask_test)
@@ -150,6 +151,7 @@ def train_and_predict(use_existing):
         # mean+=dice_coef_np(imgs_mask_test_true[i,0], imgs_mask_test[i,0])
         # np.save(os.path.join(working_path + "predictions/", 'imgs_mask_test_true_%04d.npy' % (i)), imgs_mask_test_true[i,0])
         np.save(os.path.join(output_path + "preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
+        cv2.imwrite(os.path.join(output_path + "ROI/preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
 
 
 if __name__ == '__main__':

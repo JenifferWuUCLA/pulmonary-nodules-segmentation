@@ -45,7 +45,7 @@ def voxelToWorld(voxelCoord, origin, spacing):
     voxelCoord = voxelCoord.astype(np.int32)
     w_x = spacing[0] * voxelCoord[0] + origin[0]
     w_y = spacing[1] * voxelCoord[1] + origin[1]
-    worldCoord = np.array([int(w_x), int(w_y)])
+    worldCoord = np.array([float(w_x), float(w_y)])
 
     return worldCoord
 
@@ -103,8 +103,10 @@ for img_file in test_images:
         '''
 
         (x, y), radius = cv2.minEnclosingCircle(c)
-        center = (int(x), int(y))
-        radius = int(radius)
+        # center = (float(x), float(y))
+        # print("center: ")
+        # print(center, radius)
+        radius = float(radius)
         # img = cv2.circle(image, center, radius, (0, 255, 0), 2)
 
         file_name = image_name.replace("masks_", "")
@@ -117,12 +119,15 @@ for img_file in test_images:
         # num_z, height, width = img_array.shape  # heightXwidth constitute the transverse plane
         origin = np.array(itk_img.GetOrigin())  # x,y,z  Origin in world coordinates (mm)
         spacing = np.array(itk_img.GetSpacing())  # spacing of voxels in world coor. (mm)
+        print("file_name: ")
         print(file_name, origin, spacing)
 
-        v_center = np.array([int(x), int(y)])
+        v_center = np.array([float(x)*2, float(y)*2])
+        print("v_center: ")
         print(v_center, radius)
 
         w_center = voxelToWorld(v_center, origin, spacing)
+        print("w_center: ")
         print(w_center, radius)
 
         csv_row(image_name, w_center[0], w_center[1], radius)

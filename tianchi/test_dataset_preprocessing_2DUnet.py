@@ -33,7 +33,7 @@ subset = "data_set/"
 tianchi_path = "/home/jenifferwu/LUNA2016/"
 tianchi_subset_path = tianchi_path + subset
 
-out_subset = "nerve-tianchi"
+out_subset = "nerve-mine-2D"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 
@@ -146,13 +146,13 @@ class Alibaba_tianchi(object):
                     i_z = int(v_nodule_center[2])
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
-                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
+                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
                     nodule_mask[nodule_mask < 0.5] = 0
                     nodule_mask[nodule_mask > 0.5] = 1
                     nodule_mask = nodule_mask.astype('int8')
                     slice = img_array[i_z]
-                    slice = scipy.ndimage.interpolation.zoom(slice, [0.5, 0.5], mode='nearest')
-                    slice = 255.0 * self.normalize(slice)
+                    slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')
+                    slice = 511.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
 
                     out_images.append(slice)
@@ -167,21 +167,21 @@ class Alibaba_tianchi(object):
 
                     # ===================================
                     # ---以下代码是生成图片来观察分割是否有问题的
-                    nodule_mask = 255.0 * nodule_mask
+                    nodule_mask = 511.0 * nodule_mask
                     nodule_mask = nodule_mask.astype(np.uint8)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%04d_%04d_%04d_%s.jpg" % (
-                        fcount, node_idx, i_z, cur_row["seriesuid"])), slice)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"],
+                        fcount, node_idx, i_z)), slice)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%04d_%04d_%04d_%s_o.jpg" % (
-                        fcount, node_idx, i_z, cur_row["seriesuid"])), nodule_mask)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%s_%04d_%04d_%04d_o.jpg" % (cur_row["seriesuid"],
+                        fcount, node_idx, i_z)), nodule_mask)
 
         num_images = len(out_images)
         #
         #  Writing out images and masks as 1 channel arrays for input into network
         #
-        final_images = np.ndarray([num_images, 1, 256, 256], dtype=np.float32)
-        final_masks = np.ndarray([num_images, 1, 256, 256], dtype=np.float32)
+        final_images = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
+        final_masks = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
         for i in range(num_images):
             final_images[i, 0] = out_images[i]
             final_masks[i, 0] = out_nodemasks[i]

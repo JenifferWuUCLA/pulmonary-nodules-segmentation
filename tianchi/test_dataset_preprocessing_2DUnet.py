@@ -208,9 +208,9 @@ class Alibaba_tianchi(object):
             csv_row(index, seriesuid, imgs_mask_test)
 
         # Write out the imgs_mask_test_coordinate CSV file.
-        coordinate_file = "seriesuid_pred_image.csv"
-        print(os.path.join(output_path, coordinate_file))
-        csvFileObj = open(os.path.join(output_path, coordinate_file), 'w')
+        pred_image_file = "seriesuid_pred_image.csv"
+        print(os.path.join(output_path, pred_image_file))
+        csvFileObj = open(os.path.join(output_path, pred_image_file), 'w')
         csvWriter = csv.writer(csvFileObj)
         for row in csvRows:
             # print row

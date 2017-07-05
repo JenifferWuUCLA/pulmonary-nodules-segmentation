@@ -36,6 +36,18 @@ tianchi_subset_path = tianchi_path + subset
 out_subset = "nerve-mine-2D"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
+###################################################################################
+
+csvRows = []
+
+
+def csv_row(index, seriesuid, imgs_mask_test):
+    new_row = []
+    new_row.append(index)
+    new_row.append(seriesuid)
+    new_row.append(imgs_mask_test)
+    csvRows.append(new_row)
+
 
 ###################################################################################
 
@@ -116,6 +128,7 @@ class Alibaba_tianchi(object):
         """自己处理"""
         out_images = []  # final set of images
         out_nodemasks = []  # final set of nodemasks
+        seriesuids = []
         for fcount, img_file in enumerate(tqdm(self.ls_all_patients)):
             mini_df = self.df_annotations[self.df_annotations["file"] == img_file]  # 获取这个病人的所有结节信息
             if mini_df.shape[0] > 0:  # 有些病人可能没有结节，跳过这些病人some files may not have a nodule--skipping those
@@ -157,24 +170,19 @@ class Alibaba_tianchi(object):
 
                     out_images.append(slice)
                     out_nodemasks.append(nodule_mask)
+                    seriesuids.append(cur_row["seriesuid"])
 
-                    np.save(os.path.join(self.tmp_workspace,
-                                         "%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)),
-                            slice)
-                    np.save(os.path.join(self.tmp_workspace,
-                                         "%s_%04d_%04d_%04d_o.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)),
-                            nodule_mask)
+                    np.save(os.path.join(self.tmp_workspace, "images_%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)), slice)
+                    np.save(os.path.join(self.tmp_workspace, "masks_%s_%04d_%04d_%04d_o.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)), nodule_mask)
 
                     # ===================================
                     # ---以下代码是生成图片来观察分割是否有问题的
                     nodule_mask = 511.0 * nodule_mask
                     nodule_mask = nodule_mask.astype(np.uint8)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"],
-                        fcount, node_idx, i_z)), slice)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), slice)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%s_%04d_%04d_%04d_o.jpg" % (cur_row["seriesuid"],
-                        fcount, node_idx, i_z)), nodule_mask)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%s_%04d_%04d_%04d_o.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), nodule_mask)
 
         num_images = len(out_images)
         #
@@ -191,6 +199,23 @@ class Alibaba_tianchi(object):
 
         np.save(os.path.join(self.tmp_workspace, "testImages.npy"), final_images[rand_i[:]])
         np.save(os.path.join(self.tmp_workspace, "testMasks.npy"), final_masks[rand_i[:]])
+
+        csv_row("index", "seriesuid", "pred_image")
+        for i in range(num_images):
+            index = rand_i[i]
+            seriesuid = seriesuids[index]
+            imgs_mask_test = 'imgs_mask_test_%04d.npy' % (i)
+            csv_row(index, seriesuid, imgs_mask_test)
+
+        # Write out the imgs_mask_test_coordinate CSV file.
+        coordinate_file = "seriesuid_pred_image.csv"
+        print(os.path.join(output_path, coordinate_file))
+        csvFileObj = open(os.path.join(output_path, coordinate_file), 'w')
+        csvWriter = csv.writer(csvFileObj)
+        for row in csvRows:
+            # print row
+            csvWriter.writerow(row)
+        csvFileObj.close()
 
 
 if __name__ == '__main__':

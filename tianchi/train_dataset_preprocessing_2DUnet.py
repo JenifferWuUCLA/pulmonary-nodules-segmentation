@@ -158,11 +158,9 @@ class Alibaba_tianchi(object):
                     out_images.append(slice)
                     out_nodemasks.append(nodule_mask)
 
-                    np.save(os.path.join(self.tmp_workspace,
-                                         "%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)),
+                    np.save(os.path.join(self.tmp_workspace, "images_%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)),
                             slice)
-                    np.save(os.path.join(self.tmp_workspace,
-                                         "%s_%04d_%04d_%04d_o.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)),
+                    np.save(os.path.join(self.tmp_workspace, "masks_%s_%04d_%04d_%04d_o.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)),
                             nodule_mask)
 
                     # ===================================

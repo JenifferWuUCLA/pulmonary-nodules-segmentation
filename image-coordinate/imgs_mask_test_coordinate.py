@@ -14,7 +14,7 @@ except:
     print('TQDM does make much nicer wait bars...')
     tqdm = lambda x: x
 
-out_subset = "nerve-tianchi/"
+out_subset = "nerve-mine-2D/"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 coordinate_file = "image-coordinate/imgs_mask_test_coordinate.csv"
@@ -50,6 +50,30 @@ def voxelToWorld(voxelCoord, origin, spacing):
     return worldCoord
 
 
+'''
+def voxel_2_world(voxelCoord, origin, spacing):
+    stretchedVoxelCoord = voxelCoord * spacing
+    worldCoord = stretchedVoxelCoord + origin
+    return worldCoord
+'''
+
+
+def image_file_name(image_name):
+    # Read the annotations CSV file in (skipping first row).
+    if os.path.exists(os.path.join(output_path, "seriesuid_pred_image.csv")):
+        csvFileObj = open(os.path.join(output_path, "seriesuid_pred_image.csv"), 'r')
+        readerObj = csv.DictReader(csvFileObj)
+        for row in readerObj:
+            if readerObj.line_num == 1:
+                continue  # skip first row
+            seriesuid = row['seriesuid']
+            pred_image = row['pred_image']
+            if image_name == pred_image:
+                csvFileObj.close()
+                return seriesuid
+        csvFileObj.close()
+
+
 csvRows = []
 
 
@@ -66,13 +90,19 @@ def csv_row(image_name, x, y, radius):
 
 # load the image, convert it to grayscale, blur it slightly,
 # and threshold it
-tmp_workspace = os.path.join(output_path, "image-coordinate/")
+tmp_workspace = os.path.join(output_path, "image-coordinate/bright_02/")
 test_images = glob(tmp_workspace + "*.jpg")
 # index = 0
 for img_file in test_images:
-    # print("img_file: %s" % img_file)
+    print("img_file: %s" % img_file)
     image_name = img_file.replace(tmp_workspace, "")
     # new_name = image_name.replace(".npy", "") + ".jpg"
+
+    image_name = image_name.replace(".jpg", ".npy")
+    print("image_name before: %s" % image_name)
+    image_name = image_file_name(image_name)
+    print("image_name after: %s" % image_name)
+    image_name += ".mhd"
 
     image = cv2.imread(img_file)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -109,10 +139,7 @@ for img_file in test_images:
         radius = float(radius)
         # img = cv2.circle(image, center, radius, (0, 255, 0), 2)
 
-        file_name = image_name.replace("masks_", "")
-        file_name = file_name[15:].replace("_o.jpg", ".mhd")
-
-        original_file_name = os.path.join(test_data_path, file_name)
+        original_file_name = os.path.join(test_data_path, image_name)
         itk_img = sitk.ReadImage(original_file_name)
         # load the data once
         img_array = sitk.GetArrayFromImage(itk_img)  # indexes are z,y,x (notice the ordering)
@@ -120,9 +147,9 @@ for img_file in test_images:
         origin = np.array(itk_img.GetOrigin())  # x,y,z  Origin in world coordinates (mm)
         spacing = np.array(itk_img.GetSpacing())  # spacing of voxels in world coor. (mm)
         print("file_name: ")
-        print(file_name, origin, spacing)
+        print(image_name, origin, spacing)
 
-        v_center = np.array([float(x)*2, float(y)*2])
+        v_center = np.array([float(x), float(y)])
         print("v_center: ")
         print(v_center, radius)
 

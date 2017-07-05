@@ -18,7 +18,7 @@ subset = "data_set/"
 tianchi_path = "/home/jenifferwu/LUNA2016/"
 tianchi_subset_path = tianchi_path + subset
 
-out_subset = "nerve"
+out_subset = "nerve-mine-2D"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 
@@ -126,5 +126,5 @@ for fcount, img_file in enumerate(tqdm(test_images)):
                                  width, height, spacing, origin)
                 masks[i] = mask
                 imgs[i] = img_array[i_z]
-            np.save(os.path.join(output_path, "test/images_%04d_%04d.npy" % (fcount, node_idx)), imgs)
-            np.save(os.path.join(output_path, "test/masks_%04d_%04d.npy" % (fcount, node_idx)), masks)
+            np.save(os.path.join(output_path, "test/images_%s_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx)), imgs)
+            np.save(os.path.join(output_path, "test/masks_%s_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx)), masks)

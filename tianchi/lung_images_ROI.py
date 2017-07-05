@@ -13,10 +13,11 @@ import os
 # import matplotlib.pyplot as plt
 
 
-out_subset = "nerve/"
+out_subset = "nerve-mine-2D/"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 file_list = glob(os.path.join(output_path, "test/images_*.npy"))
+# file_list = glob(os.path.join(output_path, "test/lungmask_*.npy"))
 
 for img_file in file_list:
     imgs_to_process = np.load(img_file).astype(np.float64)

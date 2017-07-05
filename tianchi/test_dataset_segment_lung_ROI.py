@@ -9,7 +9,7 @@ from glob import glob
 import os
 
 
-out_subset = "nerve"
+out_subset = "nerve-mine-2D"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 test_images = glob(os.path.join(output_path, "test/images_*.npy"))

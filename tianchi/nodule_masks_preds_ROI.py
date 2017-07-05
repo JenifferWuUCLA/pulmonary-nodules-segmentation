@@ -13,9 +13,10 @@ import os
 # import matplotlib.pyplot as plt
 
 
-out_subset = "nerve/"
+out_subset = "nerve-mine-2D/"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
+# file_list = glob(os.path.join(output_path, "preds/imgs_mask_test_*.npy"))
 file_list = glob(os.path.join(output_path, "preds/imgs_mask_test_*.npy"))
 
 for img_file in file_list:
@@ -38,6 +39,7 @@ for img_file in file_list:
         img = img / std
         # Find the average pixel value near the lungs
         # 　to renormalize washed out images
+        print(img)
         middle = img[100:400, 100:400]
         mean = np.mean(middle)
         max = np.max(img)

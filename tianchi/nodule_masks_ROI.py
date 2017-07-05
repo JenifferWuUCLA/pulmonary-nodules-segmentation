@@ -13,7 +13,7 @@ import os
 # import matplotlib.pyplot as plt
 
 
-out_subset = "nerve/"
+out_subset = "nerve-mine-2D/"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 file_list = glob(os.path.join(output_path, "test/masks_*.npy"))

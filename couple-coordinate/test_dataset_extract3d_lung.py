@@ -30,7 +30,7 @@ tianchi_subset_path = tianchi_path + subset
 out_subset = "nerve-mine-2D"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
-coordinate_file = "test/csv/imgs_mask_test_coordinate.csv"
+coordinate_file = "imgs_mask_test_coordinate.csv"
 
 ###################################################################################
 
@@ -258,8 +258,8 @@ if __name__ == '__main__':
     num_images = fcount + 1
 
     # Write out the imgs_mask_test_coordinate CSV file.
-    print(os.path.join(output_path, coordinate_file))
-    csvFileObj = open(os.path.join(output_path, coordinate_file), 'w')
+    print(os.path.join(output_path + "data_images/test/csv/", coordinate_file))
+    csvFileObj = open(os.path.join(output_path + "data_images/test/csv/", coordinate_file), 'w')
     csvWriter = csv.writer(csvFileObj)
     for row in csvRows:
         # print row

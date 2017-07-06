@@ -30,6 +30,24 @@ tianchi_subset_path = tianchi_path + subset
 out_subset = "nerve-mine-2D"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
+coordinate_file = "test/csv/imgs_mask_test_coordinate.csv"
+
+###################################################################################
+
+csvRows = []
+
+
+def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
+    new_row = []
+    new_row.append(seriesuid)
+    new_row.append(coordX)
+    new_row.append(coordY)
+    new_row.append(coordZ)
+    new_row.append(diameter_mm)
+    csvRows.append(new_row)
+
+
+###################################################################################
 
 class nodules_extract():
     def __init__(self, ):
@@ -42,7 +60,7 @@ class nodules_extract():
 
     def readmhd(self, f):
         print("readmhd f: %s" % f)
-        seriesuid = os.path.split(f)[1].split(".")[0]
+        seriesuid = f.replace(os.path.join(tianchi_subset_path, 'test/'), "")
         print("readmhd seriesuid: %s" % seriesuid)
         itk_img = sitk.ReadImage(f)
         img_array = sitk.GetArrayFromImage(itk_img)
@@ -144,41 +162,33 @@ class nodules_extract():
         '''把分离出来的肺部，按照一个个立方体方式进行切割，其中边长为width，步长为step
         '''
         z, y, x = coordinate
+        print("coordinate: ")
+        print(coordinate)
         z_num = math.ceil((z[1] - z[0]) / step)
         y_num = math.ceil((y[1] - y[0]) / step)
         x_num = math.ceil((x[1] - x[0]) / step)
-
-        nodes = [i for i in self.node_coordinate_train if i["seriesuid"] == seriesuid]
-        print("nodes: ")
-        print(nodes)
-
-        def get_diamonds_output(nodes, x, y, z, s=15, e=45):
-            '''当结节中心在方块正中心30*30*30位置标记为正，输出为10*10*10的样本，3*3*3个像素对应一个值
-            '''
-            for n in nodes:
-                coordx, coordy, coordz = float(n["coordX_resize"]), float(n["coordY_resize"]), float(n["coordZ_resize"])
-                if coordx > x + s and coordy > y + s and coordz > z + s and coordx <= x + e and coordy <= y + e and coordz <= z + e:
-                    output = lambda x: round(x[0] / 3) * math.pow((e - s) / 3, 2) + round(x[1] / 3) * (
-                        e - s) / 3 + round(x[2] / 3)
-                    return output([coordz - z - s, coordy - y - s, coordx - x - s])
-            return 0
+        print("z_num: %s" % z_num)
+        print("y_num: %s" % y_num)
+        print("x_num: %s" % x_num)
 
         diamonds = []
         marks = []
-        outputs = []
-        for sz in range(z_num):
-            for sy in range(y_num):
-                for sx in range(x_num):
+        # outputs = []
+        for sz in range(int(z_num)):
+            for sy in range(int(y_num)):
+                for sx in range(int(x_num)):
                     s_z = z[0] + sz * step
                     s_y = y[0] + sy * step
                     s_x = x[0] + sx * step
                     diamonds.append(image[s_z:s_z + width, s_y:s_y + width, s_x:s_x + width])
-                    o = get_diamonds_output(nodes, s_x, s_y, s_z)
-                    outputs.append(o)
+                    # o = get_diamonds_output(nodes, s_x, s_y, s_z)
+                    # outputs.append(o)
                     marks.append([s_z, s_y, s_x])
-                    np.save(os.path.join(output_path,"data_images/{}_{}_{}.npy".format(seriesuid, [s_z, s_y, s_x], o)),
+                    np.save(os.path.join(output_path,
+                                         "data_images/test/images_{}_{}.npy".format(seriesuid, [s_z, s_y, s_x])),
                             image[s_z:s_z + width, s_y:s_y + width, s_x:s_x + width])
-        return diamonds, marks, outputs
+                    csv_row(seriesuid, s_x, s_y, s_z, "diameter_mm")
+        return diamonds, marks
 
     def get_nodule(self):
         pass
@@ -192,7 +202,8 @@ class nodules_extract():
         image[image < -700] = bg
 
     def getsamples(self, f):
-        seriesuid = os.path.split(f)[1].split(".")[0]
+        print("getsamples f: %s" % f)
+        seriesuid = f.replace(os.path.join(tianchi_subset_path, 'test/'), "")
         print("getsamples seriesuid: %s" % seriesuid)
         img_array, spacing, origin = self.readmhd(f)  # img_array顺序为z,y,x,spaceing顺序为x,y,z
         image, n_spacing = self.reshape(img_array, spacing[::-1])
@@ -233,8 +244,21 @@ def zero_center(image):
 
 if __name__ == '__main__':
     n = nodules_extract()
+    csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
     #     n.exclude_noise(np.load("../data/images/LKDS-00001_[150, 138, 89]_27612.0.npy"))
     test_data_path = os.path.join(tianchi_subset_path, 'test/')
     test_images = glob(test_data_path + "*.mhd")
     for fcount, img_file in enumerate(tqdm(test_images)):
+        print("fcount: %s" % str(fcount))
         n.getsamples(img_file)
+
+    num_images = len(fcount)
+
+    # Write out the imgs_mask_test_coordinate CSV file.
+    print(os.path.join(output_path, coordinate_file))
+    csvFileObj = open(os.path.join(output_path, coordinate_file), 'w')
+    csvWriter = csv.writer(csvFileObj)
+    for row in csvRows:
+        # print row
+        csvWriter.writerow(row)
+    csvFileObj.close()

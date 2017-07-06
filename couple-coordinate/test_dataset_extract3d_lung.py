@@ -61,6 +61,7 @@ class nodules_extract():
     def readmhd(self, f):
         print("readmhd f: %s" % f)
         seriesuid = f.replace(os.path.join(tianchi_subset_path, 'test/'), "")
+        seriesuid = seriesuid.replace(".mhd", "")
         print("readmhd seriesuid: %s" % seriesuid)
         itk_img = sitk.ReadImage(f)
         img_array = sitk.GetArrayFromImage(itk_img)
@@ -177,6 +178,7 @@ class nodules_extract():
         for sz in range(int(z_num)):
             for sy in range(int(y_num)):
                 for sx in range(int(x_num)):
+                    print("sz: %d, sy: %d, sx: %d" % (sz, sy, sx))
                     s_z = z[0] + sz * step
                     s_y = y[0] + sy * step
                     s_x = x[0] + sx * step
@@ -204,6 +206,7 @@ class nodules_extract():
     def getsamples(self, f):
         print("getsamples f: %s" % f)
         seriesuid = f.replace(os.path.join(tianchi_subset_path, 'test/'), "")
+        seriesuid = seriesuid.replace(".mhd", "")
         print("getsamples seriesuid: %s" % seriesuid)
         img_array, spacing, origin = self.readmhd(f)  # img_array顺序为z,y,x,spaceing顺序为x,y,z
         image, n_spacing = self.reshape(img_array, spacing[::-1])
@@ -252,7 +255,7 @@ if __name__ == '__main__':
         print("fcount: %s" % str(fcount))
         n.getsamples(img_file)
 
-    num_images = len(fcount)
+    num_images = fcount + 1
 
     # Write out the imgs_mask_test_coordinate CSV file.
     print(os.path.join(output_path, coordinate_file))

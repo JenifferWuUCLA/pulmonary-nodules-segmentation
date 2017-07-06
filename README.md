@@ -1,5 +1,9 @@
 # Deep Learning Tutorial for Pulmonary Nodules Segmentation, using Keras
 
+## 天池医疗AI大赛[第一季]：U-Net训练基于卷积神经网络的肺结节分割器
+## Pulmonary Nodules AI Diagnosis
+> ##### @author Jeniffer Wu
+
 This tutorial shows how to use [Keras library](http://keras.io/) to build deep neural network for pulmonary nodules image segmentation.
 
 This deep neural network achieves **~0.57 score on the leaderboard** based on test images,

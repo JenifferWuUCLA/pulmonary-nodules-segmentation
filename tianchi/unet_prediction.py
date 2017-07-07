@@ -10,12 +10,15 @@ from keras import backend as K
 import os
 from skimage.transform import resize
 from skimage.io import imsave
+from glob import glob
+import cv2
 
 
 # subset = "train_dataset/"
-subset = "nerve/"
+# subset = "nerve-mine-2D/"
 # working_path = "/home/ucla/Downloads/tianchi/" + subset
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
 
 K.set_image_dim_ordering('th')  # Theano dimension ordering in this code
@@ -112,27 +115,24 @@ def predict():
     print('-' * 30)
     print('Predicting masks on test data...')
     print('-' * 30)
-
-    print('-' * 30)
-    print('Predicting masks on test data...')
-    print('-' * 30)
     num_test = len(imgs_test)
     print("num_test: %d" % num_test)
-    imgs_mask_test = model.predict(imgs_test, verbose=1)
-    np.save(os.path.join(output_path, "imgs_mask_test.npy"), imgs_mask_test)
+    imgs_mask_test = np.ndarray([num_test, 1, 512, 512], dtype=np.float32)
+    for i in range(num_test):
+        imgs_mask_test[i] = model.predict([imgs_test[i:i + 1]], verbose=0)[0]
+    np.save(os.path.join(output_path + "test_data_images/preds/", "masksTestPredicted.npy"), imgs_mask_test)
 
     print('-' * 30)
     print('Saving predicted masks to files...')
     print('-' * 30)
 
-    pred_dir = os.path.join(output_path, 'pred-images/')
+    pred_dir = os.path.join(output_path, 'test_data_images/pred-images/')
     if not os.path.exists(pred_dir):
         os.mkdir(pred_dir)
 
-    for image in zip(imgs_mask_test):
-        image = (image[:, :, 0] * 255.).astype(np.uint8)
-        image_id = int(image.split('.')[0])
-        imsave(os.path.join(pred_dir, str(image_id) + '_pred.png'), image)
+    for i in range(num_test):
+        np.save(os.path.join(output_path + "data_images/preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
+        cv2.imwrite(os.path.join(pred_dir, 'imgs_mask_test_%04d.jpg' % (i)), imgs_mask_test[i,0])
 
 
 if __name__ == '__main__':

@@ -27,14 +27,16 @@ except:
     print('tqdm 是一个轻量级的进度条小包。。。')
     tqdm = lambda x: x
 
-# subset = "train_dataset/"
-subset = "data_set/"
-# tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
-tianchi_path = "/home/jenifferwu/LUNA2016/"
-tianchi_subset_path = tianchi_path + subset
+subset = "train_subset_all/"
+# subset = "val_subset_all/"
+# subset = "data_set/"
+tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
+# tianchi_path = "/home/jenifferwu/LUNA2016/"
+# tianchi_subset_path = tianchi_path + subset
 
-out_subset = "nerve-mine-2D"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+# out_subset = "nerve-mine-2D"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 
 ###################################################################################
@@ -42,14 +44,17 @@ output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 class Alibaba_tianchi(object):
     def __init__(self):
         """param: workspace: all_patients的父目录"""
-        self.workspace = tianchi_subset_path
-        self.all_patients_path = os.path.join(self.workspace, "train/")
+        self.workspace = tianchi_path
+        self.all_patients_path = os.path.join(self.workspace, subset)
 
         self.tmp_workspace = os.path.join(output_path, "train/")
+        # self.tmp_workspace = os.path.join(output_path, "val/")
         self.tmp_jpg_workspace = os.path.join(output_path, "ROI/train/")
+        # self.tmp_jpg_workspace = os.path.join(output_path, "ROI/val/")
         self.ls_all_patients = glob(self.all_patients_path + "*.mhd")
 
-        self.df_annotations = pd.read_csv(tianchi_path + "annotations.csv")
+        self.df_annotations = pd.read_csv(tianchi_path + "/csv/train_all/annotations.csv")
+        # self.df_annotations = pd.read_csv(tianchi_path + "/csv/val/annotations.csv")
         self.df_annotations["file"] = self.df_annotations["seriesuid"].map(
             lambda file_name: self.get_filename(self.ls_all_patients, file_name))
         self.df_annotations = self.df_annotations.dropna()
@@ -189,6 +194,28 @@ class Alibaba_tianchi(object):
 
         np.save(os.path.join(self.tmp_workspace, "trainImages.npy"), final_images[rand_i[:]])
         np.save(os.path.join(self.tmp_workspace, "trainMasks.npy"), final_masks[rand_i[:]])
+
+        '''
+        np.save(os.path.join(self.tmp_workspace, "valImages.npy"), final_images[rand_i[:]])
+        np.save(os.path.join(self.tmp_workspace, "valMasks.npy"), final_masks[rand_i[:]])
+
+        csv_row("index", "seriesuid", "pred_image")
+        for i in range(num_images):
+            index = rand_i[i]
+            seriesuid = seriesuids[index]
+            imgs_mask_val = 'imgs_mask_val_%04d.npy' % (i)
+            csv_row(index, seriesuid, imgs_mask_val)
+
+        # Write out the imgs_mask_val_coordinate CSV file.
+        pred_image_file = "seriesuid_pred_image.csv"
+        print(os.path.join(output_path, pred_image_file))
+        csvFileObj = open(os.path.join(output_path, pred_image_file), 'w')
+        csvWriter = csv.writer(csvFileObj)
+        for row in csvRows:
+            # print row
+            csvWriter.writerow(row)
+        csvFileObj.close()
+        '''
 
 
 if __name__ == '__main__':

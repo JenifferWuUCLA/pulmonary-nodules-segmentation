@@ -21,13 +21,14 @@ from skimage import measure, feature
 from skimage.segmentation import clear_border
 from scipy import ndimage as ndi
 
-# subset = "train_dataset/"
-subset = "data_set/"
-# tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
-tianchi_path = "/home/jenifferwu/LUNA2016/"
-tianchi_subset_path = tianchi_path + subset
 
-out_subset = "nerve-mine-2D"
+subset = "test_subset_all/"
+# subset = "data_set/"
+tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
+# tianchi_path = "/home/jenifferwu/LUNA2016/"
+# tianchi_subset_path = tianchi_path + subset
+
+out_subset = "nerve-mine-2D/"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 coordinate_file = "imgs_mask_test_coordinate.csv"
@@ -51,7 +52,7 @@ def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
 
 class nodules_extract():
     def __init__(self, ):
-        self.image_test = os.path.join(tianchi_subset_path, "test/")
+        self.image_test = os.path.join(tianchi_path, subset)
         patients_test = [os.path.join(folder[0], f) for folder in os.walk(self.image_test) for f in
                          folder[2]]  # 获取所有病人三维图（包含mhd和raw文件）
         patients_test.sort()  # 排序，保证mhd和raw文件相邻
@@ -60,7 +61,7 @@ class nodules_extract():
 
     def readmhd(self, f):
         print("readmhd f: %s" % f)
-        seriesuid = f.replace(os.path.join(tianchi_subset_path, 'test/'), "")
+        seriesuid = f.replace(os.path.join(tianchi_path, subset), "")
         seriesuid = seriesuid.replace(".mhd", "")
         print("readmhd seriesuid: %s" % seriesuid)
         itk_img = sitk.ReadImage(f)
@@ -205,7 +206,7 @@ class nodules_extract():
 
     def getsamples(self, f):
         print("getsamples f: %s" % f)
-        seriesuid = f.replace(os.path.join(tianchi_subset_path, 'test/'), "")
+        seriesuid = f.replace(os.path.join(tianchi_path, subset), "")
         seriesuid = seriesuid.replace(".mhd", "")
         print("getsamples seriesuid: %s" % seriesuid)
         img_array, spacing, origin = self.readmhd(f)  # img_array顺序为z,y,x,spaceing顺序为x,y,z
@@ -249,7 +250,7 @@ if __name__ == '__main__':
     n = nodules_extract()
     csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
     #     n.exclude_noise(np.load("../data/images/LKDS-00001_[150, 138, 89]_27612.0.npy"))
-    test_data_path = os.path.join(tianchi_subset_path, 'test/')
+    test_data_path = os.path.join(tianchi_path, subset)
     test_images = glob(test_data_path + "*.mhd")
     for fcount, img_file in enumerate(tqdm(test_images)):
         print("fcount: %s" % str(fcount))

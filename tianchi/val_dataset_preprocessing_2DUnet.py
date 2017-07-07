@@ -205,8 +205,8 @@ class Alibaba_tianchi(object):
         for i in range(num_images):
             index = rand_i[i]
             seriesuid = seriesuids[index]
-            imgs_mask_val = 'imgs_mask_val_%04d.npy' % (i)
-            csv_row(index, seriesuid, imgs_mask_val)
+            imgs_mask_test = 'imgs_mask_test_%04d.npy' % (i)
+            csv_row(index, seriesuid, imgs_mask_test)
 
         # Write out the imgs_mask_val_coordinate CSV file.
         pred_image_file = "seriesuid_pred_image.csv"

@@ -259,6 +259,7 @@ if __name__ == '__main__':
         num_images += len(diamonds)
 
     # num_images = fcount + 1
+    print("num_images: %s" % num_images)
 
     final_images = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
     final_masks = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)

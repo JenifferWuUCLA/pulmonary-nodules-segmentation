@@ -14,10 +14,11 @@ except:
     print('TQDM does make much nicer wait bars...')
     tqdm = lambda x: x
 
-out_subset = "nerve-mine-2D/"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+# out_subset = "nerve-mine-2D/"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
-coordinate_file = "image-coordinate/imgs_mask_test_coordinate.csv"
+coordinate_file = "image-coordinate-2D/imgs_mask_test_coordinate.csv"
 
 '''
 # construct the argument parse and parse the arguments
@@ -27,13 +28,16 @@ ap.add_argument("-i", "--image", required=True,
 args = vars(ap.parse_args())
 '''
 
+subset = "val_subset_all/"
+# subset = "test_subset_all/"
 # subset = "train_dataset/"
-subset = "data_set/"
+# subset = "data_set/"
 # tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
-tianchi_path = "/home/jenifferwu/LUNA2016/"
-tianchi_subset_path = tianchi_path + subset
+tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
+# tianchi_path = "/home/jenifferwu/LUNA2016/"
+# tianchi_subset_path = tianchi_path + subset
 
-test_data_path = os.path.join(tianchi_subset_path, 'test/')
+test_data_path = os.path.join(tianchi_path, subset)
 
 
 # test_images = glob(test_data_path + "*.mhd")
@@ -90,7 +94,7 @@ def csv_row(image_name, x, y, radius):
 
 # load the image, convert it to grayscale, blur it slightly,
 # and threshold it
-tmp_workspace = os.path.join(output_path, "image-coordinate/bright_02/")
+tmp_workspace = os.path.join(output_path, "image-coordinate-2D/bright_02/")
 test_images = glob(tmp_workspace + "*.jpg")
 # index = 0
 for img_file in test_images:

@@ -3,10 +3,11 @@ import numpy as np
 from glob import glob
 import os
 
-out_subset = "nerve-mine-2D/"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+# out_subset = "nerve-mine-2D/"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
-test_images = glob(output_path + "image-coordinate/*.jpg")
+test_images = glob(output_path + "image-coordinate-2D/*.jpg")
 
 # fn = "baboon.jpg"
 
@@ -27,7 +28,7 @@ if __name__ == '__main__':
                 img[xj, xi, 1] = int(img[xj, xi, 0] * 100)
                 img[xj, xi, 2] = int(img[xj, xi, 0] * 100)
         # cv2.imshow('img', img)
-        cv2.imwrite(os.path.join(output_path + "image-coordinate/bright_01/", 'imgs_mask_test_%04d.jpg' % (index)), img)
+        cv2.imwrite(os.path.join(output_path + "image-coordinate-2D/bright_01/", 'imgs_mask_test_%04d.jpg' % (index)), img)
         for xi in xrange(0, w):
             for xj in xrange(0, h):
                 ##set the pixel value increase to 1020%
@@ -35,5 +36,5 @@ if __name__ == '__main__':
                 img[xj, xi, 1] = int(img[xj, xi, 1] * 1000.2)
                 img[xj, xi, 2] = int(img[xj, xi, 2] * 1000.2)
         # cv2.imshow('img',img)
-        cv2.imwrite(os.path.join(output_path + "image-coordinate/bright_02/", 'imgs_mask_test_%04d.jpg' % (index)), img)
+        cv2.imwrite(os.path.join(output_path + "image-coordinate-2D/bright_02/", 'imgs_mask_test_%04d.jpg' % (index)), img)
         index += 1

@@ -21,7 +21,6 @@ from skimage import measure, feature
 from skimage.segmentation import clear_border
 from scipy import ndimage as ndi
 
-
 subset = "test_subset_all/"
 # subset = "data_set/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"

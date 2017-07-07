@@ -102,8 +102,8 @@ def predict():
     print('-' * 30)
     print('Loading and preprocessing test data...')
     print('-' * 30)
-    imgs_test = np.load(os.path.join(output_path, "test/testImages.npy")).astype(np.float32)
-    imgs_mask_test_true = np.load(os.path.join(output_path, "test/testMasks.npy")).astype(np.float32)
+    imgs_test = np.load(os.path.join(output_path, "test_data_images/test/testImages.npy")).astype(np.float32)
+    imgs_mask_test_true = np.load(os.path.join(output_path, "test_data_images/test/testMasks.npy")).astype(np.float32)
 
     # loading best weights from training session
     print('-' * 30)
@@ -131,7 +131,7 @@ def predict():
         os.mkdir(pred_dir)
 
     for i in range(num_test):
-        np.save(os.path.join(output_path + "data_images/preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
+        np.save(os.path.join(output_path + "test_data_images/preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
         cv2.imwrite(os.path.join(pred_dir, 'imgs_mask_test_%04d.jpg' % (i)), imgs_mask_test[i,0])
 
 

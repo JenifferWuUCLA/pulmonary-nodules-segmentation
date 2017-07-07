@@ -27,7 +27,7 @@ except:
     print('tqdm 是一个轻量级的进度条小包。。。')
     tqdm = lambda x: x
 
-subset = "test_subset_all/"
+subset = "val_subset_all/"
 # subset = "data_set/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
@@ -58,11 +58,11 @@ class Alibaba_tianchi(object):
         self.workspace = tianchi_path
         self.all_patients_path = os.path.join(self.workspace, subset)
 
-        self.tmp_workspace = os.path.join(output_path, "test/")
-        self.tmp_jpg_workspace = os.path.join(output_path, "ROI/test/")
+        self.tmp_workspace = os.path.join(output_path, "val/")
+        self.tmp_jpg_workspace = os.path.join(output_path, "ROI/val/")
         self.ls_all_patients = glob(self.all_patients_path + "*.mhd")
 
-        self.df_annotations = pd.read_csv(tianchi_path + "/csv/test/annotations.csv")
+        self.df_annotations = pd.read_csv(tianchi_path + "/csv/val/annotations.csv")
         self.df_annotations["file"] = self.df_annotations["seriesuid"].map(
             lambda file_name: self.get_filename(self.ls_all_patients, file_name))
         self.df_annotations = self.df_annotations.dropna()
@@ -198,8 +198,8 @@ class Alibaba_tianchi(object):
         rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
         # val_i = int(0.2*num_images)
 
-        np.save(os.path.join(self.tmp_workspace, "testImages.npy"), final_images[rand_i[:]])
-        np.save(os.path.join(self.tmp_workspace, "testMasks.npy"), final_masks[rand_i[:]])
+        np.save(os.path.join(self.tmp_workspace, "valImages.npy"), final_images[rand_i[:]])
+        np.save(os.path.join(self.tmp_workspace, "valMasks.npy"), final_masks[rand_i[:]])
 
         csv_row("index", "seriesuid", "pred_image")
         for i in range(num_images):

@@ -27,8 +27,9 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
 # tianchi_subset_path = tianchi_path + subset
 
-out_subset = "nerve-mine-2D/"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+# out_subset = "nerve-mine-2D/"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 coordinate_file = "imgs_mask_test_coordinate.csv"
 
@@ -187,7 +188,7 @@ class nodules_extract():
                     # outputs.append(o)
                     marks.append([s_z, s_y, s_x])
                     np.save(os.path.join(output_path,
-                                         "data_images/test/images_{}_{}.npy".format(seriesuid, [s_z, s_y, s_x])),
+                                         "test_data_images/test/images_{}_{}.npy".format(seriesuid, [s_z, s_y, s_x])),
                             image[s_z:s_z + width, s_y:s_y + width, s_x:s_x + width])
                     csv_row(seriesuid, s_x, s_y, s_z, "diameter_mm")
         return diamonds, marks
@@ -251,15 +252,29 @@ if __name__ == '__main__':
     #     n.exclude_noise(np.load("../data/images/LKDS-00001_[150, 138, 89]_27612.0.npy"))
     test_data_path = os.path.join(tianchi_path, subset)
     test_images = glob(test_data_path + "*.mhd")
+    num_images = 0
     for fcount, img_file in enumerate(tqdm(test_images)):
         print("fcount: %s" % str(fcount))
-        n.getsamples(img_file)
+        diamonds, marks = n.getsamples(img_file)
+        num_images += len(diamonds)
 
-    num_images = fcount + 1
+    # num_images = fcount + 1
+
+    final_images = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
+    final_masks = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
+    for i in range(num_images):
+        final_images[i, 0] = diamonds[i]
+        final_masks[i, 0] = marks[i]
+
+    rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
+    # val_i = int(0.2*num_images)
+
+    np.save(os.path.join(output_path, "test_data_images/test/testImages.npy"), final_images[rand_i[:]])
+    np.save(os.path.join(output_path, "test_data_images/test/testMasks.npy"), final_masks[rand_i[:]])
 
     # Write out the imgs_mask_test_coordinate CSV file.
-    print(os.path.join(output_path + "data_images/test/csv/", coordinate_file))
-    csvFileObj = open(os.path.join(output_path + "data_images/test/csv/", coordinate_file), 'w')
+    print(os.path.join(output_path + "test_data_images/csv/", coordinate_file))
+    csvFileObj = open(os.path.join(output_path + "test_data_images/csv/", coordinate_file), 'w')
     csvWriter = csv.writer(csvFileObj)
     for row in csvRows:
         # print row

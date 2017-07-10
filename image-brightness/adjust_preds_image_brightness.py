@@ -25,8 +25,8 @@ if __name__ == '__main__':
             for xj in xrange(0, h):
                 # set the pixel value decrease to 20%
                 img[xj, xi, 0] = int(img[xj, xi, 0] * 100)
-                img[xj, xi, 1] = int(img[xj, xi, 0] * 100)
-                img[xj, xi, 2] = int(img[xj, xi, 0] * 100)
+                img[xj, xi, 1] = int(img[xj, xi, 1] * 100)
+                img[xj, xi, 2] = int(img[xj, xi, 2] * 100)
         # cv2.imshow('img', img)
         cv2.imwrite(os.path.join(output_path + "image-coordinate-2D/bright_01/", 'imgs_mask_test_%04d.jpg' % (index)), img)
         for xi in xrange(0, w):

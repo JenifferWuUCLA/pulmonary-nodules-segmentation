@@ -28,16 +28,16 @@ def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
 def get_lungs_nodules(nodules_csvRows, lungs_csvRows):
     for nodule_row in nodules_csvRows:
         seriesuid = nodule_row['seriesuid']
-        nodule_coordX, nodule_coordY, nodule_diameter_mm = nodule_row["coordX"], nodule_row["coordY"], nodule_row[
-            "diameter_mm"]
-        print(nodule_coordX, nodule_coordY, nodule_diameter_mm)
+        nodule_coordZ, nodule_coordX, nodule_diameter_mm = nodule_row["coordX"], nodule_row["coordY"], nodule_row["diameter_mm"]
+        # nodule_coordX, nodule_coordY, nodule_diameter_mm = "-88.20063783", "63.04192832", "7.734742324"
+        # print(nodule_coordX, nodule_coordZ, nodule_diameter_mm)
         for lung_row in lungs_csvRows:
             lung_coordX, lung_coordY, lung_coordZ = lung_row["coordX"], lung_row["coordY"], lung_row["coordZ"]
             # print(lung_coordX, lung_coordY, lung_coordZ)
             # print(nodule_coordX, lung_coordX, abs(float(nodule_coordX) - float(lung_coordX)))
             # print(nodule_coordY, lung_coordY, abs(float(nodule_coordY) - float(lung_coordY)))
-            if abs(float(nodule_coordX) - float(lung_coordX)) <= 11 and abs(float(nodule_coordY) - float(lung_coordY)) <= 11:
-                csv_row(seriesuid, nodule_coordX, nodule_coordY, lung_coordZ, nodule_diameter_mm)
+            if abs(abs(float(nodule_coordX)) - float(lung_coordX)) <= 10 and abs(abs(float(nodule_coordZ)) - float(lung_coordZ)) <= 10:
+                csv_row(seriesuid, nodule_coordX, lung_coordY, nodule_coordZ, nodule_diameter_mm)
 
 
 if __name__ == '__main__':

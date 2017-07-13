@@ -1,6 +1,13 @@
 #!/usr/bin/python
 
 import csv, os
+from glob import glob
+
+
+subset = "data_set/"
+# tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
+tianchi_path = "/home/jenifferwu/LUNA2016/"
+tianchi_subset_path = tianchi_path + subset
 
 out_subset = "nerve-mine-2D/"
 # output_path = "/home/ucla/Downloads/tianchi-2D/"
@@ -55,32 +62,40 @@ def get_lungs_nodules(nodules_csvRows, lungs_csvRows):
 
 
 if __name__ == '__main__':
-    seriesuid = "1.3.6.1.4.1.14519.5.2.1.6279.6001.367204840301639918160517361062"
+    # seriesuid = "1.3.6.1.4.1.14519.5.2.1.6279.6001.367204840301639918160517361062"
+    test_data_path = os.path.join(tianchi_subset_path, 'test/')
+    # print("train_data_path: %s" % train_data_path)
+    test_images = glob(test_data_path + "*.mhd")
 
-    # Read the CSV file in (skipping first row).
-    nodules_csvRows = []
-    csvFileObj = open(nodules_coordinate_file)
-    readerObj = csv.DictReader(csvFileObj)
-    for row in readerObj:
-        if row['seriesuid'].replace(".mhd", "") == seriesuid:
-            # print(row)
-            nodules_csvRows.append(row)
+    for img_file in test_images:
+        seriesuid = img_file.replace(test_data_path, "").replace(".mhd", "")
+        # print(seriesuid)
+        # Read the CSV file in (skipping first row).
+        nodules_csvRows = []
+        csvFileObj = open(nodules_coordinate_file)
+        readerObj = csv.DictReader(csvFileObj)
+        for row in readerObj:
+            if row['seriesuid'].replace(".mhd", "") == seriesuid:
+                # print(row)
+                nodules_csvRows.append(row)
 
-    lungs_csvRows = []
-    csvFileObj = open(lungs_coordinate_file)
-    readerObj = csv.DictReader(csvFileObj)
-    for row in readerObj:
-        if row['seriesuid'] == seriesuid:
-            # print(row)
-            lungs_csvRows.append(row)
+        lungs_csvRows = []
+        csvFileObj = open(lungs_coordinate_file)
+        readerObj = csv.DictReader(csvFileObj)
+        for row in readerObj:
+            if row['seriesuid'] == seriesuid:
+                # print(row)
+                lungs_csvRows.append(row)
 
-    get_lungs_nodules(nodules_csvRows, lungs_csvRows)
+        get_lungs_nodules(nodules_csvRows, lungs_csvRows)
 
-    # Write out the imgs_mask_test_annotations CSV file.
-    print(os.path.join(output_path, annotations_file))
-    csvFileObj = open(os.path.join(output_path, annotations_file), 'w')
-    csvWriter = csv.writer(csvFileObj)
-    for row in csvRows:
-        # print row
-        csvWriter.writerow(row)
-    csvFileObj.close()
+        # print(csvRows)
+
+        # Write out the imgs_mask_test_annotations CSV file.
+        # print(os.path.join(output_path, annotations_file))
+        csvFileObj = open(os.path.join(output_path, annotations_file), 'a')
+        csvWriter = csv.writer(csvFileObj)
+        for row in csvRows:
+            # print row
+            csvWriter.writerow(row)
+        csvFileObj.close()

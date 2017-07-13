@@ -161,7 +161,7 @@ for img_file in test_images:
         print("w_center: ")
         print(w_center, radius)
 
-        csv_row(image_name, w_center[0], w_center[1], radius)
+        csv_row(image_name.replace(".mhd", ""), w_center[0], w_center[1], radius)
 
         # index += 1
 

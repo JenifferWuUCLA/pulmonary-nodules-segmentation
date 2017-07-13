@@ -50,12 +50,9 @@ def get_lungs_nodules(nodules_csvRows, lungs_csvRows):
             # print(nodule_coordY, lung_coordY, abs(float(nodule_coordY) - float(lung_coordY)))
             if j == 0:
                 min_lung_coordY = lung_coordY
-            if abs(abs(float(nodule_coordX)) - float(lung_coordX)) <= 10 and abs(abs(float(nodule_coordZ)) - float(lung_coordZ)) <= 10:
-                # print(i, j, "min_nodule_diameter_mm: %s" % min_nodule_diameter_mm, "nodule_diameter_mm: %s" % nodule_diameter_mm, (float(min_nodule_diameter_mm) >= float(nodule_diameter_mm)))
-                # print(i, j, min_lung_coordY, lung_coordY, (min_lung_coordY >= lung_coordY))
-                if float(min_nodule_diameter_mm) >= float(nodule_diameter_mm) and float(min_lung_coordY) >= float(lung_coordY):
+            if int(abs(abs(float(nodule_coordX)) - float(lung_coordX))) <= 11 and int(abs(abs(float(nodule_coordZ)) - float(lung_coordZ))) <= 11:
+                if int(float(min_nodule_diameter_mm)) >= int(float(nodule_diameter_mm)) and int(float(min_lung_coordY)) >= int(float(lung_coordY)):
                     min_nodule_diameter_mm, min_lung_coordY = nodule_diameter_mm, lung_coordY
-                    # print(i, j, "min_nodule_diameter_mm: %s" % min_nodule_diameter_mm, "min_lung_coordY: %s" % min_lung_coordY)
                     csv_row(seriesuid, nodule_coordX, lung_coordY, nodule_coordZ, nodule_diameter_mm)
             j += 1
         i += 1
@@ -96,6 +93,7 @@ if __name__ == '__main__':
         csvFileObj = open(os.path.join(output_path, annotations_file), 'a')
         csvWriter = csv.writer(csvFileObj)
         for row in csvRows:
-            # print row
-            csvWriter.writerow(row)
+            if row[0].replace(".mhd", "") == seriesuid:
+                # print row
+                csvWriter.writerow(row)
         csvFileObj.close()

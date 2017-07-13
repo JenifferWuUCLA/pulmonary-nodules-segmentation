@@ -16,6 +16,7 @@ csvRows = []
 
 
 def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
+    csvRows[:] = []
     new_row = []
     new_row.append(seriesuid)
     new_row.append(coordX)
@@ -26,18 +27,31 @@ def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
 
 
 def get_lungs_nodules(nodules_csvRows, lungs_csvRows):
+    i = 0
     for nodule_row in nodules_csvRows:
         seriesuid = nodule_row['seriesuid']
         nodule_coordZ, nodule_coordX, nodule_diameter_mm = nodule_row["coordX"], nodule_row["coordY"], nodule_row["diameter_mm"]
         # nodule_coordX, nodule_coordY, nodule_diameter_mm = "-88.20063783", "63.04192832", "7.734742324"
         # print(nodule_coordX, nodule_coordZ, nodule_diameter_mm)
+        if i == 0:
+            min_nodule_diameter_mm = nodule_diameter_mm
+        j = 0
         for lung_row in lungs_csvRows:
             lung_coordX, lung_coordY, lung_coordZ = lung_row["coordX"], lung_row["coordY"], lung_row["coordZ"]
             # print(lung_coordX, lung_coordY, lung_coordZ)
             # print(nodule_coordX, lung_coordX, abs(float(nodule_coordX) - float(lung_coordX)))
             # print(nodule_coordY, lung_coordY, abs(float(nodule_coordY) - float(lung_coordY)))
+            if j == 0:
+                min_lung_coordY = lung_coordY
             if abs(abs(float(nodule_coordX)) - float(lung_coordX)) <= 10 and abs(abs(float(nodule_coordZ)) - float(lung_coordZ)) <= 10:
-                csv_row(seriesuid, nodule_coordX, lung_coordY, nodule_coordZ, nodule_diameter_mm)
+                # print(i, j, "min_nodule_diameter_mm: %s" % min_nodule_diameter_mm, "nodule_diameter_mm: %s" % nodule_diameter_mm, (float(min_nodule_diameter_mm) >= float(nodule_diameter_mm)))
+                # print(i, j, min_lung_coordY, lung_coordY, (min_lung_coordY >= lung_coordY))
+                if float(min_nodule_diameter_mm) >= float(nodule_diameter_mm) and float(min_lung_coordY) >= float(lung_coordY):
+                    min_nodule_diameter_mm, min_lung_coordY = nodule_diameter_mm, lung_coordY
+                    # print(i, j, "min_nodule_diameter_mm: %s" % min_nodule_diameter_mm, "min_lung_coordY: %s" % min_lung_coordY)
+                    csv_row(seriesuid, nodule_coordX, lung_coordY, nodule_coordZ, nodule_diameter_mm)
+            j += 1
+        i += 1
 
 
 if __name__ == '__main__':

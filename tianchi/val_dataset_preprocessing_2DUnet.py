@@ -148,7 +148,7 @@ class Alibaba_tianchi(object):
                     diam = cur_row["diameter_mm"]
                     # 只取了过结节中心的切片和相邻两张切片
                     # 这里原来的教程是取三张切片，gt还是用原来的直径大小；
-                    # 后来我师兄whaozl发现一个问题就是有些尺寸小的结节，相邻切片压根没切到什么东西
+                    # 后来我发现一个问题就是有些尺寸小的结节，相邻切片没切到什么东西
                     # 所以后来我们改成了只取单张切片后做数据增强的方法来增加训练集
                     # slice = np.ndarray([ height, width], dtype=np.float32)
                     # nodule_masks = np.ndarray([height, width], dtype=np.uint8)

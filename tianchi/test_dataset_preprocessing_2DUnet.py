@@ -148,7 +148,7 @@ class Alibaba_tianchi(object):
                     diam = cur_row["diameter_mm"]
                     # 只取了过结节中心的切片和相邻两张切片
                     # 这里原来的教程是取三张切片，gt还是用原来的直径大小；
-                    # 后来我师兄whaozl发现一个问题就是有些尺寸小的结节，相邻切片压根没切到什么东西
+                    # 后来我发现一个问题就是有些尺寸小的结节，相邻切片没切到什么东西
                     # 所以后来我们改成了只取单张切片后做数据增强的方法来增加训练集
                     # slice = np.ndarray([ height, width], dtype=np.float32)
                     # nodule_masks = np.ndarray([height, width], dtype=np.uint8)
@@ -161,13 +161,16 @@ class Alibaba_tianchi(object):
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
                     nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
-                    nodule_mask[nodule_mask < 0.5] = 0
-                    nodule_mask[nodule_mask > 0.5] = 1
+                    nodule_mask[nodule_mask < 1.0] = 0
+                    nodule_mask[nodule_mask > 1.0] = 1
                     nodule_mask = nodule_mask.astype('int8')
                     slice = img_array[i_z]
                     slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')
-                    slice = 511.0 * self.normalize(slice)
+                    slice = 510.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
+
+                    nodule_mask = 510.0 * nodule_mask
+                    nodule_mask = nodule_mask.astype(np.uint8)
 
                     out_images.append(slice)
                     out_nodemasks.append(nodule_mask)
@@ -178,8 +181,6 @@ class Alibaba_tianchi(object):
 
                     # ===================================
                     # ---以下代码是生成图片来观察分割是否有问题的
-                    nodule_mask = 511.0 * nodule_mask
-                    nodule_mask = nodule_mask.astype(np.uint8)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
                     cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), slice)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")

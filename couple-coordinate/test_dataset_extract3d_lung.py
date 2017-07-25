@@ -164,14 +164,14 @@ class nodules_extract():
         '''把分离出来的肺部，按照一个个立方体方式进行切割，其中边长为width，步长为step
         '''
         z, y, x = coordinate
-        print("coordinate: ")
-        print(coordinate)
+        # print("coordinate: ")
+        # print(coordinate)
         z_num = math.ceil((z[1] - z[0]) / step)
         y_num = math.ceil((y[1] - y[0]) / step)
         x_num = math.ceil((x[1] - x[0]) / step)
-        print("z_num: %s" % z_num)
-        print("y_num: %s" % y_num)
-        print("x_num: %s" % x_num)
+        # print("z_num: %s" % z_num)
+        # print("y_num: %s" % y_num)
+        # print("x_num: %s" % x_num)
 
         diamonds = []
         marks = []
@@ -179,7 +179,7 @@ class nodules_extract():
         for sz in range(int(z_num)):
             for sy in range(int(y_num)):
                 for sx in range(int(x_num)):
-                    print("sz: %d, sy: %d, sx: %d" % (sz, sy, sx))
+                    # print("sz: %d, sy: %d, sx: %d" % (sz, sy, sx))
                     s_z = z[0] + sz * step
                     s_y = y[0] + sy * step
                     s_x = x[0] + sx * step
@@ -213,7 +213,8 @@ class nodules_extract():
         image, n_spacing = self.reshape(img_array, spacing[::-1])
         lungimage, couple_coordinate = self.extract3d_lung(image)
         lungimage = normalize(lungimage)
-        self.get_lung_diamonds(lungimage, couple_coordinate, seriesuid=seriesuid)
+        diamonds, marks = self.get_lung_diamonds(lungimage, couple_coordinate, seriesuid=seriesuid)
+        return diamonds, marks
 
     def getallsamples(self, mhds):
         for mhd in mhds:
@@ -261,6 +262,7 @@ if __name__ == '__main__':
     # num_images = fcount + 1
     print("num_images: %s" % num_images)
 
+    '''
     final_images = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
     final_masks = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
     for i in range(num_images):
@@ -270,8 +272,9 @@ if __name__ == '__main__':
     rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
     # val_i = int(0.2*num_images)
 
-    np.save(os.path.join(output_path, "test_data_images/test/testImages.npy"), final_images[rand_i[:]])
-    np.save(os.path.join(output_path, "test_data_images/test/testMasks.npy"), final_masks[rand_i[:]])
+    np.save(os.path.join(output_path, "data_images/test/testImages.npy"), final_images[rand_i[:]])
+    np.save(os.path.join(output_path, "data_images/test/testMasks.npy"), final_masks[rand_i[:]])
+    '''
 
     # Write out the imgs_mask_test_coordinate CSV file.
     print(os.path.join(output_path + "test_data_images/csv/", coordinate_file))

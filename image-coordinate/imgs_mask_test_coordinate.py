@@ -14,7 +14,7 @@ except:
     print('TQDM does make much nicer wait bars...')
     tqdm = lambda x: x
 
-# out_subset = "nerve-mine-2D/"
+# out_subset = "server-test-mine/"
 output_path = "/home/ucla/Downloads/tianchi-2D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
@@ -32,7 +32,6 @@ subset = "val_subset_all/"
 # subset = "test_subset_all/"
 # subset = "train_dataset/"
 # subset = "data_set/"
-# tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
 # tianchi_subset_path = tianchi_path + subset
@@ -98,6 +97,7 @@ tmp_workspace = os.path.join(output_path, "image-coordinate-2D/bright_02/")
 test_images = glob(tmp_workspace + "*.jpg")
 # index = 0
 for img_file in test_images:
+    csv_row("seriesuid", "coordX", "coordY", "diameter_mm")
     print("img_file: %s" % img_file)
     image_name = img_file.replace(tmp_workspace, "")
     # new_name = image_name.replace(".npy", "") + ".jpg"
@@ -143,6 +143,7 @@ for img_file in test_images:
         radius = float(radius)
         # img = cv2.circle(image, center, radius, (0, 255, 0), 2)
 
+        # print("image_name: %s" % image_name)
         original_file_name = os.path.join(test_data_path, image_name)
         itk_img = sitk.ReadImage(original_file_name)
         # load the data once

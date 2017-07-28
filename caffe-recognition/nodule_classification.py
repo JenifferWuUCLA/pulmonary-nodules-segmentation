@@ -1,5 +1,3 @@
-# 1. Setup
-# set up Python environment: numpy for numerical routines, and matplotlib for plotting
 import numpy as np
 import sys
 import caffe
@@ -15,7 +13,8 @@ def csv_row(image_name, probability, label):
     new_row.append(label)
     csvRows.append(new_row)
 
-
+# 1. Setup
+# set up Python environment: numpy for numerical routines
 # The caffe module needs to be on the Python path;
 #  we'll add it here explicitly.
 caffe_root = '/root/code/caffe/'  # this file should be run from {caffe_root}/examples (otherwise change this line)

@@ -3,6 +3,13 @@ import sys
 import caffe
 import os
 from glob import glob
+import csv
+
+
+subset = "val_subset_all/"
+output_path = "/home/ucla/Downloads/tianchi/" + subset
+
+probability_file = "instant-recognition/pulmonary_nodule_probability.csv"
 
 csvRows = []
 
@@ -49,8 +56,6 @@ transformer.set_raw_scale('data', 255)  # rescale from [0, 1] to [0, 255]
 transformer.set_channel_swap('data', (2, 1, 0))  # swap channels from RGB to BGR
 
 # 3. GPU classification
-subset = "val_subset_all/"
-output_path = "/home/ucla/Downloads/tianchi/" + subset
 # set the size of the input (we can skip this if we're happy
 #  with the default; we can also change it later, e.g., for different batch sizes)
 net.blobs['data'].reshape(50,  # batch size
@@ -97,8 +102,6 @@ for test_image in test_images:
 
 
 # 6. Try your own image
-subset = "val_subset_all/"
-output_path = "/home/ucla/Downloads/tianchi/" + subset
 # transform it and copy it into the net
 test_image = "images_0000_0000_0.jpg "
 image = caffe.io.load_image(output_path + test_image)
@@ -126,3 +129,12 @@ for index in range(len(z_list)):
     z_item = z_list[index]
     probability, label = z_item[0], z_item[1]
     csv_row(test_image, probability, label)
+
+# Write out the imgs_mask_test_coordinate CSV file.
+print(os.path.join(output_path, probability_file))
+csvFileObj = open(os.path.join(output_path, probability_file), 'w')
+csvWriter = csv.writer(csvFileObj)
+for row in csvRows:
+    # print row
+    csvWriter.writerow(row)
+csvFileObj.close()

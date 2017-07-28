@@ -48,7 +48,7 @@ transformer.set_mean('data', mu)  # subtract the dataset-mean value in each chan
 transformer.set_raw_scale('data', 255)  # rescale from [0, 1] to [0, 255]
 transformer.set_channel_swap('data', (2, 1, 0))  # swap channels from RGB to BGR
 
-# 3. CPU classification
+# 3. GPU classification
 subset = "val_subset_all/"
 output_path = "/home/ucla/Downloads/tianchi/" + subset
 # set the size of the input (we can skip this if we're happy

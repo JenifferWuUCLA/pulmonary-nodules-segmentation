@@ -16,7 +16,7 @@ def csv_row(image_name, probability, label):
 # 1. Setup
 # set up Python environment: numpy for numerical routines
 # The caffe module needs to be on the Python path; we'll add it here explicitly.
-caffe_root = '/root/code/caffe/' 
+caffe_root = '/root/code/caffe/'
 sys.path.insert(0, caffe_root + 'python')
 
 # If you get "No module named _caffe", either you have not built pycaffe or you have the wrong path.
@@ -68,7 +68,7 @@ for test_image in test_images:
     # Switching to GPU mode
     caffe.set_device(0)  # if we have multiple GPUs, pick the first one
     caffe.set_mode_gpu()
-    ### perform classification
+    # perform classification
     output = net.forward()
 
     output_prob = output['prob'][0]  # the output probability vector for the first image in the batch

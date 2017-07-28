@@ -83,7 +83,6 @@ for test_image in test_images:
     print('probabilities and labels:')
     zip(output_prob[top_inds], labels[top_inds])
 
-# 4. Switching to GPU mode
 
 # 6. Try your own image
 subset = "val_subset_all/"

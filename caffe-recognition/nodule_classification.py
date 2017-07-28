@@ -101,7 +101,7 @@ for test_image in test_images:
         csv_row(test_image, probability, label)
 
 
-# 6. Try your own image
+# 6. Try your own image start
 # transform it and copy it into the net
 test_image = "images_0000_0000_0.jpg "
 image = caffe.io.load_image(output_path + test_image)
@@ -129,8 +129,10 @@ for index in range(len(z_list)):
     z_item = z_list[index]
     probability, label = z_item[0], z_item[1]
     csv_row(test_image, probability, label)
+# 6. Try your own image end
 
-# Write out the imgs_mask_test_coordinate CSV file.
+
+# Write out the pulmonary_nodule_probability CSV file.
 print(os.path.join(output_path, probability_file))
 csvFileObj = open(os.path.join(output_path, probability_file), 'w')
 csvWriter = csv.writer(csvFileObj)

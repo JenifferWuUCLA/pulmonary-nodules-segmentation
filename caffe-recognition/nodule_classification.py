@@ -33,7 +33,9 @@ else:
     print('CaffeNet not found.')
 
 # 2. Load net and set up input preprocessing
-caffe.set_mode_cpu()
+# Switching to GPU mode
+caffe.set_device(0)  # if we have multiple GPUs, pick the first one
+caffe.set_mode_gpu()
 
 model_def = caffe_root + 'models/pulmonary_nodules_net_caffenet/deploy.prototxt'
 model_weights = caffe_root + 'models/pulmonary_nodules_net_caffenet/caffenet_train_iter_30000.caffemodel'
@@ -43,7 +45,7 @@ net = caffe.Net(model_def,  # defines the structure of the model
                 caffe.TEST)  # use test mode (e.g., don't perform dropout)
 
 # load the mean PulmonaryNodules image (as distributed with Caffe) for subtraction
-mu = np.load(caffe_root + 'python/caffe/imagenet/ilsvrc_2012_mean.npy')
+mu = np.load(caffe_root + 'python/caffe/pulmonary_nodules/pulmonary_nodules_net_mean.npy')
 mu = mu.mean(1).mean(1)  # average over pixels to obtain the mean (BGR) pixel values
 print('mean-subtracted values:', zip('BGR', mu))
 
@@ -70,9 +72,6 @@ for test_image in test_images:
     # copy the image data into the memory allocated for the net
     net.blobs['data'].data[...] = transformed_image
 
-    # Switching to GPU mode
-    caffe.set_device(0)  # if we have multiple GPUs, pick the first one
-    caffe.set_mode_gpu()
     # perform classification
     output = net.forward()
 
@@ -107,9 +106,6 @@ test_image = "images_0000_0000_0.jpg "
 image = caffe.io.load_image(output_path + test_image)
 net.blobs['data'].data[...] = transformer.preprocess('data', image)
 
-# Switching to GPU mode
-caffe.set_device(0)  # if we have multiple GPUs, pick the first one
-caffe.set_mode_gpu()
 # perform classification
 net.forward()
 

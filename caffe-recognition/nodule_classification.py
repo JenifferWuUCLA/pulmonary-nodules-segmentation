@@ -44,7 +44,7 @@ net = caffe.Net(model_def,  # defines the structure of the model
                 model_weights,  # contains the trained weights
                 caffe.TEST)  # use test mode (e.g., don't perform dropout)
 
-# load the mean PulmonaryNodules image (as distributed with Caffe) for subtraction
+# load the mean of PulmonaryNodules images (as distributed with Caffe) for subtraction
 mu = np.load(caffe_root + 'python/caffe/pulmonary_nodules/pulmonary_nodules_net_mean.npy')
 mu = mu.mean(1).mean(1)  # average over pixels to obtain the mean (BGR) pixel values
 print('mean-subtracted values:', zip('BGR', mu))

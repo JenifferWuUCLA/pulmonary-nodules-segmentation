@@ -102,8 +102,8 @@ for test_image in test_images:
 
 # 6. Try your own image start
 # transform it and copy it into the net
-test_image = "images_0000_0000_0.jpg "
-image = caffe.io.load_image(output_path + test_image)
+test_image = glob(os.path.join(output_path, "images_0000_0000_0.jpg"))
+image = caffe.io.load_image(test_image)
 net.blobs['data'].data[...] = transformer.preprocess('data', image)
 
 # perform classification

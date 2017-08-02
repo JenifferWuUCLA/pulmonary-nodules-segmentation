@@ -3,6 +3,7 @@ import sys
 import caffe
 import os
 from glob import glob
+import shutil
 import csv
 
 
@@ -89,20 +90,27 @@ for test_image in test_images:
     print('output label:', labels[output_prob.argmax()])
 
     # sort top five predictions from softmax output
-    top_inds = output_prob.argsort()[::-1][:5]  # reverse sort and take five largest items
+    top_inds = output_prob.argsort()[::-1][:2]  # reverse sort and take two largest items
 
     print('probabilities and labels:')
-    z_list = zip(output_prob[top_inds], labels[top_inds])
-    print(z_list)
-    for index in range(len(z_list)):
-        z_item = z_list[index]
-        probability, label = z_item[0], z_item[1]
-        csv_row(test_image, probability, label)
+    # z_list = zip(output_prob[top_inds], labels[top_inds])
+    # print(z_list)
+    probabilities = output_prob[top_inds]
+    labels = labels[top_inds]
+    print('probabilities:', probabilities)
+    print('labels:', labels)
+    csv_row(test_image, probabilities[0], labels[0])
 
 
+'''
 # 6. Try your own image start
+test_image = "images_0000_0000_0.jpg"
+
+# copy an image
+shutil.copy(output_path + "images_0000_0000_0.jpg", os.getcwd())
+
 # transform it and copy it into the net
-test_image = glob(os.path.join(output_path, "images_0000_0000_0.jpg"))
+# test_image = "images_0000_0000_0.jpg"
 image = caffe.io.load_image(test_image)
 net.blobs['data'].data[...] = transformer.preprocess('data', image)
 
@@ -116,16 +124,18 @@ labels = np.loadtxt(labels_file, str, delimiter='\t')
 print('output label:', labels[output_prob.argmax()])
 
 # sort top five predictions from softmax output
-top_inds = output_prob.argsort()[::-1][:5]
+top_inds = output_prob.argsort()[::-1][:2]
 
 print('probabilities and labels:')
-z_list = zip(output_prob[top_inds], labels[top_inds])
-print(z_list)
-for index in range(len(z_list)):
-    z_item = z_list[index]
-    probability, label = z_item[0], z_item[1]
-    csv_row(test_image, probability, label)
+# z_list = zip(output_prob[top_inds], labels[top_inds])
+# print(z_list)
+probabilities = output_prob[top_inds]
+labels = labels[top_inds]
+print('probabilities:', probabilities)
+print('labels:', labels)
+csv_row(test_image, probabilities[0], labels[0])
 # 6. Try your own image end
+'''
 
 
 # Write out the pulmonary_nodule_probability CSV file.

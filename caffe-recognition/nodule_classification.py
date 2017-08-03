@@ -99,7 +99,8 @@ for test_image in test_images:
     labels = labels[top_inds]
     print('probabilities:', probabilities)
     print('labels:', labels)
-    csv_row(test_image, probabilities[0], labels[0])
+    test_image_name = test_image.replace(output_path, "").replace("images_", "").split("_")[0]
+    csv_row(test_image_name, probabilities[0], labels[0])
 
 
 '''

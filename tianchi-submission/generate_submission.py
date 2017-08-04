@@ -58,8 +58,7 @@ if __name__ == '__main__':
     for annotations in dict_annotations.items():
         annotations_seriesuid = annotations[0]
         annotations_tuple = annotations[1]
-        coordX, coordY, coordZ, diameter_mm = annotations_tuple[0], annotations_tuple[1], annotations_tuple[2], \
-                                              annotations_tuple[3]
+        coordX, coordY, coordZ, diameter_mm = annotations_tuple[0], annotations_tuple[1], annotations_tuple[2], annotations_tuple[3]
         for probabilities in dict_probabilities.items():
             probabilities_seriesuid = probabilities[0]
             probabilities_tuple = probabilities[1]
@@ -67,6 +66,7 @@ if __name__ == '__main__':
             synset = label.split(" ")[0]
             if synset == "n01440011":
                 csv_row(probabilities_seriesuid, coordX, coordY, coordZ, diameter_mm, probability)
+                break
 
     # Write out the pulmonary_nodule_probability CSV file.
     print(os.path.join(output_path, submission_file))

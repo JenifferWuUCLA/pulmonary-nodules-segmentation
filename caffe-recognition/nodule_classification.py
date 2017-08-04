@@ -21,6 +21,7 @@ def csv_row(image_name, probability, label):
     new_row.append(label)
     csvRows.append(new_row)
 
+csv_row("seriesuid", "probability", "label")
 # 1. Setup
 # set up Python environment: numpy for numerical routines
 # The caffe module needs to be on the Python path; we'll add it here explicitly.

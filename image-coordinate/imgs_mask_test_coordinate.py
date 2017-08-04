@@ -96,8 +96,8 @@ def csv_row(image_name, x, y, radius):
 tmp_workspace = os.path.join(output_path, "image-coordinate-2D/bright_02/")
 test_images = glob(tmp_workspace + "*.jpg")
 # index = 0
+csv_row("seriesuid", "coordX", "coordY", "diameter_mm")
 for img_file in test_images:
-    csv_row("seriesuid", "coordX", "coordY", "diameter_mm")
     print("img_file: %s" % img_file)
     image_name = img_file.replace(tmp_workspace, "")
     # new_name = image_name.replace(".npy", "") + ".jpg"

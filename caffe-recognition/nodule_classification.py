@@ -99,8 +99,16 @@ for test_image in test_images:
     labels = labels[top_inds]
     print('probabilities:', probabilities)
     print('labels:', labels)
+    tp_probability, tp_label = "", ""
+    index = 0
+    for label in labels:
+        synset = label.split(" ")[0]
+        if synset == "n01440011":
+            tp_probability = probabilities[index]
+            tp_label = label
+        index += 1
     test_image_name = test_image.replace(output_path, "").replace("images_", "").split("_")[0]
-    csv_row(test_image_name, probabilities[0], labels[0])
+    csv_row(test_image_name, tp_probability, tp_label)
 
 
 '''

@@ -107,7 +107,8 @@ for test_image in test_images:
             tp_probability = probabilities[index]
             tp_label = label
         index += 1
-    test_image_name = test_image.replace(output_path, "").replace("images_", "").split("_")[0]
+    test_image_list = test_image.replace(output_path, "").replace("images_", "").split("_")
+    test_image_name = test_image_list[0] + "_" + test_image_list[3]
     csv_row(test_image_name, tp_probability, tp_label)
 
 

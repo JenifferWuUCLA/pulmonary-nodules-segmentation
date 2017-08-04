@@ -1,0 +1,421 @@
+seriesuid,probability,label
+LKDS-00324_1,0.955579,n01440011 It is a real lung nodule
+LKDS-00324_1,0.0442064,n01440010 It is not a real lung nodule
+LKDS-00172_2,0.999839,n01440011 It is a real lung nodule
+LKDS-00172_2,0.000160886,n01440010 It is not a real lung nodule
+LKDS-00310_1,0.549669,n01440011 It is a real lung nodule
+LKDS-00310_1,0.409665,n01440010 It is not a real lung nodule
+LKDS-00210_2,0.999993,n01440010 It is not a real lung nodule
+LKDS-00210_2,7.31389e-06,n01440011 It is a real lung nodule
+LKDS-00145_0,0.909745,n01440011 It is a real lung nodule
+LKDS-00145_0,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00166_0,0.997787,n01440010 It is not a real lung nodule
+LKDS-00166_0,0.00221143,n01440011 It is a real lung nodule
+LKDS-00014_0,0.999997,n01440010 It is not a real lung nodule
+LKDS-00014_0,2.74569e-06,n01440011 It is a real lung nodule
+LKDS-00311_1,0.999996,n01440010 It is not a real lung nodule
+LKDS-00311_1,3.72902e-06,n01440011 It is a real lung nodule
+LKDS-00310_0,0.549669,n01440011 It is a real lung nodule
+LKDS-00310_0,0.409665,n01440010 It is not a real lung nodule
+LKDS-00202_0,0.999997,n01440010 It is not a real lung nodule
+LKDS-00202_0,3.00358e-06,n01440011 It is a real lung nodule
+LKDS-00365_1,0.999423,n01440010 It is not a real lung nodule
+LKDS-00365_1,0.000577451,n01440011 It is a real lung nodule
+LKDS-00288_2,0.572044,n01440010 It is not a real lung nodule
+LKDS-00288_2,0.40264,n01440011 It is a real lung nodule
+LKDS-00146_0,0.522066,n01440010 It is not a real lung nodule
+LKDS-00146_0,0.477883,n01440011 It is a real lung nodule
+LKDS-00010_2,0.909745,n01440011 It is a real lung nodule
+LKDS-00010_2,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00059_2,0.999996,n01440010 It is not a real lung nodule
+LKDS-00059_2,3.68277e-06,n01440011 It is a real lung nodule
+LKDS-00255_0,0.500999,n01440010 It is not a real lung nodule
+LKDS-00255_0,0.498822,n01440011 It is a real lung nodule
+LKDS-00024_0,0.999814,n01440010 It is not a real lung nodule
+LKDS-00024_0,0.000185803,n01440011 It is a real lung nodule
+LKDS-00370_0,0.657082,n01440011 It is a real lung nodule
+LKDS-00370_0,0.340676,n01440010 It is not a real lung nodule
+LKDS-00002_0,0.999887,n01440010 It is not a real lung nodule
+LKDS-00002_0,0.000113431,n01440011 It is a real lung nodule
+LKDS-00338_0,0.999992,n01440010 It is not a real lung nodule
+LKDS-00338_0,7.70484e-06,n01440011 It is a real lung nodule
+LKDS-00241_0,0.991752,n01440010 It is not a real lung nodule
+LKDS-00241_0,0.00824417,n01440011 It is a real lung nodule
+LKDS-00210_1,0.999993,n01440010 It is not a real lung nodule
+LKDS-00210_1,7.31389e-06,n01440011 It is a real lung nodule
+LKDS-00071_0,0.730892,n01440011 It is a real lung nodule
+LKDS-00071_0,0.26723,n01440010 It is not a real lung nodule
+LKDS-00121_2,0.999881,n01440010 It is not a real lung nodule
+LKDS-00121_2,0.000118332,n01440011 It is a real lung nodule
+LKDS-00250_1,1.0,n01440010 It is not a real lung nodule
+LKDS-00250_1,1.26346e-07,n01440011 It is a real lung nodule
+LKDS-00069_0,0.999879,n01440010 It is not a real lung nodule
+LKDS-00069_0,0.000118957,n01440011 It is a real lung nodule
+LKDS-00125_0,0.861547,n01440010 It is not a real lung nodule
+LKDS-00125_0,0.129351,n01440011 It is a real lung nodule
+LKDS-00067_0,0.850972,n01440010 It is not a real lung nodule
+LKDS-00067_0,0.146438,n01440011 It is a real lung nodule
+LKDS-00255_2,0.500999,n01440010 It is not a real lung nodule
+LKDS-00255_2,0.498822,n01440011 It is a real lung nodule
+LKDS-00048_0,0.999286,n01440010 It is not a real lung nodule
+LKDS-00048_0,0.000702939,n01440011 It is a real lung nodule
+LKDS-00123_1,0.999992,n01440010 It is not a real lung nodule
+LKDS-00123_1,7.4979e-06,n01440011 It is a real lung nodule
+LKDS-00344_2,0.993707,n01440010 It is not a real lung nodule
+LKDS-00344_2,0.0062925,n01440011 It is a real lung nodule
+LKDS-00115_1,0.791395,n01440010 It is not a real lung nodule
+LKDS-00115_1,0.200423,n01440011 It is a real lung nodule
+LKDS-00125_1,0.909,n01440010 It is not a real lung nodule
+LKDS-00125_1,0.0843254,n01440011 It is a real lung nodule
+LKDS-00276_1,0.914275,n01440011 It is a real lung nodule
+LKDS-00276_1,0.0857233,n01440010 It is not a real lung nodule
+LKDS-00018_2,0.97861,n01440011 It is a real lung nodule
+LKDS-00018_2,0.0199748,n01440010 It is not a real lung nodule
+LKDS-00010_1,0.909745,n01440011 It is a real lung nodule
+LKDS-00010_1,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00018_0,0.942011,n01440011 It is a real lung nodule
+LKDS-00018_0,0.0542936,n01440010 It is not a real lung nodule
+LKDS-00241_1,0.99915,n01440010 It is not a real lung nodule
+LKDS-00241_1,0.000847004,n01440011 It is a real lung nodule
+LKDS-00010_0,0.909745,n01440011 It is a real lung nodule
+LKDS-00010_0,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00123_0,0.999992,n01440010 It is not a real lung nodule
+LKDS-00123_0,7.4979e-06,n01440011 It is a real lung nodule
+LKDS-00318_0,1.0,n01440010 It is not a real lung nodule
+LKDS-00318_0,9.36904e-08,n01440011 It is a real lung nodule
+LKDS-00208_0,0.990983,n01440010 It is not a real lung nodule
+LKDS-00208_0,0.00901697,n01440011 It is a real lung nodule
+LKDS-00060_1,0.995432,n01440010 It is not a real lung nodule
+LKDS-00060_1,0.00455129,n01440011 It is a real lung nodule
+LKDS-00002_2,0.999789,n01440010 It is not a real lung nodule
+LKDS-00002_2,0.00021147,n01440011 It is a real lung nodule
+LKDS-00354_2,0.999999,n01440010 It is not a real lung nodule
+LKDS-00354_2,6.05065e-07,n01440011 It is a real lung nodule
+LKDS-00069_1,0.999879,n01440010 It is not a real lung nodule
+LKDS-00069_1,0.000118957,n01440011 It is a real lung nodule
+LKDS-00354_0,0.999999,n01440010 It is not a real lung nodule
+LKDS-00354_0,6.05065e-07,n01440011 It is a real lung nodule
+LKDS-00317_1,0.997334,n01440011 It is a real lung nodule
+LKDS-00317_1,0.00263323,n01440010 It is not a real lung nodule
+LKDS-00121_0,0.999881,n01440010 It is not a real lung nodule
+LKDS-00121_0,0.000118332,n01440011 It is a real lung nodule
+LKDS-00367_0,0.908135,n01440011 It is a real lung nodule
+LKDS-00367_0,0.0901613,n01440010 It is not a real lung nodule
+LKDS-00008_1,0.997616,n01440011 It is a real lung nodule
+LKDS-00008_1,0.00225515,n01440010 It is not a real lung nodule
+LKDS-00008_0,0.685465,n01440011 It is a real lung nodule
+LKDS-00008_0,0.313055,n01440010 It is not a real lung nodule
+LKDS-00380_1,0.65289,n01440010 It is not a real lung nodule
+LKDS-00380_1,0.346859,n01440011 It is a real lung nodule
+LKDS-00177_0,0.986643,n01440010 It is not a real lung nodule
+LKDS-00177_0,0.0130188,n01440011 It is a real lung nodule
+LKDS-00161_2,0.698187,n01440010 It is not a real lung nodule
+LKDS-00161_2,0.265568,n01440011 It is a real lung nodule
+LKDS-00370_1,0.657082,n01440011 It is a real lung nodule
+LKDS-00370_1,0.340676,n01440010 It is not a real lung nodule
+LKDS-00340_2,0.872405,n01440010 It is not a real lung nodule
+LKDS-00340_2,0.125004,n01440011 It is a real lung nodule
+LKDS-00138_1,0.879687,n01440010 It is not a real lung nodule
+LKDS-00138_1,0.120299,n01440011 It is a real lung nodule
+LKDS-00032_1,0.909745,n01440011 It is a real lung nodule
+LKDS-00032_1,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00161_1,0.698187,n01440010 It is not a real lung nodule
+LKDS-00161_1,0.265568,n01440011 It is a real lung nodule
+LKDS-00353_2,0.999972,n01440011 It is a real lung nodule
+LKDS-00353_2,2.63636e-05,n01440010 It is not a real lung nodule
+LKDS-00153_1,0.98753,n01440010 It is not a real lung nodule
+LKDS-00153_1,0.0123712,n01440011 It is a real lung nodule
+LKDS-00170_0,0.767591,n01440010 It is not a real lung nodule
+LKDS-00170_0,0.231754,n01440011 It is a real lung nodule
+LKDS-00113_1,0.535378,n01440010 It is not a real lung nodule
+LKDS-00113_1,0.46462,n01440011 It is a real lung nodule
+LKDS-00145_2,0.909745,n01440011 It is a real lung nodule
+LKDS-00145_2,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00370_2,0.657082,n01440011 It is a real lung nodule
+LKDS-00370_2,0.340676,n01440010 It is not a real lung nodule
+LKDS-00276_2,0.655526,n01440011 It is a real lung nodule
+LKDS-00276_2,0.344472,n01440010 It is not a real lung nodule
+LKDS-00250_2,1.0,n01440010 It is not a real lung nodule
+LKDS-00250_2,3.97398e-07,n01440011 It is a real lung nodule
+LKDS-00141_2,0.979352,n01440010 It is not a real lung nodule
+LKDS-00141_2,0.0206311,n01440011 It is a real lung nodule
+LKDS-00340_0,0.872405,n01440010 It is not a real lung nodule
+LKDS-00340_0,0.125004,n01440011 It is a real lung nodule
+LKDS-00115_0,0.791395,n01440010 It is not a real lung nodule
+LKDS-00115_0,0.200423,n01440011 It is a real lung nodule
+LKDS-00080_1,0.999961,n01440011 It is a real lung nodule
+LKDS-00080_1,3.4892e-05,n01440010 It is not a real lung nodule
+LKDS-00201_1,0.993249,n01440010 It is not a real lung nodule
+LKDS-00201_1,0.00671652,n01440011 It is a real lung nodule
+LKDS-00317_0,0.997334,n01440011 It is a real lung nodule
+LKDS-00317_0,0.00263323,n01440010 It is not a real lung nodule
+LKDS-00234_0,0.608463,n01440011 It is a real lung nodule
+LKDS-00234_0,0.391246,n01440010 It is not a real lung nodule
+LKDS-00141_1,0.979352,n01440010 It is not a real lung nodule
+LKDS-00141_1,0.0206311,n01440011 It is a real lung nodule
+LKDS-00340_1,0.872405,n01440010 It is not a real lung nodule
+LKDS-00340_1,0.125004,n01440011 It is a real lung nodule
+LKDS-00365_2,0.999423,n01440010 It is not a real lung nodule
+LKDS-00365_2,0.000577451,n01440011 It is a real lung nodule
+LKDS-00067_1,0.850972,n01440010 It is not a real lung nodule
+LKDS-00067_1,0.146438,n01440011 It is a real lung nodule
+LKDS-00234_2,0.608463,n01440011 It is a real lung nodule
+LKDS-00234_2,0.391246,n01440010 It is not a real lung nodule
+LKDS-00372_0,1.0,n01440010 It is not a real lung nodule
+LKDS-00372_0,4.64799e-07,n01440011 It is a real lung nodule
+LKDS-00157_1,0.909745,n01440011 It is a real lung nodule
+LKDS-00157_1,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00311_0,0.999997,n01440010 It is not a real lung nodule
+LKDS-00311_0,2.95702e-06,n01440011 It is a real lung nodule
+LKDS-00157_2,0.909745,n01440011 It is a real lung nodule
+LKDS-00157_2,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00338_1,0.999992,n01440010 It is not a real lung nodule
+LKDS-00338_1,7.70484e-06,n01440011 It is a real lung nodule
+LKDS-00353_1,0.999972,n01440011 It is a real lung nodule
+LKDS-00353_1,2.63636e-05,n01440010 It is not a real lung nodule
+LKDS-00276_0,0.87122,n01440011 It is a real lung nodule
+LKDS-00276_0,0.128779,n01440010 It is not a real lung nodule
+LKDS-00226_1,0.995549,n01440010 It is not a real lung nodule
+LKDS-00226_1,0.00445045,n01440011 It is a real lung nodule
+LKDS-00376_2,0.692372,n01440011 It is a real lung nodule
+LKDS-00376_2,0.307457,n01440010 It is not a real lung nodule
+LKDS-00048_2,0.999286,n01440010 It is not a real lung nodule
+LKDS-00048_2,0.000702939,n01440011 It is a real lung nodule
+LKDS-00226_0,0.995554,n01440010 It is not a real lung nodule
+LKDS-00226_0,0.00444544,n01440011 It is a real lung nodule
+LKDS-00080_0,0.998761,n01440011 It is a real lung nodule
+LKDS-00080_0,0.0012209,n01440010 It is not a real lung nodule
+LKDS-00048_1,0.999286,n01440010 It is not a real lung nodule
+LKDS-00048_1,0.000702939,n01440011 It is a real lung nodule
+LKDS-00008_2,0.995968,n01440010 It is not a real lung nodule
+LKDS-00008_2,0.00402687,n01440011 It is a real lung nodule
+LKDS-00250_0,1.0,n01440010 It is not a real lung nodule
+LKDS-00250_0,3.33151e-07,n01440011 It is a real lung nodule
+LKDS-00380_2,0.785116,n01440010 It is not a real lung nodule
+LKDS-00380_2,0.214648,n01440011 It is a real lung nodule
+LKDS-00125_2,0.953331,n01440010 It is not a real lung nodule
+LKDS-00125_2,0.0445305,n01440011 It is a real lung nodule
+LKDS-00190_0,0.902774,n01440011 It is a real lung nodule
+LKDS-00190_0,0.0970154,n01440010 It is not a real lung nodule
+LKDS-00170_1,0.767591,n01440010 It is not a real lung nodule
+LKDS-00170_1,0.231754,n01440011 It is a real lung nodule
+LKDS-00372_1,1.0,n01440010 It is not a real lung nodule
+LKDS-00372_1,4.64799e-07,n01440011 It is a real lung nodule
+LKDS-00367_2,0.908135,n01440011 It is a real lung nodule
+LKDS-00367_2,0.0901613,n01440010 It is not a real lung nodule
+LKDS-00018_1,0.971335,n01440011 It is a real lung nodule
+LKDS-00018_1,0.0266793,n01440010 It is not a real lung nodule
+LKDS-00121_1,0.999881,n01440010 It is not a real lung nodule
+LKDS-00121_1,0.000118332,n01440011 It is a real lung nodule
+LKDS-00123_2,0.999992,n01440010 It is not a real lung nodule
+LKDS-00123_2,7.4979e-06,n01440011 It is a real lung nodule
+LKDS-00208_2,0.997339,n01440010 It is not a real lung nodule
+LKDS-00208_2,0.0026607,n01440011 It is a real lung nodule
+LKDS-00376_0,0.962945,n01440011 It is a real lung nodule
+LKDS-00376_0,0.0369961,n01440010 It is not a real lung nodule
+LKDS-00145_1,0.909745,n01440011 It is a real lung nodule
+LKDS-00145_1,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00343_2,0.909745,n01440011 It is a real lung nodule
+LKDS-00343_2,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00268_0,0.868909,n01440011 It is a real lung nodule
+LKDS-00268_0,0.130811,n01440010 It is not a real lung nodule
+LKDS-00353_0,0.999972,n01440011 It is a real lung nodule
+LKDS-00353_0,2.63636e-05,n01440010 It is not a real lung nodule
+LKDS-00343_0,0.909745,n01440011 It is a real lung nodule
+LKDS-00343_0,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00288_0,0.572044,n01440010 It is not a real lung nodule
+LKDS-00288_0,0.40264,n01440011 It is a real lung nodule
+LKDS-00138_0,0.973516,n01440010 It is not a real lung nodule
+LKDS-00138_0,0.0264814,n01440011 It is a real lung nodule
+LKDS-00086_1,0.999582,n01440010 It is not a real lung nodule
+LKDS-00086_1,0.000417891,n01440011 It is a real lung nodule
+LKDS-00268_1,0.867118,n01440011 It is a real lung nodule
+LKDS-00268_1,0.132587,n01440010 It is not a real lung nodule
+LKDS-00141_0,0.979352,n01440010 It is not a real lung nodule
+LKDS-00141_0,0.0206311,n01440011 It is a real lung nodule
+LKDS-00055_2,0.556598,n01440010 It is not a real lung nodule
+LKDS-00055_2,0.443401,n01440011 It is a real lung nodule
+LKDS-00059_0,0.999996,n01440010 It is not a real lung nodule
+LKDS-00059_0,3.68277e-06,n01440011 It is a real lung nodule
+LKDS-00372_2,1.0,n01440010 It is not a real lung nodule
+LKDS-00372_2,4.64799e-07,n01440011 It is a real lung nodule
+LKDS-00329_0,0.99999,n01440010 It is not a real lung nodule
+LKDS-00329_0,9.4123e-06,n01440011 It is a real lung nodule
+LKDS-00190_2,0.902774,n01440011 It is a real lung nodule
+LKDS-00190_2,0.0970154,n01440010 It is not a real lung nodule
+LKDS-00115_2,0.791395,n01440010 It is not a real lung nodule
+LKDS-00115_2,0.200423,n01440011 It is a real lung nodule
+LKDS-00318_2,1.0,n01440010 It is not a real lung nodule
+LKDS-00318_2,9.36904e-08,n01440011 It is a real lung nodule
+LKDS-00226_2,0.999834,n01440010 It is not a real lung nodule
+LKDS-00226_2,0.000166065,n01440011 It is a real lung nodule
+LKDS-00009_1,0.909745,n01440011 It is a real lung nodule
+LKDS-00009_1,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00072_1,0.988808,n01440010 It is not a real lung nodule
+LKDS-00072_1,0.0111879,n01440011 It is a real lung nodule
+LKDS-00177_1,0.986643,n01440010 It is not a real lung nodule
+LKDS-00177_1,0.0130188,n01440011 It is a real lung nodule
+LKDS-00024_2,0.999814,n01440010 It is not a real lung nodule
+LKDS-00024_2,0.000185803,n01440011 It is a real lung nodule
+LKDS-00172_0,0.999998,n01440011 It is a real lung nodule
+LKDS-00172_0,1.88093e-06,n01440010 It is not a real lung nodule
+LKDS-00072_2,0.987533,n01440010 It is not a real lung nodule
+LKDS-00072_2,0.0124613,n01440011 It is a real lung nodule
+LKDS-00234_1,0.608463,n01440011 It is a real lung nodule
+LKDS-00234_1,0.391246,n01440010 It is not a real lung nodule
+LKDS-00201_0,0.993249,n01440010 It is not a real lung nodule
+LKDS-00201_0,0.00671652,n01440011 It is a real lung nodule
+LKDS-00288_1,0.572044,n01440010 It is not a real lung nodule
+LKDS-00288_1,0.40264,n01440011 It is a real lung nodule
+LKDS-00190_1,0.902774,n01440011 It is a real lung nodule
+LKDS-00190_1,0.0970154,n01440010 It is not a real lung nodule
+LKDS-00367_1,0.908135,n01440011 It is a real lung nodule
+LKDS-00367_1,0.0901613,n01440010 It is not a real lung nodule
+LKDS-00268_2,0.941344,n01440011 It is a real lung nodule
+LKDS-00268_2,0.0582216,n01440010 It is not a real lung nodule
+LKDS-00329_1,0.999986,n01440010 It is not a real lung nodule
+LKDS-00329_1,1.42759e-05,n01440011 It is a real lung nodule
+LKDS-00113_0,0.561999,n01440010 It is not a real lung nodule
+LKDS-00113_0,0.437999,n01440011 It is a real lung nodule
+LKDS-00146_2,0.522066,n01440010 It is not a real lung nodule
+LKDS-00146_2,0.477883,n01440011 It is a real lung nodule
+LKDS-00017_0,0.539499,n01440010 It is not a real lung nodule
+LKDS-00017_0,0.460491,n01440011 It is a real lung nodule
+LKDS-00045_2,0.523121,n01440010 It is not a real lung nodule
+LKDS-00045_2,0.467656,n01440011 It is a real lung nodule
+LKDS-00153_2,0.98753,n01440010 It is not a real lung nodule
+LKDS-00153_2,0.0123712,n01440011 It is a real lung nodule
+LKDS-00080_2,0.99997,n01440011 It is a real lung nodule
+LKDS-00080_2,2.75491e-05,n01440010 It is not a real lung nodule
+LKDS-00148_1,0.999351,n01440010 It is not a real lung nodule
+LKDS-00148_1,0.000647823,n01440011 It is a real lung nodule
+LKDS-00032_0,0.909745,n01440011 It is a real lung nodule
+LKDS-00032_0,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00170_2,0.767591,n01440010 It is not a real lung nodule
+LKDS-00170_2,0.231754,n01440011 It is a real lung nodule
+LKDS-00032_2,0.909745,n01440011 It is a real lung nodule
+LKDS-00032_2,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00045_1,0.523121,n01440010 It is not a real lung nodule
+LKDS-00045_1,0.467656,n01440011 It is a real lung nodule
+LKDS-00354_1,0.999999,n01440010 It is not a real lung nodule
+LKDS-00354_1,6.05065e-07,n01440011 It is a real lung nodule
+LKDS-00067_2,0.850972,n01440010 It is not a real lung nodule
+LKDS-00067_2,0.146438,n01440011 It is a real lung nodule
+LKDS-00148_2,0.996816,n01440010 It is not a real lung nodule
+LKDS-00148_2,0.00318072,n01440011 It is a real lung nodule
+LKDS-00208_1,0.996529,n01440010 It is not a real lung nodule
+LKDS-00208_1,0.00347056,n01440011 It is a real lung nodule
+LKDS-00055_1,0.570254,n01440010 It is not a real lung nodule
+LKDS-00055_1,0.429741,n01440011 It is a real lung nodule
+LKDS-00177_2,0.986643,n01440010 It is not a real lung nodule
+LKDS-00177_2,0.0130188,n01440011 It is a real lung nodule
+LKDS-00324_0,0.955579,n01440011 It is a real lung nodule
+LKDS-00324_0,0.0442064,n01440010 It is not a real lung nodule
+LKDS-00157_0,0.909745,n01440011 It is a real lung nodule
+LKDS-00157_0,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00161_0,0.698187,n01440010 It is not a real lung nodule
+LKDS-00161_0,0.265568,n01440011 It is a real lung nodule
+LKDS-00202_1,0.999997,n01440010 It is not a real lung nodule
+LKDS-00202_1,3.00358e-06,n01440011 It is a real lung nodule
+LKDS-00138_2,0.909689,n01440010 It is not a real lung nodule
+LKDS-00138_2,0.0902972,n01440011 It is a real lung nodule
+LKDS-00318_1,1.0,n01440010 It is not a real lung nodule
+LKDS-00318_1,9.36904e-08,n01440011 It is a real lung nodule
+LKDS-00086_0,0.999989,n01440011 It is a real lung nodule
+LKDS-00086_0,1.06317e-05,n01440010 It is not a real lung nodule
+LKDS-00343_1,0.909745,n01440011 It is a real lung nodule
+LKDS-00343_1,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00166_2,0.997787,n01440010 It is not a real lung nodule
+LKDS-00166_2,0.00221143,n01440011 It is a real lung nodule
+LKDS-00365_0,0.999423,n01440010 It is not a real lung nodule
+LKDS-00365_0,0.000577451,n01440011 It is a real lung nodule
+LKDS-00146_1,0.522066,n01440010 It is not a real lung nodule
+LKDS-00146_1,0.477883,n01440011 It is a real lung nodule
+LKDS-00317_2,0.997334,n01440011 It is a real lung nodule
+LKDS-00317_2,0.00263323,n01440010 It is not a real lung nodule
+LKDS-00014_1,0.999895,n01440010 It is not a real lung nodule
+LKDS-00014_1,0.000104993,n01440011 It is a real lung nodule
+LKDS-00017_1,0.616912,n01440011 It is a real lung nodule
+LKDS-00017_1,0.383075,n01440010 It is not a real lung nodule
+LKDS-00344_1,0.998317,n01440010 It is not a real lung nodule
+LKDS-00344_1,0.00168273,n01440011 It is a real lung nodule
+LKDS-00059_1,0.999996,n01440010 It is not a real lung nodule
+LKDS-00059_1,3.68277e-06,n01440011 It is a real lung nodule
+LKDS-00324_2,0.955579,n01440011 It is a real lung nodule
+LKDS-00324_2,0.0442064,n01440010 It is not a real lung nodule
+LKDS-00014_2,0.991077,n01440010 It is not a real lung nodule
+LKDS-00014_2,0.00892244,n01440011 It is a real lung nodule
+LKDS-00071_2,0.730892,n01440011 It is a real lung nodule
+LKDS-00071_2,0.26723,n01440010 It is not a real lung nodule
+LKDS-00069_2,0.999879,n01440010 It is not a real lung nodule
+LKDS-00069_2,0.000118957,n01440011 It is a real lung nodule
+LKDS-00086_2,0.700842,n01440011 It is a real lung nodule
+LKDS-00086_2,0.299157,n01440010 It is not a real lung nodule
+LKDS-00241_2,0.621757,n01440011 It is a real lung nodule
+LKDS-00241_2,0.378172,n01440010 It is not a real lung nodule
+LKDS-00210_0,0.999993,n01440010 It is not a real lung nodule
+LKDS-00210_0,7.31389e-06,n01440011 It is a real lung nodule
+LKDS-00338_2,0.999992,n01440010 It is not a real lung nodule
+LKDS-00338_2,7.70484e-06,n01440011 It is a real lung nodule
+LKDS-00130_1,0.996095,n01440011 It is a real lung nodule
+LKDS-00130_1,0.00390493,n01440010 It is not a real lung nodule
+LKDS-00130_0,0.998464,n01440011 It is a real lung nodule
+LKDS-00130_0,0.00153543,n01440010 It is not a real lung nodule
+LKDS-00045_0,0.523121,n01440010 It is not a real lung nodule
+LKDS-00045_0,0.467656,n01440011 It is a real lung nodule
+LKDS-00311_2,0.999992,n01440010 It is not a real lung nodule
+LKDS-00311_2,7.72401e-06,n01440011 It is a real lung nodule
+LKDS-00329_2,0.999484,n01440010 It is not a real lung nodule
+LKDS-00329_2,0.000515733,n01440011 It is a real lung nodule
+LKDS-00376_1,0.942898,n01440011 It is a real lung nodule
+LKDS-00376_1,0.056992,n01440010 It is not a real lung nodule
+LKDS-00024_1,0.999814,n01440010 It is not a real lung nodule
+LKDS-00024_1,0.000185803,n01440011 It is a real lung nodule
+LKDS-00148_0,0.999631,n01440010 It is not a real lung nodule
+LKDS-00148_0,0.000368412,n01440011 It is a real lung nodule
+LKDS-00071_1,0.730892,n01440011 It is a real lung nodule
+LKDS-00071_1,0.26723,n01440010 It is not a real lung nodule
+LKDS-00163_2,0.598043,n01440011 It is a real lung nodule
+LKDS-00163_2,0.401953,n01440010 It is not a real lung nodule
+LKDS-00017_2,0.539209,n01440010 It is not a real lung nodule
+LKDS-00017_2,0.460776,n01440011 It is a real lung nodule
+LKDS-00163_1,0.661394,n01440010 It is not a real lung nodule
+LKDS-00163_1,0.338602,n01440011 It is a real lung nodule
+LKDS-00130_2,0.974144,n01440011 It is a real lung nodule
+LKDS-00130_2,0.0258541,n01440010 It is not a real lung nodule
+LKDS-00163_0,0.811214,n01440010 It is not a real lung nodule
+LKDS-00163_0,0.188783,n01440011 It is a real lung nodule
+LKDS-00255_1,0.500999,n01440010 It is not a real lung nodule
+LKDS-00255_1,0.498822,n01440011 It is a real lung nodule
+LKDS-00380_0,0.586815,n01440010 It is not a real lung nodule
+LKDS-00380_0,0.412923,n01440011 It is a real lung nodule
+LKDS-00055_0,0.789252,n01440011 It is a real lung nodule
+LKDS-00055_0,0.210743,n01440010 It is not a real lung nodule
+LKDS-00202_2,0.999997,n01440010 It is not a real lung nodule
+LKDS-00202_2,3.00358e-06,n01440011 It is a real lung nodule
+LKDS-00310_2,0.549669,n01440011 It is a real lung nodule
+LKDS-00310_2,0.409665,n01440010 It is not a real lung nodule
+LKDS-00113_2,0.628167,n01440010 It is not a real lung nodule
+LKDS-00113_2,0.371831,n01440011 It is a real lung nodule
+LKDS-00201_2,0.993249,n01440010 It is not a real lung nodule
+LKDS-00201_2,0.00671652,n01440011 It is a real lung nodule
+LKDS-00072_0,0.995729,n01440010 It is not a real lung nodule
+LKDS-00072_0,0.00426918,n01440011 It is a real lung nodule
+LKDS-00009_0,0.909745,n01440011 It is a real lung nodule
+LKDS-00009_0,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00153_0,0.98753,n01440010 It is not a real lung nodule
+LKDS-00153_0,0.0123712,n01440011 It is a real lung nodule
+LKDS-00166_1,0.997787,n01440010 It is not a real lung nodule
+LKDS-00166_1,0.00221143,n01440011 It is a real lung nodule
+LKDS-00060_2,0.995432,n01440010 It is not a real lung nodule
+LKDS-00060_2,0.00455129,n01440011 It is a real lung nodule
+LKDS-00002_1,0.999854,n01440010 It is not a real lung nodule
+LKDS-00002_1,0.000145583,n01440011 It is a real lung nodule
+LKDS-00344_0,0.994897,n01440010 It is not a real lung nodule
+LKDS-00344_0,0.00510251,n01440011 It is a real lung nodule
+LKDS-00172_1,0.999991,n01440011 It is a real lung nodule
+LKDS-00172_1,8.5289e-06,n01440010 It is not a real lung nodule
+LKDS-00009_2,0.909745,n01440011 It is a real lung nodule
+LKDS-00009_2,0.0309575,n01440010 It is not a real lung nodule
+LKDS-00060_0,0.994296,n01440010 It is not a real lung nodule
+LKDS-00060_0,0.00568617,n01440011 It is a real lung nodule

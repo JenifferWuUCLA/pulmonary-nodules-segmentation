@@ -67,6 +67,9 @@ net.blobs['data'].reshape(50,  # batch size
 
 test_images = glob(os.path.join(output_path, "images_*.jpg"))
 for test_image in test_images:
+    test_image_list = test_image.replace(output_path, "").replace("images_", "").split("_")
+    test_image_name = test_image_list[0] + "_" + test_image_list[3]
+
     image = caffe.io.load_image(test_image)
     transformed_image = transformer.preprocess('data', image)
 
@@ -99,17 +102,18 @@ for test_image in test_images:
     labels = labels[top_inds]
     print('probabilities:', probabilities)
     print('labels:', labels)
-    tp_probability, tp_label = "", ""
     index = 0
     for label in labels:
         synset = label.split(" ")[0]
         if synset == "n01440011":
             tp_probability = probabilities[index]
             tp_label = label
+            csv_row(test_image_name, tp_probability, tp_label)
+        if synset == "n01440010":
+            fp_probability = probabilities[index]
+            fp_label = label
+            csv_row(test_image_name, fp_probability, fp_label)
         index += 1
-    test_image_list = test_image.replace(output_path, "").replace("images_", "").split("_")
-    test_image_name = test_image_list[0] + "_" + test_image_list[3]
-    csv_row(test_image_name, tp_probability, tp_label)
 
 
 '''

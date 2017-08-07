@@ -15,15 +15,18 @@ dict_annotations, dict_probabilities = {}, {}
 csvRows = []
 
 
-def csv_row(image_name, probability, label):
+def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm, probability):
     new_row = []
-    new_row.append(image_name)
+    new_row.append(seriesuid)
+    new_row.append(coordX)
+    new_row.append(coordY)
+    new_row.append(coordZ)
+    new_row.append(diameter_mm)
     new_row.append(probability)
-    new_row.append(label)
     csvRows.append(new_row)
 
 
-csv_row("seriesuid", "coordX", "coordY", "diameter_mm", "probability")
+csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm", "probability")
 
 
 def get_dict_annotations():

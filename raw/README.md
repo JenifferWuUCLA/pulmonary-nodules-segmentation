@@ -1,1 +1,0 @@
-Raw images should be put here.

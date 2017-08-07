@@ -25,7 +25,7 @@ The architecture was inspired by [U-Net: Convolutional Networks for Biomedical I
 
 ### Data
 
-Train and test data set in built by ```build_data_set```, and the .mhd is processed by ```data.py``` script.
+Train and test data set in built by ```tianchi```, and the .mhd is processed by ```*_dataset_mask_extraction.py```, ```*_dataset_segment_lung_ROI.py```, ```*_dataset_preprocessing_2DUnet.py``` script.
 This script just loads the images and saves them into NumPy binary format files **.npy** for faster loading later.
 
 ### Pre-processing
@@ -55,7 +55,7 @@ After 20 epochs, calculated Dice coefficient is ~0.68, which yielded ~0.57 score
 
 Loss function for the training is basically just a **negative of Dice coefficient**
 (which is used as [evaluation metric on the competition](https://www.kaggle.com/c/ultrasound-nerve-segmentation/details/evaluation)),
-and this is implemented as custom loss function using Keras backend - check ```dice_coef()``` and ```dice_coef_loss()``` functions in ```train.py``` for more detail.
+and this is implemented as custom loss function using Keras backend - check ```dice_coef()``` and ```dice_coef_loss()``` functions in ```deep_learning_2DUnet.py```, ```deep_learning_unet.py``` for more detail.
 Also, for making the loss function smooth, a factor ```smooth = 1``` factor is added.
 
 The weights are updated by Adam optimizer, with a 1e-5 learning rate. During training, model's weights are saved in HDF5 format.
@@ -77,17 +77,17 @@ Also, this code should be compatible with Python versions 2.7-3.5.
 ### Prepare the data
 
 In order to extract raw images and save them to *.npy* files, you should first prepare its structure. 
-* Now run ```python data.py```.
+* Now run ```python *_dataset_mask_extraction.py``` or ```*_dataset_preprocessing_2DUnet.py```.
 
 Running this script will create train and test images and save them to **.npy** files.
 
 ### Define the model
 
-* Check out ```get_unet()``` in ```train.py``` to modify the model, optimizer and loss function.
+* Check out ```get_unet()``` in ```deep_learning_2DUnet.py``` to modify the model, optimizer and loss function.
 
 ### Train the model and generate masks for test images
 
-* Run ```python train.py``` to train the model.
+* Run ```python deep_learning_2DUnet.py``` to train the model.
 
 Check out ```train_predict()``` to modify the number of iterations (epochs), batch size, etc.
 
@@ -96,7 +96,7 @@ should be generated. I suggest you examine these masks for getting further insig
 
 ### Generate submission
 
-* Run ```python submission.py``` to generate the submission file ```submission.csv``` for the generated masks.
+* Run ```python generate_submission.py``` to generate the submission file ```submission.csv``` for the generated masks.
 
 Check out function ```submission()``` and ```run_length_enc()``` (thanks woshialex) for details.
 

@@ -50,16 +50,16 @@ def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
 if __name__ == '__main__':
     csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
     # Read the CSV file in (skipping first row).
-    csvRows = []
+    voxel_csvRows = []
     csvFileObj = open(lungs_coordinate_file)
     readerObj = csv.reader(csvFileObj)
     for row in readerObj:
         if readerObj.line_num == 1:
             continue  # skip first row
-        csvRows.append(row)
+        voxel_csvRows.append(row)
     csvFileObj.close()
 
-    for csvRow in csvRows:
+    for csvRow in voxel_csvRows:
         seriesuid = csvRow["seriesuid"]
         image_name = seriesuid + ".mhd"
         original_file_name = os.path.join(test_data_path, image_name)

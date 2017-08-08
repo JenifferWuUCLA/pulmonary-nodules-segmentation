@@ -79,7 +79,7 @@ if __name__ == '__main__':
         print(w_center)
 
         diameter_mm = csvRow["diameter_mm"]
-        csv_row(seriesuid, w_center[0], w_center[1], w_center[2], "diameter_mm")
+        csv_row(seriesuid, w_center[0], w_center[1], w_center[2], diameter_mm)
 
     # Write out the lungs_coordinate_file_3D CSV file.
     print(os.path.join(output_path, lungs_coordinate_file_3D))

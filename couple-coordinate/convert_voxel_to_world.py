@@ -35,12 +35,13 @@ def voxel_2_world(voxelCoord, origin, spacing):
 csvRows = []
 
 
-def csv_row(image_name, x, y, radius):
+def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
     new_row = []
-    new_row.append(image_name)
-    new_row.append(x)
-    new_row.append(y)
-    new_row.append(radius)
+    new_row.append(seriesuid)
+    new_row.append(coordX)
+    new_row.append(coordY)
+    new_row.append(coordZ)
+    new_row.append(diameter_mm)
     csvRows.append(new_row)
 
 

@@ -2,26 +2,18 @@
 import SimpleITK as sitk
 import numpy as np
 from glob import glob
-import pandas as pd
-import scipy.ndimage
 import os
-import array
 import math
 from tqdm import tqdm
-from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D  # 画3d图这行是必要的
 import csv
-import pandas as pd
 from skimage.morphology import ball, disk, dilation, binary_erosion, remove_small_objects, erosion, closing, \
     reconstruction, binary_closing
 from skimage.measure import label, regionprops, perimeter
-from skimage.morphology import binary_dilation, binary_opening
 from skimage.filters import roberts, sobel
-from skimage import measure, feature
 from skimage.segmentation import clear_border
 from scipy import ndimage as ndi
 
-subset = "test_subset_all/"
+subset = "val_subset_all/"
 # subset = "data_set/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
@@ -188,7 +180,7 @@ class nodules_extract():
                     # outputs.append(o)
                     marks.append([s_z, s_y, s_x])
                     np.save(os.path.join(output_path,
-                                         "test_data_images/test/images_{}_{}.npy".format(seriesuid, [s_z, s_y, s_x])),
+                                         "val_data_images/test/images_{}_{}.npy".format(seriesuid, [s_z, s_y, s_x])),
                             image[s_z:s_z + width, s_y:s_y + width, s_x:s_x + width])
                     csv_row(seriesuid, s_x, s_y, s_z, "diameter_mm")
         return diamonds, marks
@@ -277,8 +269,8 @@ if __name__ == '__main__':
     '''
 
     # Write out the imgs_mask_test_coordinate CSV file.
-    print(os.path.join(output_path + "test_data_images/csv/", coordinate_file))
-    csvFileObj = open(os.path.join(output_path + "test_data_images/csv/", coordinate_file), 'w')
+    print(os.path.join(output_path + "val_data_images/csv/", coordinate_file))
+    csvFileObj = open(os.path.join(output_path + "val_data_images/csv/", coordinate_file), 'w')
     csvWriter = csv.writer(csvFileObj)
     for row in csvRows:
         # print row

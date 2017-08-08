@@ -127,9 +127,6 @@ class Alibaba_tianchi(object):
 
     def myselfhandler(self):
         """自己处理"""
-        out_images = []  # final set of images
-        out_nodemasks = []  # final set of nodemasks
-        seriesuids = []
         for fcount, img_file in enumerate(tqdm(self.ls_all_patients)):
             mini_df = self.df_annotations[self.df_annotations["file"] == img_file]  # 获取这个病人的所有结节信息
             if mini_df.shape[0] > 0:  # 有些病人可能没有结节，跳过这些病人some files may not have a nodule--skipping those

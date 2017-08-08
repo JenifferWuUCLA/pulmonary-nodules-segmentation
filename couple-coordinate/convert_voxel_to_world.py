@@ -21,8 +21,8 @@ out_subset = "server-test-mine/"
 output_path = "/home/ucla/Downloads/tianchi-2D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
-lungs_coordinate_file = output_path + "data_images/csv/imgs_mask_test_coordinate.csv"
-lungs_coordinate_file_3D = output_path + "data_images/csv/imgs_mask_test_coordinate_3D.csv"
+lungs_coordinate_file = output_path + "data_images/test/csv/imgs_mask_test_coordinate.csv"
+lungs_coordinate_file_3D = output_path + "data_images/test/csv/imgs_mask_test_coordinate_3D.csv"
 
 
 #######################################################################################################################
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         diameter_mm = csvRow["diameter_mm"]
         csv_row(seriesuid, coordX, coordY, coordZ, "diameter_mm")
 
-    # Write out the imgs_mask_test_coordinate CSV file.
+    # Write out the lungs_coordinate_file_3D CSV file.
     print(os.path.join(output_path, lungs_coordinate_file_3D))
     csvFileObj = open(os.path.join(output_path, lungs_coordinate_file_3D), 'w')
     csvWriter = csv.writer(csvFileObj)

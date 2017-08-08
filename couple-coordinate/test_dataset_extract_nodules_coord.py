@@ -15,7 +15,7 @@ output_path = "/home/ucla/Downloads/tianchi-2D/"
 
 nodules_coordinate_file = output_path + "image-coordinate/imgs_mask_test_coordinate.csv"
 
-lungs_coordinate_file = output_path + "data_images/test/csv/imgs_mask_test_coordinate.csv"
+lungs_coordinate_file = output_path + "data_images/test/csv/imgs_mask_test_coordinate_3D.csv"
 
 annotations_file = output_path + "data_images/test/csv/imgs_mask_test_annotations.csv"
 
@@ -51,6 +51,7 @@ def get_lungs_nodules(nodules_csvRows, lungs_csvRows):
             if j == 0:
                 min_lung_coordY = lung_coordY
             if int(abs(abs(float(nodule_coordX)) - float(lung_coordX))) <= 11 and int(abs(abs(float(nodule_coordZ)) - float(lung_coordZ))) <= 11:
+                # print(min_nodule_diameter_mm, nodule_diameter_mm, min_lung_coordY, lung_coordY)
                 if int(float(min_nodule_diameter_mm)) >= int(float(nodule_diameter_mm)) and int(float(min_lung_coordY)) >= int(float(lung_coordY)):
                     min_nodule_diameter_mm, min_lung_coordY = nodule_diameter_mm, lung_coordY
                     csv_row(seriesuid, nodule_coordX, lung_coordY, nodule_coordZ, nodule_diameter_mm)
@@ -69,10 +70,12 @@ if __name__ == '__main__':
         # print(seriesuid)
         # Read the CSV file in (skipping first row).
         nodules_csvRows = []
+        # print(nodules_coordinate_file)
         csvFileObj = open(nodules_coordinate_file)
         readerObj = csv.DictReader(csvFileObj)
         for row in readerObj:
-            if row['seriesuid'].replace(".mhd", "") == seriesuid:
+            # print(row['seriesuid']) 
+            if row['seriesuid'] == seriesuid:
                 # print(row)
                 nodules_csvRows.append(row)
 

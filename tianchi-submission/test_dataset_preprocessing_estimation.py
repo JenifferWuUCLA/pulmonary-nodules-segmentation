@@ -31,7 +31,7 @@ subset = "val_subset_all/"
 # subset = "data_set/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
-tianchi_subset_path = tianchi_path + subset
+# tianchi_subset_path = tianchi_path + subset
 
 # out_subset = "server-test-2D"
 output_path = "/home/ucla/Downloads/tianchi/test-estimation/"
@@ -55,8 +55,8 @@ def csv_row(index, seriesuid, imgs_mask_val):
 class Alibaba_tianchi(object):
     def __init__(self):
         """param: workspace: all_patients的父目录"""
-        self.workspace = tianchi_subset_path
-        self.all_patients_path = os.path.join(self.workspace, "test/")
+        self.workspace = tianchi_path
+        self.all_patients_path = os.path.join(self.workspace, subset)
 
         self.tmp_workspace = os.path.join(output_path, "test/")
         self.tmp_jpg_workspace = os.path.join(output_path, "ROI/test/")

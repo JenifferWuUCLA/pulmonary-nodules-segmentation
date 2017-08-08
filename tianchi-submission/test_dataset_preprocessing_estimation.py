@@ -34,7 +34,7 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 tianchi_subset_path = tianchi_path + subset
 
 # out_subset = "server-test-2D"
-output_path = "/home/ucla/Downloads/tianchi-2D-estimation/"
+output_path = "/home/ucla/Downloads/tianchi/test-estimation/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 ###################################################################################

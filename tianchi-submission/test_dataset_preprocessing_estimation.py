@@ -154,12 +154,12 @@ class Alibaba_tianchi(object):
                         (w_nodule_center - origin) / spacing)  # 体素空间中结节中心的坐标 (still x,y,z ordering)
                     # np.rint 对浮点数取整，但不改变浮点数类型
                     # for i, i_z in enumerate(np.arange(int(v_nodule_center[2]) - 1,int(v_nodule_center[2]) + 2).clip(0,num_z - 1)):  # clip 方法的作用是防止超出切片数量的范围
-                    i_z = int(v_nodule_center[2])
+                    i_z = int(w_nodule_center[2])
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
                     nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
-                    nodule_mask[nodule_mask < 1.0] = 0
-                    nodule_mask[nodule_mask > 1.0] = 1
+                    nodule_mask[nodule_mask < 0.5] = 0
+                    nodule_mask[nodule_mask > 0.5] = 1
                     nodule_mask = nodule_mask.astype('int8')
                     slice = img_array[i_z]
                     slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')

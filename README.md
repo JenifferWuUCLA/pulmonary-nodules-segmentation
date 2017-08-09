@@ -3,8 +3,7 @@
 ## 天池医疗AI大赛[第一季]：U-Net训练基于卷积神经网络的肺结节分割器
 > ##### @author Jeniffer Wu
 
-### Letters to readers:
-https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/Letters%20to%20readers.pdf
+### [Letters to readers](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/Letters%20to%20readers.pdf)
 
 This tutorial shows how to use [Keras library](http://keras.io/) to build deep neural network for pulmonary nodules image segmentation.
 

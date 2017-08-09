@@ -17,18 +17,18 @@ dict_annotations, dict_probabilities = {}, {}
 csvRows = []
 
 
-def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm, probability):
+def csv_row(seriesuid, coordX, coordY, coordZ, probability):
     new_row = []
     new_row.append(seriesuid)
     new_row.append(coordX)
     new_row.append(coordY)
     new_row.append(coordZ)
-    new_row.append(diameter_mm)
+    # new_row.append(diameter_mm)
     new_row.append(probability)
     csvRows.append(new_row)
 
 
-csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm", "probability")
+csv_row("seriesuid", "coordX", "coordY", "coordZ", "probability")
 
 
 def get_dict_annotations():
@@ -92,7 +92,7 @@ if __name__ == '__main__':
                 probability, label = probabilities_tuple[0], probabilities_tuple[1]
                 synset = label.split(" ")[0]
                 if synset == "n01440011":
-                    csv_row(p_seriesuid, coordX, coordY, coordZ, diameter_mm, probability)
+                    csv_row(p_seriesuid, coordX, coordY, coordZ, probability)
                     break
 
     # Write out the pulmonary_nodule_probability CSV file.

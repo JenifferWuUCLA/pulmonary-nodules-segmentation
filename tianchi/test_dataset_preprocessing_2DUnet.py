@@ -12,7 +12,6 @@
 """
 from __future__ import print_function, division
 import SimpleITK as sitk
-import math
 import scipy.ndimage
 import numpy as np
 import csv
@@ -161,8 +160,8 @@ class Alibaba_tianchi(object):
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
                     nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
-                    nodule_mask[nodule_mask < 1.0] = 0
-                    nodule_mask[nodule_mask > 1.0] = 1
+                    nodule_mask[nodule_mask < 0.5] = 0
+                    nodule_mask[nodule_mask > 0.5] = 1
                     nodule_mask = nodule_mask.astype('int8')
                     slice = img_array[i_z]
                     slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')

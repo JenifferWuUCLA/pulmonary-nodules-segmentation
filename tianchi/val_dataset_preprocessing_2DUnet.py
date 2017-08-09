@@ -7,12 +7,11 @@
 @author: Jeniffer Wu
 @license: Apache Licence 
 @contact: yywu@szucla.org
-@file: test_dataset_preprocessing_2DUnet.py
+@file: val_dataset_preprocessing_2DUnet.py
 @time: 2017/6/30 12:24
 """
 from __future__ import print_function, division
 import SimpleITK as sitk
-import math
 import scipy.ndimage
 import numpy as np
 import csv

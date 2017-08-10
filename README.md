@@ -6,6 +6,10 @@
 > As I have received the emails from some readers about the "pulmonary nodule intelligent diagnosis" project in my Github these days, I written to answer some of these questions.
 [Letters to readers](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/Letters%20to%20readers.pdf)
 
+![img/肺癌检测系统框图_sz.jpeg](img/肺癌检测系统框图_sz.jpeg)
+
+![img/Extracting the mask of the nodules and training the network on the Segmented lungs.jpeg](img/Extracting the mask of the nodules and training the network on the Segmented lungs.jpeg)
+
 This tutorial shows how to use [Keras library](http://keras.io/) to build deep neural network for pulmonary nodules image segmentation.
 
 This deep neural network achieves **~0.57 score on the leaderboard** based on test images,

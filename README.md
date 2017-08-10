@@ -7,11 +7,11 @@
 [Letters to readers](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/Letters%20to%20readers.pdf)
 
 ##### See picture below(肺癌检测系统框图)
-![img/肺癌检测系统框图_sz.jpeg](img/肺癌检测系统框图_sz.jpeg)
+![肺癌检测系统框图_sz.jpeg](img/肺癌检测系统框图_sz.jpeg)
 
 
 ##### See picture below(Fig. Extracting the mask of the nodules and training the network on the Segmented lungs)
-![img/Extracting the mask of the nodules and training the network on the Segmented lungs.jpeg](img/Extracting the mask of the nodules and training the network on the Segmented lungs.jpeg)
+![Extracting the mask of the nodules and training the network on the Segmented lungs.jpeg](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/img/Pulmonary_nodule_intelligent_diagnosis_flow_chart.jpeg)
 
 This tutorial shows how to use [Keras library](http://keras.io/) to build deep neural network for pulmonary nodules image segmentation.
 

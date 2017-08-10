@@ -3,7 +3,7 @@
 ## 天池医疗AI大赛[第一季]：U-Net训练基于卷积神经网络的肺结节分割器
 > ##### @author Jeniffer Wu
 
-> As I received the emails from some readers about the "pulmonary nodule intelligent diagnosis" project on my Github these days, I have written to answer some of these questions.
+> As I received some emails from the readers about the "pulmonary nodule intelligent diagnosis" project on my Github these days, I have written to answer some of these questions.
 [Letters to readers](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/Letters%20to%20readers.pdf)
 
 ##### See picture below(肺癌检测系统框图)

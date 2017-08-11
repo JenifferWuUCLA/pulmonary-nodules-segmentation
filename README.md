@@ -87,7 +87,7 @@ Also, this code should be compatible with Python versions 2.7-3.5.
 ### Prepare the data
 
 In order to extract raw images and save them to *.npy* files, you should first prepare its structure. 
-* Now run ```python *_dataset_mask_extraction.py``` or ```*_dataset_preprocessing_2DUnet.py```.
+* Now run ```python *_dataset_mask_extraction.py```, ```*_dataset_segment_lung_ROI.py``` or ```*_dataset_preprocessing_2DUnet.py```.
 
 Running this script will create train and test images and save them to **.npy** files.
 

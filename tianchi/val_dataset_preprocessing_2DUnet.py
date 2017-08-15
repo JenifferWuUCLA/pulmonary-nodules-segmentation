@@ -165,7 +165,7 @@ class Alibaba_tianchi(object):
                     nodule_mask = nodule_mask.astype('int8')
                     slice = img_array[i_z]
                     slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')
-                    slice = 511.0 * self.normalize(slice)
+                    slice = 255.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
 
                     out_images.append(slice)
@@ -177,7 +177,7 @@ class Alibaba_tianchi(object):
 
                     # ===================================
                     # ---以下代码是生成图片来观察分割是否有问题的
-                    nodule_mask = 511.0 * nodule_mask
+                    nodule_mask = 255.0 * nodule_mask
                     nodule_mask = nodule_mask.astype(np.uint8)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
                     cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), slice)

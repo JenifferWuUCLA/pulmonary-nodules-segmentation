@@ -6,6 +6,9 @@
 > As I received some emails from the readers about the "pulmonary nodule intelligent diagnosis" project on my Github these days, I have written to answer some of these questions.
 [Letters to readers](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/Letters%20to%20readers.pdf)
 
+> To solve the problem of intelligent diagnosis of pulmonary nodules
+[Questions and answers](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/Questions%20and%20answers.pdf)
+
 ##### See picture below(肺癌检测系统框图)
 ![肺癌检测系统框图_sz.jpeg](img/肺癌检测系统框图_sz.jpeg)
 

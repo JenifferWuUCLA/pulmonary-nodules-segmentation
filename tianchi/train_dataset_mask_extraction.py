@@ -135,8 +135,8 @@ for fcount, img_file in enumerate(tqdm(train_images)):
                 imgs[i] = img_array[i_z]
             # print(os.path.join(output_path, "train/images_%04d_%04d.npy" % (fcount, node_idx)), imgs)
             # print(os.path.join(output_path, "train/masks_%04d_%04d.npy" % (fcount, node_idx)), masks)
-            np.save(os.path.join(tmp_workspace, "images_%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], int(fcount), int(node_idx), int(v_center[2]))), imgs)
-            np.save(os.path.join(tmp_workspace, "masks_%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], int(fcount), int(node_idx), int(v_center[2]))), masks)
+            np.save(os.path.join(tmp_workspace, "images_%s_%s.npy" % (cur_row["seriesuid"], int(v_center[2]))), imgs)
+            np.save(os.path.join(tmp_workspace, "masks_%s_%s.npy" % (cur_row["seriesuid"], int(v_center[2]))), masks)
 
             # cv2.imwrite(os.path.join(tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), imgs)
             # cv2.imwrite(os.path.join(tmp_jpg_workspace, "masks_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), masks)

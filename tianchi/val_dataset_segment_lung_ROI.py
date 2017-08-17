@@ -11,7 +11,7 @@ import csv
 
 
 out_subset = "nerve-mine-2D"
-# out_subset = "server-test-2D"
+# out_subset = "z-nerve"
 output_path = "/home/ucla/Downloads/tianchi-2D/" + out_subset
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
@@ -20,9 +20,9 @@ output_path = "/home/ucla/Downloads/tianchi-2D/" + out_subset
 csvRows = []
 
 
-def csv_row(index, seriesuid, imgs_mask_val):
+def csv_row(seriesuid, imgs_mask_val):
     new_row = []
-    new_row.append(index)
+    # new_row.append(index)
     new_row.append(seriesuid)
     new_row.append(imgs_mask_val)
     csvRows.append(new_row)
@@ -180,7 +180,9 @@ for fname in val_images:
             new_node_mask = resize(node_mask[min_row:max_row, min_col:max_col], [512, 512])
             out_images.append(new_img)
             out_nodemasks.append(new_node_mask)
-            seriesuids.append(fname.replace("lungmask", "images"))
+            image_path = fname.replace("lungmask", "images")
+            image_name = image_path.replace(os.path.join(output_path, "val/"), "").replace("images_", "")
+            seriesuids.append(image_name.replace(".npy", ""))
 
 num_images = len(out_images)
 #
@@ -198,12 +200,12 @@ rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
 np.save(os.path.join(output_path, "val/valImages.npy"), final_images[rand_i[:]])
 np.save(os.path.join(output_path, "val/valMasks.npy"), final_masks[rand_i[:]])
 
-csv_row("index", "seriesuid", "pred_image")
+csv_row("seriesuid", "pred_image")
 for i in range(num_images):
     index = rand_i[i]
     seriesuid = seriesuids[index]
     imgs_mask_test = 'imgs_mask_test_%04d.npy' % (i)
-    csv_row(index, seriesuid, imgs_mask_test)
+    csv_row(seriesuid, imgs_mask_test)
 
 # Write out the imgs_mask_val_coordinate CSV file.
 pred_image_file = "seriesuid_pred_image.csv"

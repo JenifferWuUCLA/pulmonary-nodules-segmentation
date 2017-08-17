@@ -12,13 +12,15 @@ except:
     tqdm = lambda x: x
 
 
-# subset = "train_dataset/"
+# subset = "train_subset_all/"
 subset = "data_set/"
 # tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 tianchi_path = "/home/jenifferwu/LUNA2016/"
 tianchi_subset_path = tianchi_path + subset
 
-out_subset = "nerve-mine-2D"
+# out_subset = "nerve-mine-2D"
+out_subset = "z-nerve"
+# output_path = "/home/ucla/Downloads/tianchi-2D/"
 output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 
@@ -78,6 +80,9 @@ train_data_path = os.path.join(tianchi_subset_path, 'train/')
 train_images = glob(train_data_path + "*.mhd")
 # print(train_images)
 
+tmp_workspace = os.path.join(output_path, "train/")
+tmp_jpg_workspace = os.path.join(output_path, "ROI/train/")
+
 
 #####################
 #
@@ -130,5 +135,8 @@ for fcount, img_file in enumerate(tqdm(train_images)):
                 imgs[i] = img_array[i_z]
             # print(os.path.join(output_path, "train/images_%04d_%04d.npy" % (fcount, node_idx)), imgs)
             # print(os.path.join(output_path, "train/masks_%04d_%04d.npy" % (fcount, node_idx)), masks)
-            np.save(os.path.join(output_path, "train/images_%s_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx)), imgs)
-            np.save(os.path.join(output_path, "train/masks_%s_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx)), masks)
+            np.save(os.path.join(tmp_workspace, "images_%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], int(fcount), int(node_idx), int(v_center[2]))), imgs)
+            np.save(os.path.join(tmp_workspace, "masks_%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], int(fcount), int(node_idx), int(v_center[2]))), masks)
+
+            # cv2.imwrite(os.path.join(tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), imgs)
+            # cv2.imwrite(os.path.join(tmp_jpg_workspace, "masks_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), masks)

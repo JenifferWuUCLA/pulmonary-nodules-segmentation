@@ -12,16 +12,16 @@ except:
     tqdm = lambda x: x
 
 
-# subset = "train_subset_all/"
-subset = "data_set/"
-# tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
-tianchi_path = "/home/jenifferwu/LUNA2016/"
-tianchi_subset_path = tianchi_path + subset
+subset = "train_subset_all/"
+# subset = "data_set/"
+tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
+# tianchi_path = "/home/jenifferwu/LUNA2016/"
+# tianchi_subset_path = tianchi_path + subset
 
-# out_subset = "nerve-mine-2D"
-out_subset = "z-nerve"
-# output_path = "/home/ucla/Downloads/tianchi-2D/"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+out_subset = "nerve-mine-2D"
+# out_subset = "z-nerve"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 
 # Some helper functions
@@ -75,7 +75,7 @@ Returns uint16 version
 
 
 ############
-train_data_path = os.path.join(tianchi_subset_path, 'train/')
+train_data_path = os.path.join(tianchi_path, subset)
 # print("train_data_path: %s" % train_data_path)
 train_images = glob(train_data_path + "*.mhd")
 # print(train_images)

@@ -9,10 +9,10 @@ from glob import glob
 import os
 
 
-# out_subset = "nerve-mine-2D"
-out_subset = "server-test-2D"
-# output_path = "/home/ucla/Downloads/tianchi-2D/"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+out_subset = "nerve-mine-2D"
+# out_subset = "server-test-2D"
+output_path = "/home/ucla/Downloads/tianchi-2D/" + out_subset
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 
 train_images = glob(os.path.join(output_path, "train/images_*.npy"))

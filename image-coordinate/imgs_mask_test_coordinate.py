@@ -1,5 +1,3 @@
-# import the necessary packages
-import argparse
 import imutils
 import cv2
 import os
@@ -14,7 +12,8 @@ except:
     print('TQDM does make much nicer wait bars...')
     tqdm = lambda x: x
 
-# out_subset = "server-test-mine/"
+
+# out_subset = "z-nerve/"
 output_path = "/home/ucla/Downloads/tianchi-2D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
@@ -31,10 +30,7 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 test_data_path = os.path.join(tianchi_path, subset)
 
 
-# test_images = glob(test_data_path + "*.mhd")
-
-
-#####################
+###################################################################################
 
 def voxelToWorld(voxelCoord, origin, spacing):
     voxelCoord = voxelCoord.astype(np.int32)
@@ -82,7 +78,7 @@ def csv_row(image_name, x, y, radius):
     csvRows.append(new_row)
 
 
-#####################
+###################################################################################
 
 # load the image, convert it to grayscale, blur it slightly,
 # and threshold it

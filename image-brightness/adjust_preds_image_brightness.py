@@ -1,16 +1,13 @@
 import cv2
-import numpy as np
 from glob import glob
 import os
 
-out_subset = "server-test-3D/"
-# output_path = "/home/ucla/Downloads/tianchi-2D/"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+# out_subset = "server-test-3D/"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 test_images = glob(output_path + "image-coordinate-2D/*.jpg")
-print(output_path + "image-coordinate-2D/")
 
-# fn = "baboon.jpg"
 
 if __name__ == '__main__':
     index = 0

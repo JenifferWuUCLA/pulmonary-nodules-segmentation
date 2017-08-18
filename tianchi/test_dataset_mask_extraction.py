@@ -12,14 +12,16 @@ except:
     tqdm = lambda x: x
 
 
-# subset = "train_dataset/"
-subset = "data_set/"
-# tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
-tianchi_path = "/home/jenifferwu/LUNA2016/"
-tianchi_subset_path = tianchi_path + subset
+subset = "test_dataset/"
+# subset = "data_set/"
+tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
+# tianchi_path = "/home/jenifferwu/LUNA2016/"
+# tianchi_subset_path = tianchi_path + subset
 
 out_subset = "nerve-mine-2D"
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+# out_subset = "z-nerve"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 
 # Some helper functions
@@ -73,8 +75,11 @@ Returns uint16 version
 
 
 ############
-test_data_path = os.path.join(tianchi_subset_path, 'test/')
+test_data_path = os.path.join(tianchi_path, subset)
 test_images = glob(test_data_path + "*.mhd")
+
+tmp_workspace = os.path.join(output_path, "test/")
+tmp_jpg_workspace = os.path.join(output_path, "ROI/test/")
 
 
 #####################
@@ -126,5 +131,5 @@ for fcount, img_file in enumerate(tqdm(test_images)):
                                  width, height, spacing, origin)
                 masks[i] = mask
                 imgs[i] = img_array[i_z]
-            np.save(os.path.join(output_path, "test/images_%s_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx)), imgs)
-            np.save(os.path.join(output_path, "test/masks_%s_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx)), masks)
+            np.save(os.path.join(output_path, "test/images_%s_%s.npy" % (cur_row["seriesuid"], int(v_center[2]))), imgs)
+            np.save(os.path.join(output_path, "test/masks_%s_%s.npy" % (cur_row["seriesuid"], int(v_center[2]))), masks)

@@ -4,17 +4,15 @@ import numpy as np
 from keras.models import Model
 from keras.layers import Input, merge, Convolution2D, MaxPooling2D, UpSampling2D
 from keras.optimizers import Adam
-from keras.optimizers import SGD
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 import os
 import cv2
 
 
-# subset = "train_dataset/"
-subset = "nerve-mine/"
-# working_path = "/home/ucla/Downloads/tianchi/" + subset
-output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
+# subset = "z-nerve/"
+output_path = "/home/ucla/Downloads/tianchi-2D/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
 
 K.set_image_dim_ordering('th')  # Theano dimension ordering in this code
@@ -96,8 +94,11 @@ def train_and_predict(use_existing):
     imgs_train = np.load(os.path.join(output_path, "train/trainImages.npy")).astype(np.float32)
     imgs_mask_train = np.load(os.path.join(output_path, "train/trainMasks.npy")).astype(np.float32)
 
-    imgs_test = np.load(os.path.join(output_path, "test/testImages.npy")).astype(np.float32)
-    imgs_mask_test_true = np.load(os.path.join(output_path, "test/testMasks.npy")).astype(np.float32)
+    imgs_val = np.load(os.path.join(output_path, "val/valImages.npy")).astype(np.float32)
+    # imgs_mask_val = np.load(os.path.join(output_path, "val/valMasks.npy")).astype(np.float32)
+
+    # imgs_test = np.load(os.path.join(output_path, "test/testImages.npy")).astype(np.float32)
+    # imgs_mask_test_true = np.load(os.path.join(output_path, "test/testMasks.npy")).astype(np.float32)
 
     mean = np.mean(imgs_train)  # mean for data centering
     std = np.std(imgs_train)  # std for data normalization
@@ -140,12 +141,12 @@ def train_and_predict(use_existing):
     print('-' * 30)
     print('Predicting masks on test data...')
     print('-' * 30)
-    num_test = len(imgs_test)
+    num_test = len(imgs_val)
     print("num_test: %d" % num_test)
     imgs_mask_test = np.ndarray([num_test, 1, 512, 512], dtype=np.float32)
     for i in range(num_test):
-        imgs_mask_test[i] = model.predict([imgs_test[i:i + 1]], verbose=0)[0]
-    np.save(os.path.join(output_path + "preds/", 'masksTestPredicted.npy'), imgs_mask_test)
+        imgs_mask_test[i] = model.predict([imgs_val[i:i + 1]], verbose=0)[0]
+    # np.save(os.path.join(output_path + "preds/", 'masksTestPredicted.npy'), imgs_mask_test)
 
     for i in range(num_test):
         # mean+=dice_coef_np(imgs_mask_test_true[i,0], imgs_mask_test[i,0])

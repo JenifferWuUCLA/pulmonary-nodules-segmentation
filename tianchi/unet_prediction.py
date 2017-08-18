@@ -4,19 +4,12 @@ import numpy as np
 from keras.models import Model
 from keras.layers import Input, merge, Convolution2D, MaxPooling2D, UpSampling2D
 from keras.optimizers import Adam
-from keras.optimizers import SGD
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as K
 import os
-from skimage.transform import resize
-from skimage.io import imsave
-from glob import glob
 import cv2
 
 
-# subset = "train_dataset/"
-# subset = "nerve-mine-2D/"
-# working_path = "/home/ucla/Downloads/tianchi/" + subset
+subset = "server-test-2D/"
 output_path = "/home/ucla/Downloads/tianchi-2D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
@@ -102,8 +95,11 @@ def predict():
     print('-' * 30)
     print('Loading and preprocessing test data...')
     print('-' * 30)
-    imgs_test = np.load(os.path.join(output_path, "test_data_images/test/testImages.npy")).astype(np.float32)
-    imgs_mask_test_true = np.load(os.path.join(output_path, "test_data_images/test/testMasks.npy")).astype(np.float32)
+    imgs_val = np.load(os.path.join(output_path, "val/valImages.npy")).astype(np.float32)
+    # imgs_mask_val = np.load(os.path.join(output_path, "val/valMasks.npy")).astype(np.float32)
+
+    # imgs_test = np.load(os.path.join(output_path, "test/testImages.npy")).astype(np.float32)
+    # imgs_mask_test_true = np.load(os.path.join(output_path, "test/testMasks.npy")).astype(np.float32)
 
     # loading best weights from training session
     print('-' * 30)
@@ -115,23 +111,23 @@ def predict():
     print('-' * 30)
     print('Predicting masks on test data...')
     print('-' * 30)
-    num_test = len(imgs_test)
+    num_test = len(imgs_val)
     print("num_test: %d" % num_test)
     imgs_mask_test = np.ndarray([num_test, 1, 512, 512], dtype=np.float32)
     for i in range(num_test):
-        imgs_mask_test[i] = model.predict([imgs_test[i:i + 1]], verbose=0)[0]
-    np.save(os.path.join(output_path + "test_data_images/preds/", "masksTestPredicted.npy"), imgs_mask_test)
+        imgs_mask_test[i] = model.predict([imgs_val[i:i + 1]], verbose=0)[0]
+    # np.save(os.path.join(output_path + "data_images/preds/", "masksTestPredicted.npy"), imgs_mask_test)
 
     print('-' * 30)
     print('Saving predicted masks to files...')
     print('-' * 30)
 
-    pred_dir = os.path.join(output_path, 'test_data_images/pred-images/')
+    pred_dir = os.path.join(output_path, 'data_images/pred-images/')
     if not os.path.exists(pred_dir):
         os.mkdir(pred_dir)
 
     for i in range(num_test):
-        np.save(os.path.join(output_path + "test_data_images/preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
+        np.save(os.path.join(output_path + "data_images/preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i,0])
         cv2.imwrite(os.path.join(pred_dir, 'imgs_mask_test_%04d.jpg' % (i)), imgs_mask_test[i,0])
 
 

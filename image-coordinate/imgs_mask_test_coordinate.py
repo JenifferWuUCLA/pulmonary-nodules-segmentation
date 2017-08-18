@@ -97,6 +97,7 @@ for img_file in test_images:
     print("image_name after: %s" % image_name)
     image_name = image_name.split("_")[0] + ".mhd"
     v_z = image_name.split("_")[1]
+    index = image_name.split("_")[2]
 
     image = cv2.imread(img_file)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -130,6 +131,9 @@ for img_file in test_images:
         print(image_name, origin, spacing)
 
         for i, i_z in enumerate(np.arange(int(v_z) - 1, int(v_z) + 2).clip(0, num_z - 1)):
+            if i != index:
+                continue
+
             v_center = np.array([float(x), float(y), float(i_z)])
             print("v_center: ")
             print(v_center, radius)

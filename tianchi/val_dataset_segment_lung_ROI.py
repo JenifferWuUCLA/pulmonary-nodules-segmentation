@@ -154,7 +154,7 @@ for fname in val_images:
         out_nodemasks.append(new_node_mask)
 
         image_path = fname.replace("lungmask", "images")
-        image_name = image_path.replace(os.path.join(output_path, "val/"), "").replace("images_", "") + "_%s.jpg" % (i)
+        image_name = image_path.replace(os.path.join(output_path, "val/"), "").replace("images_", "") + "_%s" % (i)
         seriesuids.append(image_name.replace(".npy", ""))
 
 num_images = len(out_images)

@@ -124,11 +124,10 @@ for fname in val_images:
     for i in range(len(imgs_to_process)):
         mask = masks[i]
         node_mask = node_masks[i]
-        img = imgs_to_process[i]
+        img = imgs_to_process[i, :, :]
         # new_size = [512, 512]  # we're scaling back up to the original size of the image
-        img = mask * img  # apply lung mask
 
-        slice = img * mask
+        slice = img * mask        # apply lung mask
         filename = fname.replace(tmp_workspace, "").replace("lungmask", "lung_images")
         new_lung_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
         image_path = tmp_jpg_workspace

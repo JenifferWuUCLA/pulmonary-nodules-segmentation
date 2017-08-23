@@ -10,9 +10,8 @@ import cv2
 import scipy.ndimage
 
 
-out_subset = "nerve-mine-2D"
 # out_subset = "z-nerve"
-output_path = "/home/ucla/Downloads/tianchi-2D/" + out_subset
+output_path = "/home/ucla/Downloads/tianchi-2D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 tmp_workspace = os.path.join(output_path, "train/")

@@ -97,7 +97,7 @@ for img_file in test_images:
         mask = np.ndarray([512, 512], dtype=np.int8)
         mask[:] = 0
         #
-        #  The mask here is the mask for the lungs--not the nodes
+        #  The mask here is the mask for the lungs--not the nodules
         #  After just the lungs are left, we do another large dilation
         #  in order to fill in and out the lung mask
         #
@@ -114,16 +114,16 @@ for img_file in test_images:
 
 test_images = glob(os.path.join(output_path, "test/lungmask_*.npy"))
 out_images = []  # final set of images
-out_nodemasks = []  # final set of nodemasks
+out_nodule_masks = []  # final set of nodule_masks
 seriesuids = []
 for fname in test_images:
     print("working on test lung mask file: %s" % fname)
     imgs_to_process = np.load(fname.replace("lungmask", "images"))
     masks = np.load(fname)
-    node_masks = np.load(fname.replace("lungmask", "masks"))
+    nodule_masks = np.load(fname.replace("lungmask", "masks"))
     for i in range(len(imgs_to_process)):
         mask = masks[i]
-        node_mask = node_masks[i]
+        nodule_mask = nodule_masks[i]
         img = imgs_to_process[i, :, :]
         # new_size = [512, 512]  # we're scaling back up to the original size of the image
 
@@ -134,18 +134,19 @@ for fname in test_images:
         print(new_lung_name, image_path)
         cv2.imwrite(os.path.join(image_path, new_lung_name), slice)
 
-        node_mask = scipy.ndimage.interpolation.zoom(node_mask, [1.0, 1.0], mode='nearest')
-        node_mask[node_mask < 0.5] = 0
-        node_mask[node_mask > 0.5] = 1
-        node_mask = node_mask.astype('int8')
-        node_mask = 255.0 * node_mask
-        node_mask = node_mask.astype(np.uint8)
+        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
+        nodule_mask[nodule_mask < 0.5] = 0
+        nodule_mask[nodule_mask > 0.5] = 1
+        nodule_mask = nodule_mask.astype('int8')
+        nodule_mask = 255.0 * nodule_mask
+        nodule_mask = nodule_mask.astype(np.uint8)
 
-        filename = fname.replace(tmp_workspace, "").replace("lungmask", "node_mask")
-        new_node_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
+        nodule_slice = img * nodule_mask
+        filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_images")
+        new_nodule_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
         image_path = tmp_jpg_workspace
-        print(new_node_name, image_path)
-        cv2.imwrite(os.path.join(image_path, new_node_name), node_mask)
+        print(new_nodule_name, image_path)
+        cv2.imwrite(os.path.join(image_path, new_nodule_name), nodule_mask)
 
         #
         # Finding the global min and max row over all regions
@@ -181,9 +182,9 @@ for fname in test_images:
         else:
             # moving range to -1 to 1 to accomodate the resize function
             new_img = resize(slice, [512, 512])
-            new_node_mask = resize(node_mask[min_row:max_row, min_col:max_col], [512, 512])
+            new_nodule_mask = resize(nodule_mask[min_row:max_row, min_col:max_col], [512, 512])
             out_images.append(new_img)
-            out_nodemasks.append(new_node_mask)
+            out_nodule_masks.append(new_nodule_mask)
 
             image_path = fname.replace("lungmask", "images")
             image_name = image_path.replace(os.path.join(output_path, "test/"), "").replace("images_", "") + "_%s.jpg" % (i)
@@ -197,7 +198,7 @@ final_images = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
 final_masks = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
 for i in range(num_images):
     final_images[i, 0] = out_images[i]
-    final_masks[i, 0] = out_nodemasks[i]
+    final_masks[i, 0] = out_nodule_masks[i]
 
 rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
 # test_i = int(0.2*num_images)

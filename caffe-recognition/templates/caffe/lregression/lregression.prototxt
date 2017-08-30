@@ -1,0 +1,57 @@
+name: "lregression"
+layer {
+  name: "inputl"
+  type: "MemoryData"
+  top: "data"
+  top: "label"
+  memory_data_param {
+    batch_size: 100
+    channels: 10
+    height: 1
+    width: 1
+  }
+  include: { phase: TRAIN }
+}
+layer {
+  name: "inputlt"
+  type: "MemoryData"
+  top: "data"
+  top: "label"
+  memory_data_param {
+    batch_size: 100
+    channels: 10
+    height: 1
+    width: 1
+  }
+  include: { phase: TEST }
+}
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "data"
+  top: "ip1"
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "losst"
+  type: "Softmax"
+  bottom: "ip1"
+  top: "losst"
+  include: { phase: TEST }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "ip1"
+  bottom: "label"
+  top: "loss"
+}

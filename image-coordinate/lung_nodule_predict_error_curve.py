@@ -1,6 +1,5 @@
-import csv, os
+import os
 # set up Python environment: numpy for numerical routines, and matplotlib for plotting
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 # display plots in this notebook

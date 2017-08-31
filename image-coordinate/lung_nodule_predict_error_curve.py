@@ -20,14 +20,14 @@ print (df)
 
 x = df['seriesuid']
 y = df['coordX-error']
-z = df['coordX-error']
-w = df['coordX-error']
-u = df['coordX-error']
+z = df['coordY-error']
+w = df['coordZ-error']
+u = df['diameter_mm-error']
 
 # plot
 plt.plot(x, y, label="$coordX-error$", color="red", linewidth=2)
-plt.plot(x, z, label="$coordX-error$", color="green", linewidth=2)
-plt.plot(x, w, label="$coordX-error$", color="blue", linewidth=2)
-plt.plot(x, u, "b--", label="$coordX-error$", color="yellow", linewidth=2)
+plt.plot(x, z, label="coordY-error$", color="green", linewidth=2)
+plt.plot(x, w, label="coordZ-error$", color="blue", linewidth=2)
+plt.plot(x, u, "b--", label="diameter_mm-error$", color="yellow", linewidth=2)
 
 plt.show()

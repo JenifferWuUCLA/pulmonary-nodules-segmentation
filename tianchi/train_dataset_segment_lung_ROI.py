@@ -130,7 +130,7 @@ for fname in train_images:
         new_nodule_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
         image_path = tmp_jpg_workspace
         print(new_nodule_name, image_path)
-        cv2.imwrite(os.path.join(image_path, new_nodule_name), nodule_mask)
+        cv2.imwrite(os.path.join(image_path, new_nodule_name), nodule_slice)
 
         #
         # Finding the global min and max row over all regions
@@ -166,9 +166,9 @@ for fname in train_images:
         else:
             # moving range to -1 to 1 to accomodate the resize function
             new_img = resize(slice, [512, 512])
-            new_nodule_mask = resize(nodule_mask[min_row:max_row, min_col:max_col], [512, 512])
+            new_nodule_img = resize(nodule_slice[min_row:max_row, min_col:max_col], [512, 512])
             out_images.append(new_img)
-            out_nodule_masks.append(new_nodule_mask)
+            out_nodule_masks.append(new_nodule_img)
 
 num_images = len(out_images)
 #

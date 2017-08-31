@@ -140,13 +140,16 @@ for fname in val_images:
         nodule_mask = nodule_mask.astype('int8')
         nodule_mask = 255.0 * nodule_mask
         nodule_mask = nodule_mask.astype(np.uint8)
+        # print(nodule_mask)
+        # nodule_mask = (nodule_mask / 255.0)
+        # print(nodule_mask)
 
         nodule_slice = img * nodule_mask
         filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_images")
         new_nodule_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
         image_path = tmp_jpg_workspace
         print(new_nodule_name, image_path)
-        cv2.imwrite(os.path.join(image_path, new_nodule_name), nodule_mask)
+        cv2.imwrite(os.path.join(image_path, new_nodule_name), nodule_slice)
 
         #
         # Finding the global min and max row over all regions
@@ -182,9 +185,9 @@ for fname in val_images:
         else:
             # moving range to -1 to 1 to accomodate the resize function
             new_img = resize(slice, [512, 512])
-            new_nodule_mask = resize(nodule_mask[min_row:max_row, min_col:max_col], [512, 512])
+            new_nodule_img = resize(nodule_slice[min_row:max_row, min_col:max_col], [512, 512])
             out_images.append(new_img)
-            out_nodule_masks.append(new_nodule_mask)
+            out_nodule_masks.append(new_nodule_img)
 
             image_path = fname.replace("lungmask", "images")
             image_name = image_path.replace(os.path.join(output_path, "val/"), "").replace("images_", "") + "_%s" % (i)

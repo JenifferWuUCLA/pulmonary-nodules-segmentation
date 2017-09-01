@@ -69,11 +69,12 @@ def image_file_name(image_name):
 csvRows = []
 
 
-def csv_row(image_name, x, y, radius):
+def csv_row(image_name, x, y, z, radius):
     new_row = []
     new_row.append(image_name)
     new_row.append(x)
     new_row.append(y)
+    new_row.append(z)
     new_row.append(radius)
     csvRows.append(new_row)
 
@@ -85,7 +86,7 @@ def csv_row(image_name, x, y, radius):
 tmp_workspace = os.path.join(output_path, "image-coordinate-2D/bright_02/")
 test_images = glob(tmp_workspace + "*.jpg")
 # index = 0
-csv_row("seriesuid", "coordX", "coordY", "diameter_mm")
+csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
 for img_file in test_images:
     print("img_file: %s" % img_file)
     o_image_name = img_file.replace(tmp_workspace, "")

@@ -9,7 +9,7 @@ import os
 import cv2
 
 
-subset = "server-test-2D/"
+# subset = "server-test-2D/"
 output_path = "/home/ucla/Downloads/tianchi-2D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
@@ -20,8 +20,6 @@ img_rows = 512
 img_cols = 512
 
 smooth = 1.
-
-CUBE_SIZE = 32
 
 
 def dice_coef(y_true, y_pred):
@@ -42,7 +40,7 @@ def dice_coef_loss(y_true, y_pred):
     return -dice_coef(y_true, y_pred)
 
 
-def get_net(input_shape=(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, 1), load_weight_path=None, features=False, mal=False):
+def get_net(load_weight_path=None):
     inputs = Input((1, img_rows, img_cols))
     conv1 = Convolution2D(32, 3, 3, activation='relu', border_mode='same')(inputs)
     conv1 = Convolution2D(32, 3, 3, activation='relu', border_mode='same')(conv1)
@@ -86,7 +84,7 @@ def get_net(input_shape=(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, 1), load_weight_path=N
     if load_weight_path is not None:
         model.load_weights(load_weight_path, by_name=False)
 
-    model.compile(optimizer=Adam(lr=1.0e-5), loss=dice_coef_loss, metrics=[dice_coef])
+    # model.compile(optimizer=Adam(lr=1.0e-5), loss=dice_coef_loss, metrics=[dice_coef])
 
     return model
 
@@ -114,10 +112,6 @@ def predict():
     for i in range(num_test):
         imgs_mask_test[i] = model.predict([imgs_test[i:i + 1]], verbose=0)[0]
     # np.save(os.path.join(output_path + "data_images/preds/", "masksTestPredicted.npy"), imgs_mask_test)
-
-    print('-' * 30)
-    print('Saving predicted masks to files...')
-    print('-' * 30)
 
     pred_dir = os.path.join(output_path, 'data_images/pred-images/')
     if not os.path.exists(pred_dir):

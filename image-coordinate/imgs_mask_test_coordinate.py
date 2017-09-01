@@ -88,16 +88,16 @@ test_images = glob(tmp_workspace + "*.jpg")
 csv_row("seriesuid", "coordX", "coordY", "diameter_mm")
 for img_file in test_images:
     print("img_file: %s" % img_file)
-    image_name = img_file.replace(tmp_workspace, "")
-    # new_name = image_name.replace(".npy", "") + ".jpg"
+    o_image_name = img_file.replace(tmp_workspace, "")
+    # new_name = o_image_name.replace(".npy", "") + ".jpg"
 
-    image_name = image_name.replace(".jpg", ".npy")
-    print("image_name before: %s" % image_name)
-    image_name = image_file_name(image_name)
-    print("image_name after: %s" % image_name)
-    image_name = image_name.split("_")[0] + ".mhd"
-    v_z = image_name.split("_")[1]
-    index = image_name.split("_")[2]
+    # o_image_name = o_image_name.replace(".jpg", ".npy")
+    print("image_name before: %s" % o_image_name)
+    tmp_image_name = image_file_name(o_image_name)
+    print("image_name after: %s" % tmp_image_name)
+    image_name = tmp_image_name.split("_")[0] + ".mhd"
+    v_z = tmp_image_name.split("_")[1]
+    index = tmp_image_name.split("_")[2]
 
     image = cv2.imread(img_file)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -131,7 +131,7 @@ for img_file in test_images:
         print(image_name, origin, spacing)
 
         for i, i_z in enumerate(np.arange(int(v_z) - 1, int(v_z) + 2).clip(0, num_z - 1)):
-            if i != index:
+            if i != int(index):
                 continue
 
             v_center = np.array([float(x), float(y), float(i_z)])

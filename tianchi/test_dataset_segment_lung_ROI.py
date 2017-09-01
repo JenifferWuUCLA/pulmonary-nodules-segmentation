@@ -9,7 +9,6 @@ from glob import glob
 import os
 import csv
 import cv2
-import scipy.ndimage
 
 
 # out_subset = "z-nerve"
@@ -133,13 +132,6 @@ for fname in test_images:
         image_path = tmp_jpg_workspace
         print(new_lung_name, image_path)
         cv2.imwrite(os.path.join(image_path, new_lung_name), slice)
-
-        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
-        nodule_mask[nodule_mask < 0.5] = 0
-        nodule_mask[nodule_mask > 0.5] = 1
-        nodule_mask = nodule_mask.astype('int8')
-        nodule_mask = 255.0 * nodule_mask
-        nodule_mask = nodule_mask.astype(np.uint8)
 
         nodule_slice = img * nodule_mask
         filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_images")

@@ -8,7 +8,6 @@ from skimage.transform import resize
 from glob import glob
 import os
 import cv2
-import scipy.ndimage
 
 
 # out_subset = "z-nerve"
@@ -118,13 +117,6 @@ for fname in train_images:
         print(new_lung_name, image_path)
         cv2.imwrite(os.path.join(image_path, new_lung_name), slice)
 
-        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
-        nodule_mask[nodule_mask < 0.5] = 0
-        nodule_mask[nodule_mask > 0.5] = 1
-        nodule_mask = nodule_mask.astype('int8')
-        nodule_mask = 255.0 * nodule_mask
-        nodule_mask = nodule_mask.astype(np.uint8)
-
         nodule_slice = img * nodule_mask
         filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_images")
         new_nodule_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
@@ -166,9 +158,9 @@ for fname in train_images:
         else:
             # moving range to -1 to 1 to accomodate the resize function
             new_img = resize(slice, [512, 512])
-            new_nodule_img = resize(nodule_slice[min_row:max_row, min_col:max_col], [512, 512])
+            new_nodule_mask = resize(nodule_mask[min_row:max_row, min_col:max_col], [512, 512])
             out_images.append(new_img)
-            out_nodule_masks.append(new_nodule_img)
+            out_nodule_masks.append(new_nodule_mask)
 
 num_images = len(out_images)
 #

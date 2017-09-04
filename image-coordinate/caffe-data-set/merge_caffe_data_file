@@ -1,0 +1,3 @@
+cat /home/ucla/Downloads/Caffe_CNN_Data/train_1.txt /home/ucla/Downloads/Caffe_CNN_Data/train_0.txt > /home/ucla/Downloads/Caffe_CNN_Data/train.txt
+
+cat /home/ucla/Downloads/Caffe_CNN_Data/val_1.txt /home/ucla/Downloads/Caffe_CNN_Data/val_0.txt > /home/ucla/Downloads/Caffe_CNN_Data/val.txt

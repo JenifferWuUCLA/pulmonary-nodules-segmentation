@@ -95,7 +95,7 @@ def get_filename(file_list, case):
 
 #
 # The locations of the nodes
-df_node = pd.read_csv(tianchi_path + "annotations.csv")
+df_node = pd.read_csv(tianchi_path + "csv/val/annotations.csv")
 df_node["file"] = df_node["seriesuid"].map(lambda file_name: get_filename(val_images, file_name))
 df_node = df_node.dropna()
 

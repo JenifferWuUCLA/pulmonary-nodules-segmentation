@@ -12,7 +12,7 @@ except:
     tqdm = lambda x: x
 
 
-subset = "val_dataset/"
+subset = "val_subset_all/"
 # subset = "data_set/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"

@@ -58,8 +58,8 @@ def is_nodule(diameter_mm):
     nodule_class = 0
     # print float(diameter_mm)
     # print float(diameter_mm) >= 10
-    if float(diameter_mm) >= 10:
-        nodule_class = 1
+    # if float(diameter_mm) >= 10:
+    # nodule_class = 1
     return nodule_class
 
 

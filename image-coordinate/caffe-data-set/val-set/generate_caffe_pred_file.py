@@ -11,7 +11,6 @@ import shutil
 TIANCHI_val_path = "/home/ucla/Downloads/Caffe_CNN_Data/csv/pred/"
 # TIANCHI_val_path = "/home/jenifferwu/IMAGE_MASKS_DATA/csv/val/"
 TIANCHI_val_annotations = TIANCHI_val_path + "annotations.csv"
-TIANCHI_val_seriesuids = TIANCHI_val_path + "seriesuids.csv"
 
 output_path = "/home/ucla/Downloads/Caffe_CNN_Data/"
 # output_path = "/home/jenifferwu/Caffe_CNN_Data"

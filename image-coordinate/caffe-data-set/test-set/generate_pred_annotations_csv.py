@@ -18,7 +18,7 @@ except:
 ############
 #
 # Getting list of image files
-subset = "train_subset_all/"
+subset = "val_subset_all/"
 # subset = "subset0/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
@@ -55,9 +55,7 @@ def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm):
 #
 # The locations of the nodes
 # print(tianchi_csv_path)
-csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
-annotations_pred_file = os.path.join(csv_path, "imgs_mask_test_coordinate.csv")
-df_node = pd.read_csv(annotations_pred_file)
+df_node = pd.read_csv(tianchi_path + "csv/test/annotations.csv")
 # df_node = pd.read_csv(tianchi_path + "annotations.csv")
 df_node["file"] = df_node["seriesuid"].map(lambda file_name: get_filename(file_list, file_name))
 # print(df_node["file"])

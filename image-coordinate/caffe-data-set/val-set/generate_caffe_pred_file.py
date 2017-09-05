@@ -25,7 +25,7 @@ val_data_path = "/root/code/Pulmonary_nodules_data/val/"
 
 
 #####################
-def csv_row(seriesuid, diameter_mm, nodule_class):
+def csv_row(seriesuid, nodule_class):
     new_row = []
     seriesuid_list = seriesuid.split('/')
     subset, series_uid = seriesuid_list[0], seriesuid_list[1]
@@ -53,13 +53,13 @@ def csv_row(seriesuid, diameter_mm, nodule_class):
     shutil.move(tmp_image, val_image)
 
 
-def is_nodule(diameter_mm):
+def is_nodule(avg_error):
     # ０：不是真正肺结节；１：是真正肺结节。
     nodule_class = 0
-    # print float(diameter_mm)
-    # print float(diameter_mm) >= 10
-    # if float(diameter_mm) >= 10:
-    # nodule_class = 1
+    # print float(avg_error)
+    # print float(avg_error) >= 10
+    if float(avg_error) < 100:
+        nodule_class = 1
     return nodule_class
 
 
@@ -75,7 +75,7 @@ for row in readerObj:
     if readerObj.line_num == 1:
         continue  # skip first row
 
-    csv_row(row['seriesuid'], row['diameter_mm'], is_nodule(row['diameter_mm']))
+    csv_row(row['seriesuid'], is_nodule(row['avg_error']))
 
 csvFileObj.close()
 

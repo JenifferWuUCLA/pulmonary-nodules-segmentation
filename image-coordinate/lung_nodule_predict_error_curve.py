@@ -2,11 +2,12 @@ import os
 # set up Python environment: numpy for numerical routines, and matplotlib for plotting
 import pandas as pd
 import matplotlib.pyplot as plt
+
 # display plots in this notebook
-%matplotlib inline
+# %matplotlib inline
 
 # set display defaults
-plt.rcParams['figure.figsize'] = (10, 10)        # large images
+plt.rcParams['figure.figsize'] = (10, 10)  # large images
 plt.rcParams['image.interpolation'] = 'nearest'  # don't interpolate: show square pixels
 plt.rcParams['image.cmap'] = 'gray'  # use grayscale output rather than a (potentially misleading) color heatmap
 
@@ -36,13 +37,19 @@ d = diameter_mm_error
 # plt.show()
 
 # plot
-fig = plt.figure()
-ax = plt.subplot(111)
-ax.plot(x, y_1, 'ro-', label='$y = coordX-error', color="purple", linewidth=2)
-ax.plot(x, y_2, 'ro-', label='$y = coordY-error', color="green", linewidth=2)
-ax.plot(x, y_3, 'ro-', label='$y = coordZ-error', color="blue", linewidth=2)
-ax.plot(x, d, 'ro-', label='$y = diameter_mm-error', color="red", linewidth=2)
-plt.title('Legend lung nodule prediction error.')
-ax.legend()
+# Create four subplots sharing y axis
+fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, sharey=True)
+
+ax1.plot(x, y_1, 'ko-')
+ax1.set(title='Lung nodule prediction error', ylabel='CoordX Error (mm)')
+
+ax2.plot(x, y_2, 'r.-')
+ax2.set(ylabel='CoordY Error (mm)')
+
+ax3.plot(x, y_3, 'o-')
+ax3.set(ylabel='coordZ Error (mm)')
+
+ax4.plot(x, d, '.-')
+ax4.set(xlabel='seriesuid', ylabel='Diameter_mm Error (mm)')
 
 plt.show()

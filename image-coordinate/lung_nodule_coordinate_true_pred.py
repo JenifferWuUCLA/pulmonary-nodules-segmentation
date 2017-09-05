@@ -4,7 +4,7 @@ csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 annotations_true_file = os.path.join(csv_path, "annotations.csv")
 annotations_pred_file = os.path.join(csv_path, "imgs_mask_test_coordinate.csv")
-statistics_file = os.path.join(csv_path, "statistics_original.csv")
+statistics_original_file = os.path.join(csv_path, "statistics_original.csv")
 
 ########################################################################################################################
 csvRows = []
@@ -83,15 +83,15 @@ for true_row in true_csvRows:
                     coordY_error, coordZ_error, diameter_mm_error)
 
 # Write out the statistics file.
-print(statistics_file)
-csvFileObj = open(statistics_file, 'w')
+print(statistics_original_file)
+csvFileObj = open(statistics_original_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvRows:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()
 
-f = open(statistics_file)
+f = open(statistics_original_file)
 result = []
 iter_f = iter(f)  # Iterate through each line in a file with an iterator
 index = 0
@@ -122,7 +122,7 @@ f.close()
 
 result.sort()
 
-csvFileObj = open(statistics_file, 'w')
+csvFileObj = open(statistics_original_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in result:
     # print row

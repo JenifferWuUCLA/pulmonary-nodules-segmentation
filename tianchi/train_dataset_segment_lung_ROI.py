@@ -8,6 +8,7 @@ from skimage.transform import resize
 from glob import glob
 import os
 import cv2
+import scipy.ndimage
 
 
 # out_subset = "z-nerve"
@@ -21,7 +22,7 @@ tmp_jpg_workspace = os.path.join(output_path, "ROI/train/")
 train_images = glob(os.path.join(output_path, "train/images_*.npy"))
 for img_file in train_images:
     # I ran into an error when using Kmean on np.float16, so I'm using np.float64 here
-    imgs_to_process = np.load(img_file).astype(np.float64) 
+    imgs_to_process = np.load(img_file).astype(np.float64)
     print("on train image: %s" % img_file)
     for i in range(len(imgs_to_process)):
         img = imgs_to_process[i]
@@ -151,14 +152,37 @@ for fname in train_images:
         # cropping the image down to the bounding box for all regions
         # (there's probably an skimage command that can do this in one line)
         #
-        img = img[min_row:max_row, min_col:max_col]
-        mask = mask[min_row:max_row, min_col:max_col]
+        slice = slice[min_row:max_row, min_col:max_col]
+        nodule_mask = nodule_mask[min_row:max_row, min_col:max_col]
+
+        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
+        nodule_mask[nodule_mask < 0.5] = 0
+        nodule_mask[nodule_mask > 0.5] = 1
+        nodule_mask = nodule_mask.astype('int8')
+        nodule_mask = 255.0 * nodule_mask
+        nodule_mask = nodule_mask.astype(np.uint8)
+
         if max_row - min_row < 5 or max_col - min_col < 5:  # skipping all images with no god regions
             pass
         else:
             # moving range to -1 to 1 to accomodate the resize function
             new_img = resize(slice, [512, 512])
-            new_nodule_mask = resize(nodule_mask[min_row:max_row, min_col:max_col], [512, 512])
+            new_nodule_mask = resize(nodule_mask, [512, 512])
+
+            '''
+            filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_new_img")
+            new_lung_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
+            image_path = tmp_jpg_workspace
+            print(new_lung_name, image_path)
+            cv2.imwrite(os.path.join(image_path, new_lung_name), new_img)
+            '''
+
+            filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_pred_mask")
+            nodule_pred_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
+            image_path = tmp_jpg_workspace
+            print(nodule_pred_name, image_path)
+            cv2.imwrite(os.path.join(image_path, nodule_pred_name), new_nodule_mask)
+
             out_images.append(new_img)
             out_nodule_masks.append(new_nodule_mask)
 
@@ -169,8 +193,8 @@ num_images = len(out_images)
 final_images = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
 final_masks = np.ndarray([num_images, 1, 512, 512], dtype=np.float32)
 for i in range(num_images):
-    final_images[i,0] = out_images[i]
-    final_masks[i,0] = out_nodule_masks[i]
+    final_images[i, 0] = out_images[i]
+    final_masks[i, 0] = out_nodule_masks[i]
 
 rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
 # test_i = int(0.2*num_images)

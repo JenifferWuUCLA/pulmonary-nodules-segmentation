@@ -9,6 +9,7 @@ from glob import glob
 import os
 import csv
 import cv2
+import scipy.ndimage
 
 
 # out_subset = "z-nerve"
@@ -168,19 +169,36 @@ for fname in test_images:
         # (there's probably an skimage command that can do this in one line)
         #
         img = img[min_row:max_row, min_col:max_col]
-        mask = mask[min_row:max_row, min_col:max_col]
+        nodule_mask = nodule_mask[min_row:max_row, min_col:max_col]
+
+        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
+        nodule_mask[nodule_mask < 0.5] = 0
+        nodule_mask[nodule_mask > 0.5] = 1
+        nodule_mask = nodule_mask.astype('int8')
+        nodule_mask = 255.0 * nodule_mask
+        nodule_mask = nodule_mask.astype(np.uint8)
+
         if max_row - min_row < 5 or max_col - min_col < 5:  # skipping all images with no god regions
             pass
         else:
             # moving range to -1 to 1 to accomodate the resize function
             new_img = resize(slice, [512, 512])
-            new_nodule_mask = resize(nodule_mask[min_row:max_row, min_col:max_col], [512, 512])
+            new_nodule_mask = resize(nodule_mask, [512, 512])
+
+            filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_pred_mask")
+            nodule_pred_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
+            image_path = tmp_jpg_workspace
+            print(nodule_pred_name, image_path)
+            cv2.imwrite(os.path.join(image_path, nodule_pred_name), new_nodule_mask)
+
             out_images.append(new_img)
             out_nodule_masks.append(new_nodule_mask)
 
+            '''
             image_path = fname.replace("lungmask", "images")
             image_name = image_path.replace(os.path.join(output_path, "test/"), "").replace("images_", "") + "_%s.jpg" % (i)
             seriesuids.append(image_name.replace(".npy", ""))
+            '''
 
 num_images = len(out_images)
 #
@@ -198,6 +216,7 @@ rand_i = np.random.choice(range(num_images), size=num_images, replace=False)
 np.save(os.path.join(output_path, "test/testImages.npy"), final_images[rand_i[:]])
 np.save(os.path.join(output_path, "test/testMasks.npy"), final_masks[rand_i[:]])
 
+'''
 csv_row("seriesuid", "pred_image")
 for i in range(num_images):
     index = rand_i[i]
@@ -214,3 +233,4 @@ for row in csvRows:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()
+'''

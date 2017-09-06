@@ -92,7 +92,7 @@ for img_file in test_images:
     o_image_name = img_file.replace(tmp_workspace, "")
     # new_name = o_image_name.replace(".npy", "") + ".jpg"
 
-    # o_image_name = o_image_name.replace(".jpg", ".npy")
+    o_image_name = o_image_name.replace(".jpg", ".npy")
     print("image_name before: %s" % o_image_name)
     tmp_image_name = image_file_name(o_image_name)
     print("image_name after: %s" % tmp_image_name)

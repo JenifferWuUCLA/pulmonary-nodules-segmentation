@@ -47,7 +47,7 @@ ax2.plot(x, y_2, 'r.-')
 ax2.set(ylabel='CoordY Error (mm)')
 
 ax3.plot(x, y_3, 'o-')
-ax3.set(ylabel='coordZ Error (mm)')
+ax3.set(ylabel='CoordZ Error (mm)')
 
 ax4.plot(x, d, '.-')
 ax4.set(xlabel='seriesuid', ylabel='Diameter_mm Error (mm)')

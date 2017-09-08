@@ -4,7 +4,6 @@ import numpy as np
 from skimage import morphology
 from skimage import measure
 from sklearn.cluster import KMeans
-from skimage.transform import resize
 from glob import glob
 import os
 import csv
@@ -141,64 +140,30 @@ for fname in test_images:
         print(new_nodule_name, image_path)
         cv2.imwrite(os.path.join(image_path, new_nodule_name), nodule_mask)
 
-        #
-        # Finding the global min and max row over all regions
-        #
-        min_row = 512
-        max_row = 0
-        min_col = 512
-        max_col = 0
-        for prop in regions:
-            B = prop.bbox
-            if min_row > B[0]:
-                min_row = B[0]
-            if min_col > B[1]:
-                min_col = B[1]
-            if max_row < B[2]:
-                max_row = B[2]
-            if max_col < B[3]:
-                max_col = B[3]
-        width = max_col - min_col
-        height = max_row - min_row
-        if width > height:
-            max_row = min_row + width
-        else:
-            max_col = min_col + height
-        #
-        # cropping the image down to the bounding box for all regions
-        # (there's probably an skimage command that can do this in one line)
-        #
-        img = img[min_row:max_row, min_col:max_col]
-        nodule_mask = nodule_mask[min_row:max_row, min_col:max_col]
-
-        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
+        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
         nodule_mask[nodule_mask < 0.5] = 0
         nodule_mask[nodule_mask > 0.5] = 1
         nodule_mask = nodule_mask.astype('int8')
         nodule_mask = 255.0 * nodule_mask
         nodule_mask = nodule_mask.astype(np.uint8)
 
-        if max_row - min_row < 5 or max_col - min_col < 5:  # skipping all images with no god regions
-            pass
-        else:
-            # moving range to -1 to 1 to accomodate the resize function
-            new_img = resize(slice, [512, 512])
-            new_nodule_mask = resize(nodule_mask, [512, 512])
+        new_img = slice
+        new_nodule_mask = nodule_mask
 
-            filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_pred_mask")
-            nodule_pred_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
-            image_path = tmp_jpg_workspace
-            print(nodule_pred_name, image_path)
-            cv2.imwrite(os.path.join(image_path, nodule_pred_name), new_nodule_mask)
+        filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_pred_mask")
+        nodule_pred_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
+        image_path = tmp_jpg_workspace
+        print(nodule_pred_name, image_path)
+        cv2.imwrite(os.path.join(image_path, nodule_pred_name), new_nodule_mask)
 
-            out_images.append(new_img)
-            out_nodule_masks.append(new_nodule_mask)
+        out_images.append(new_img)
+        out_nodule_masks.append(new_nodule_mask)
 
-            '''
-            image_path = fname.replace("lungmask", "images")
-            image_name = image_path.replace(os.path.join(output_path, "test/"), "").replace("images_", "") + "_%s.jpg" % (i)
-            seriesuids.append(image_name.replace(".npy", ""))
-            '''
+        '''
+        image_path = fname.replace("lungmask", "images")
+        image_name = image_path.replace(os.path.join(output_path, "test/"), "").replace("images_", "") + "_%s.jpg" % (i)
+        seriesuids.append(image_name.replace(".npy", ""))
+        '''
 
 num_images = len(out_images)
 #

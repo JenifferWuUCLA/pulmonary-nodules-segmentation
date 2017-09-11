@@ -42,14 +42,17 @@ def get_filename(file_list, case):
             return (f)
 
 
-def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm, avg_error):
+def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm, X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
     new_row = []
     new_row.append(seriesuid)
     new_row.append(coordX)
     new_row.append(coordY)
     new_row.append(coordZ)
     new_row.append(diameter_mm)
-    new_row.append(avg_error)
+    new_row.append(X_error_ratio)
+    new_row.append(Y_error_ratio)
+    new_row.append(Z_error_ratio)
+    new_row.append(diam_error_ratio)
     csvRows.append(new_row)
 
 
@@ -70,17 +73,21 @@ for row in readerObj:
 csvFileObj.close()
 
 
-def get_avg_error(images_name, coordX, coordY, coordZ, diameter_mm):
+def get_prediction_error(images_name, coordX, coordY, coordZ, diameter_mm):
     for stat_row in stat_csvRows:
         seriesuid = stat_row[0]
-        pred_coordX = stat_row[1]
-        pred_coordY = stat_row[2]
-        pred_coordZ = stat_row[3]
-        pred_diameter_mm = stat_row[4]
-        avg_error = stat_row[5]
+        pred_coordX = stat_row[5]
+        pred_coordY = stat_row[6]
+        pred_coordZ = stat_row[7]
+        pred_diameter_mm = stat_row[8]
+
+        X_error_ratio = stat_row[15]
+        Y_error_ratio = stat_row[16]
+        Z_error_ratio = stat_row[17]
+        diam_error_ratio = stat_row[18]
 
         if seriesuid == images_name and pred_coordX == coordX and pred_coordY == coordY and pred_coordZ == coordZ and pred_diameter_mm == diameter_mm:
-            return avg_error
+            return X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio
 
 
 #
@@ -93,7 +100,7 @@ df_node["file"] = df_node["seriesuid"].map(lambda file_name: get_filename(file_l
 df_node = df_node.dropna()
 
 #####
-csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm", "avg_error")
+csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm", "X_error_ratio", "Y_error_ratio", "Z_error_ratio", "diam_error_ratio")
 
 # Read the annotations CSV file in (skipping first row).
 if os.path.exists(os.path.join(output_path, "annotations.csv")):
@@ -102,7 +109,7 @@ if os.path.exists(os.path.join(output_path, "annotations.csv")):
     for row in readerObj:
         if readerObj.line_num == 1:
             continue  # skip first row
-        csv_row(row['seriesuid'], row['coordX'], row['coordY'], row['coordZ'], row['diameter_mm'])
+        csv_row(row['seriesuid'], row['coordX'], row['coordY'], row['coordZ'], row['diameter_mm'], row['X_error_ratio'], row['Y_error_ratio'], row['Z_error_ratio'], row['diam_error_ratio'])
     csvFileObj.close()
 
 #
@@ -129,10 +136,11 @@ for fcount, img_file in enumerate(tqdm(file_list)):
             v_center = np.rint((center - origin) / spacing)  # nodule center in voxel space (still x,y,z ordering)
             # print("images_%04d_%04d.npy" % (fcount, node_idx))
             # print("masks_%04d_%04d.npy" % (fcount, node_idx))
-            images_name = "nodule_images_%s_%s" % (cur_row["seriesuid"], int(v_center[2]))
-            avg_error = get_avg_error(cur_row["seriesuid"], node_x, node_y, node_z, diam)
-            for i in range(3):
-                csv_row("pred/" + images_name + "_" + str(i), node_x, node_y, node_z, diam, avg_error)
+            images_name = "nodule_images_%s" % (cur_row["seriesuid"])
+            X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio = get_prediction_error(cur_row["seriesuid"], node_x, node_y, node_z, diam)
+            print("X_error_ratio: %s, Y_error_ratio: %s, Z_error_ratio: %s, diam_error_ratio: %s: " % (X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio))
+            # for i in range(3):
+            csv_row("pred/" + images_name, node_x, node_y, node_z, diam, X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
 
 # Re-Write out the annotations.txt CSV file.
 csvFileObj = open(os.path.join(output_path, "annotations.csv"), 'w')

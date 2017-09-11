@@ -53,12 +53,12 @@ def csv_row(seriesuid, nodule_class):
     shutil.move(tmp_image, val_image)
 
 
-def is_nodule(avg_error):
+def is_nodule(X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
     # ０：不是真正肺结节；１：是真正肺结节。
     nodule_class = 0
     # print float(avg_error)
     # print float(avg_error) >= 10
-    if float(avg_error) < 100:
+    if float(X_error_ratio) <= 0.1 and float(Y_error_ratio) <= 0.1 and float(Z_error_ratio) <= 0.1 and float(diam_error_ratio) <= 0.1:
         nodule_class = 1
     return nodule_class
 
@@ -75,7 +75,7 @@ for row in readerObj:
     if readerObj.line_num == 1:
         continue  # skip first row
 
-    csv_row(row['seriesuid'], is_nodule(row['avg_error']))
+    csv_row(row['seriesuid'], is_nodule(row['X_error_ratio'], row['Y_error_ratio'], row['Z_error_ratio'], row['diam_error_ratio']))
 
 csvFileObj.close()
 

@@ -10,11 +10,19 @@ statistics_original_file = os.path.join(csv_path, "statistics_original.csv")
 csvRows = []
 
 
-def csv_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm, avg_error, coordX_error, coordY_error,
-            coordZ_error, diameter_mm_error):
+def csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
+            pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm,
+            avg_error, avg_error_ratio,
+            coordX_error, coordY_error, coordZ_error, diameter_mm_error,
+            X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
     new_row = []
 
     new_row.append(seriesuid)
+
+    new_row.append(true_coordX)
+    new_row.append(true_coordY)
+    new_row.append(true_coordZ)
+    new_row.append(true_diameter_mm)
 
     new_row.append(pred_coordX)
     new_row.append(pred_coordY)
@@ -22,11 +30,17 @@ def csv_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm, 
     new_row.append(pred_diameter_mm)
 
     new_row.append(avg_error)
+    new_row.append(avg_error_ratio)
 
     new_row.append(coordX_error)
     new_row.append(coordY_error)
     new_row.append(coordZ_error)
     new_row.append(diameter_mm_error)
+
+    new_row.append(X_error_ratio)
+    new_row.append(Y_error_ratio)
+    new_row.append(Z_error_ratio)
+    new_row.append(diam_error_ratio)
 
     csvRows.append(new_row)
 
@@ -51,8 +65,11 @@ for row in readerObj:
     pred_csvRows.append(row)
 csvFileObj.close()
 
-csv_row("0_seriesuid", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm", "avg_error", "coordX-error",
-        "coordY-error", "coordZ-error", "diameter_mm-error")
+csv_row("0_seriesuid", "true_coordX", "true_coordX", "true_coordZ", "true_diameter_mm",
+        "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm",
+        "avg_error", "avg_error_ratio",
+        "coordX-error", "coordY-error", "coordZ-error", "diameter_mm-error",
+        "X_error_ratio", "Y_error_ratio", "Z_error_ratio", "diam_error_ratio")
 for true_row in true_csvRows:
     # print("true_row: ")
     # print(true_row)
@@ -78,9 +95,20 @@ for true_row in true_csvRows:
             coordY_error = abs(float(true_coordY) - float(pred_coordY))
             coordZ_error = abs(float(true_coordZ) - float(pred_coordZ))
             diameter_mm_error = abs(float(true_diameter_mm) - float(pred_diameter_mm))
+
+            X_error_ratio = float(coordX_error) / float(true_diameter_mm)
+            Y_error_ratio = float(coordY_error) / float(true_diameter_mm)
+            Z_error_ratio = float(coordZ_error) / float(true_diameter_mm)
+            diam_error_ratio = float(diameter_mm_error) / float(true_diameter_mm)
+
             avg_error = (float)((coordX_error + coordY_error + coordZ_error + diameter_mm_error) / 3)
-            csv_row(true_seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm, avg_error, coordX_error,
-                    coordY_error, coordZ_error, diameter_mm_error)
+            avg_error_ratio = (float)((X_error_ratio + Y_error_ratio + Z_error_ratio + diam_error_ratio) / 3)
+
+            csv_row(true_seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
+                    pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm,
+                    avg_error, avg_error_ratio,
+                    coordX_error, coordY_error, coordZ_error, diameter_mm_error,
+                    X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
 
 # Write out the statistics file.
 print(statistics_original_file)
@@ -105,17 +133,34 @@ for line in iter_f:
     new_row.append(row[2])
     new_row.append(row[3])
     new_row.append(row[4])
-
-    index += 1
-    if index == 1:
-        new_row.append(row[5])
-    else:
-        new_row.append(float(row[5]))
-
+    new_row.append(row[5])
     new_row.append(row[6])
     new_row.append(row[7])
     new_row.append(row[8])
-    new_row.append(row[9].replace("\r\n", ""))
+
+    index += 1
+    if index == 1:
+        new_row.append(row[9])
+        new_row.append(row[10])
+        new_row.append(row[11])
+        new_row.append(row[12])
+        new_row.append(row[13])
+        new_row.append(row[14])
+        new_row.append(row[15])
+        new_row.append(row[16])
+        new_row.append(row[17])
+        new_row.append((row[18]).replace("\r\n", ""))
+    else:
+        new_row.append(float(row[9]))
+        new_row.append(float(row[10]))
+        new_row.append(float(row[11]))
+        new_row.append(float(row[12]))
+        new_row.append(float(row[13]))
+        new_row.append(float(row[14]))
+        new_row.append(float(row[15]))
+        new_row.append(float(row[16]))
+        new_row.append(float(row[17]))
+        new_row.append(float((row[18]).replace("\r\n", "")))
 
     result.append(new_row)
 f.close()

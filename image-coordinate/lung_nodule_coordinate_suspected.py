@@ -5,6 +5,7 @@ csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
 statistics_original_file = os.path.join(csv_path, "statistics_original.csv")
 statistics_cmp_file = os.path.join(csv_path, "statistics_cmp.csv")
 statistics_file = os.path.join(csv_path, "statistics.csv")
+statistics_MSE_file = os.path.join(csv_path, "statistics_MSE.csv")
 
 ########################################################################################################################
 csvCmpRows = []
@@ -52,6 +53,26 @@ def csv_row(seriesuid, avg_error, avg_error_ratio, coordX_error, coordY_error, c
     csvRows.append(new_row)
 
 
+csvMSERows = []
+
+
+def csv_MSE_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm):
+    new_row = []
+
+    new_row.append(seriesuid)
+
+    new_row.append(abs(float(true_coordX)))
+    new_row.append(abs(float(true_coordY)))
+    new_row.append(abs(float(true_coordZ)))
+    new_row.append(abs(float(true_diameter_mm)))
+
+    new_row.append(abs(float(pred_coordX)))
+    new_row.append(abs(float(pred_coordY)))
+    new_row.append(abs(float(pred_coordZ)))
+    new_row.append(abs(float(pred_diameter_mm)))
+
+    csvMSERows.append(new_row)
+
 ########################################################################################################################
 
 # Read the statistics_original.csv in (skipping first row).
@@ -67,6 +88,8 @@ csvFileObj.close()
 csv_cmp_row("seriesuid", "true_coordX", "true_coordY", "true_coordZ", "true_diameter_mm", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm")
 
 csv_row("seriesuid", "avg_error", "avg_error_ratio", "coordX-error", "coordY-error", "coordZ-error", "diameter_mm-error", "X_error_ratio", "Y_error_ratio", "Z_error_ratio", "diam_error_ratio")
+
+csv_MSE_row("seriesuid", "true_coordX", "true_coordY", "true_coordZ", "true_diameter_mm", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm")
 
 last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = "", "", "", "", ""
 for stat_row in stat_csvRows:
@@ -101,11 +124,12 @@ for stat_row in stat_csvRows:
     if condition_1 or condition_2:
         csv_cmp_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
         csv_row(seriesuid, avg_error, avg_error_ratio, coordX_error, coordY_error, coordZ_error, diameter_mm_error, X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
+        csv_MSE_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
 
     last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm
 
 
-# Write out the statistics file.
+# Write out the statistics_cmp.csv file.
 print(statistics_cmp_file)
 csvCmpFileObj = open(statistics_cmp_file, 'w')
 csvCmpWriter = csv.writer(csvCmpFileObj)
@@ -114,11 +138,20 @@ for row in csvCmpRows:
     csvCmpWriter.writerow(row)
 csvFileObj.close()
 
-# Write out the statistics file.
+# Write out the statistics.csv file.
 print(statistics_file)
 csvFileObj = open(statistics_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvRows:
     # print row
     csvWriter.writerow(row)
+csvFileObj.close()
+
+# Write out the statistics_MSE.csv file.
+print(statistics_MSE_file)
+csvMSEFileObj = open(statistics_MSE_file, 'w')
+csvMSEWriter = csv.writer(csvMSEFileObj)
+for row in csvMSERows:
+    # print row
+    csvMSEWriter.writerow(row)
 csvFileObj.close()

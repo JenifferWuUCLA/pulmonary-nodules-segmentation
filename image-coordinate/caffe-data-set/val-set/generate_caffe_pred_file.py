@@ -58,7 +58,7 @@ def is_nodule(X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
     nodule_class = 0
     # print float(avg_error)
     # print float(avg_error) >= 10
-    if float(X_error_ratio) <= 0.1 and float(Y_error_ratio) <= 0.1 and float(Z_error_ratio) <= 0.1 and float(diam_error_ratio) <= 0.1:
+    if abs(float(X_error_ratio)) <= 0.1 and abs(float(Y_error_ratio)) <= 0.1 and abs(float(Z_error_ratio)) <= 0.1 and abs(float(diam_error_ratio)) <= 0.1:
         nodule_class = 1
     return nodule_class
 

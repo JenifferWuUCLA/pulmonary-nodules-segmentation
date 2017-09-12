@@ -76,15 +76,16 @@ csvFileObj.close()
 def get_prediction_error(images_name, coordX, coordY, coordZ, diameter_mm):
     for stat_row in stat_csvRows:
         seriesuid = stat_row[0]
-        pred_coordX = stat_row[5]
-        pred_coordY = stat_row[6]
-        pred_coordZ = stat_row[7]
-        pred_diameter_mm = stat_row[8]
 
-        X_error_ratio = stat_row[15]
-        Y_error_ratio = stat_row[16]
-        Z_error_ratio = stat_row[17]
-        diam_error_ratio = stat_row[18]
+        pred_coordX = stat_row[15]
+        pred_coordY = stat_row[16]
+        pred_coordZ = stat_row[17]
+        pred_diameter_mm = stat_row[18]
+
+        X_error_ratio = stat_row[11]
+        Y_error_ratio = stat_row[12]
+        Z_error_ratio = stat_row[13]
+        diam_error_ratio = stat_row[14]
 
         if seriesuid == images_name and pred_coordX == coordX and pred_coordY == coordY and pred_coordZ == coordZ and pred_diameter_mm == diameter_mm:
             return X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio

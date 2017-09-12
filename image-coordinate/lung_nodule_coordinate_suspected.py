@@ -69,7 +69,6 @@ csv_cmp_row("seriesuid", "true_coordX", "true_coordY", "true_coordZ", "true_diam
 csv_row("seriesuid", "avg_error", "avg_error_ratio", "coordX-error", "coordY-error", "coordZ-error", "diameter_mm-error", "X_error_ratio", "Y_error_ratio", "Z_error_ratio", "diam_error_ratio")
 
 last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = "", "", "", "", ""
-last_pred_coordX, last_pred_coordY, last_pred_coordZ, last_pred_diameter_mm = "", "", "", ""
 for stat_row in stat_csvRows:
     seriesuid = stat_row[0]
 
@@ -78,34 +77,32 @@ for stat_row in stat_csvRows:
     true_coordZ = stat_row[3]
     true_diameter_mm = stat_row[4]
 
-    pred_coordX = stat_row[5]
-    pred_coordY = stat_row[6]
-    pred_coordZ = stat_row[7]
-    pred_diameter_mm = stat_row[8]
+    avg_error = stat_row[5]
+    avg_error_ratio = stat_row[6]
 
-    avg_error = stat_row[9]
-    avg_error_ratio = stat_row[10]
+    coordX_error = stat_row[7]
+    coordY_error = stat_row[8]
+    coordZ_error = stat_row[9]
+    diameter_mm_error = stat_row[10]
 
-    coordX_error = stat_row[11]
-    coordY_error = stat_row[12]
-    coordZ_error = stat_row[13]
-    diameter_mm_error = stat_row[14]
+    X_error_ratio = stat_row[11]
+    Y_error_ratio = stat_row[12]
+    Z_error_ratio = stat_row[13]
+    diam_error_ratio = stat_row[14]
 
-    X_error_ratio = stat_row[15]
-    Y_error_ratio = stat_row[16]
-    Z_error_ratio = stat_row[17]
-    diam_error_ratio = stat_row[18]
+    pred_coordX = stat_row[15]
+    pred_coordY = stat_row[16]
+    pred_coordZ = stat_row[17]
+    pred_diameter_mm = stat_row[18]
 
     condition_1 = (seriesuid != last_seriesuid)
     condition_2 = (true_coordX != last_true_coordX) or (true_coordY != last_true_coordY) or (true_coordZ != last_true_coordZ) or (true_diameter_mm != last_true_diameter_mm)
-    condition_3 = (pred_coordX != last_pred_coordX) or (pred_coordY != last_pred_coordY) or (pred_coordZ != last_pred_coordZ) or (pred_diameter_mm != last_pred_diameter_mm)
 
-    if condition_1 or condition_2 or condition_3:
+    if condition_1 or condition_2:
         csv_cmp_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
         csv_row(seriesuid, avg_error, avg_error_ratio, coordX_error, coordY_error, coordZ_error, diameter_mm_error, X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
 
     last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm
-    last_pred_coordX, last_pred_coordY, last_pred_coordZ, last_pred_diameter_mm = pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm
 
 
 # Write out the statistics file.

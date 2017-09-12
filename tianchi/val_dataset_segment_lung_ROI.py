@@ -196,7 +196,7 @@ for fname in val_images:
             max = np.max(slice)
             slice = slice / (max - min)
 
-            nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
+            nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
             nodule_mask[nodule_mask < 0.5] = 0
             nodule_mask[nodule_mask > 0.5] = 1
             nodule_mask = nodule_mask.astype('int8')

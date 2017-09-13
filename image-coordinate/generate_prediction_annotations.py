@@ -3,8 +3,8 @@ import csv, os
 csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 statistics_sign_file = os.path.join(csv_path, "statistics_sign.csv")
-statistics_annotations_file = os.path.join(csv_path, "test_annotations.csv")
-statistics_error_ratio_file = os.path.join(csv_path, "statistics_error_ratios.csv")
+test_annotations_file = os.path.join(csv_path, "test_annotations.csv")
+statistics_error_ratios_file = os.path.join(csv_path, "statistics_error_ratios.csv")
 
 ########################################################################################################################
 csvAnnotationsRows = []
@@ -100,18 +100,18 @@ for stat_row in stat_csvRows:
 
     last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm
 
-# Write out the statistics_annotations.csv file.
-print(statistics_annotations_file)
-csvFileObj = open(statistics_annotations_file, 'w')
+# Write out the test_annotations.csv file.
+print(test_annotations_file)
+csvFileObj = open(test_annotations_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvAnnotationsRows:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()
 
-# Write out the statistics_annotations.csv file.
-print(statistics_error_ratio_file)
-csvFileObj = open(statistics_error_ratio_file, 'w')
+# Write out the statistics_error_ratios.csv file.
+print(statistics_error_ratios_file)
+csvFileObj = open(statistics_error_ratios_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvRows:
     # print row

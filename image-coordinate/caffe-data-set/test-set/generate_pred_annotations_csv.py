@@ -60,7 +60,7 @@ def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm, X_error_ratio, Y_err
 
 csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
-statistics_original_file = os.path.join(csv_path, "statistics_original.csv")
+statistics_original_file = os.path.join(csv_path, "statistics_error_ratios.csv")
 
 # Read the statistics_original.csv in (skipping first row).
 stat_csvRows = []
@@ -77,15 +77,15 @@ def get_prediction_error(images_name, coordX, coordY, coordZ, diameter_mm):
     for stat_row in stat_csvRows:
         seriesuid = stat_row[0]
 
-        pred_coordX = stat_row[15]
-        pred_coordY = stat_row[16]
-        pred_coordZ = stat_row[17]
-        pred_diameter_mm = stat_row[18]
+        pred_coordX = stat_row[1]
+        pred_coordY = stat_row[2]
+        pred_coordZ = stat_row[3]
+        pred_diameter_mm = stat_row[4]
 
-        X_error_ratio = stat_row[11]
-        Y_error_ratio = stat_row[12]
-        Z_error_ratio = stat_row[13]
-        diam_error_ratio = stat_row[14]
+        X_error_ratio = stat_row[5]
+        Y_error_ratio = stat_row[6]
+        Z_error_ratio = stat_row[7]
+        diam_error_ratio = stat_row[8]
 
         if seriesuid == images_name and pred_coordX == coordX and pred_coordY == coordY and pred_coordZ == coordZ and pred_diameter_mm == diameter_mm:
             return X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio

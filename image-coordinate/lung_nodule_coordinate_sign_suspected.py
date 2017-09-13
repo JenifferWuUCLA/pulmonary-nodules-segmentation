@@ -4,8 +4,8 @@ csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 statistics_sign_file = os.path.join(csv_path, "statistics_sign.csv")
 statistics_cmp_file = os.path.join(csv_path, "statistics_tianchi.csv")
-statistics_file = os.path.join(csv_path, "statistics_error_curve.csv")
-statistics_MSE_file = os.path.join(csv_path, "statistics_MSE_curve.csv")
+statistics_file = os.path.join(csv_path, "statistics_sign_error.csv")
+statistics_MSE_file = os.path.join(csv_path, "statistics_sign_MSE.csv")
 
 ########################################################################################################################
 csvCmpRows = []

@@ -17,7 +17,7 @@ csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 # statistics_file = os.path.join(csv_path, "statistics_cmp.csv")
 # statistics_file = os.path.join(csv_path, "statistics_MSE.csv")
-statistics_file = os.path.join(csv_path, "statistics_MSE_curve.csv")
+statistics_file = os.path.join(csv_path, "statistics_sign_MSE.csv")
 
 headers = ['seriesuid', 'true_coordX', 'true_coordY', 'true_coordZ', 'true_diameter_mm', 'pred_coordX', 'pred_coordY',
            "pred_coordZ", "pred_diameter_mm"]

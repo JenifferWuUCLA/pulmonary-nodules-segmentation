@@ -14,7 +14,7 @@ plt.rcParams['image.cmap'] = 'gray'  # use grayscale output rather than a (poten
 csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 # statistics_file = os.path.join(csv_path, "statistics.csv")
-statistics_file = os.path.join(csv_path, "statistics_error_curve.csv")
+statistics_file = os.path.join(csv_path, "statistics_sign_error.csv")
 
 headers = ['seriesuid', 'avg_error', 'avg_error_ratio', 'coordX-error', 'coordY-error', 'coordZ-error', 'diameter_mm-error', 'X_error_ratio', 'Y_error_ratio', 'Z_error_ratio', 'diam_error_ratio']
 df = pd.read_csv(statistics_file, names=headers)

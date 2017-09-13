@@ -65,14 +65,14 @@ def csv_MSE_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_
     new_row.append(seriesuid)
 
     if seriesuid != "seriesuid":
-        true_coordX = abs(float(true_coordX))
-        true_coordY = abs(float(true_coordY))
-        true_coordZ = abs(float(true_coordZ))
-        true_diameter_mm = abs(float(true_diameter_mm))
-        pred_coordX = abs(float(pred_coordX))
-        pred_coordY = abs(float(pred_coordY))
-        pred_coordZ = abs(float(pred_coordZ))
-        pred_diameter_mm = abs(float(pred_diameter_mm))
+        true_coordX = float(true_coordX)
+        true_coordY = float(true_coordY)
+        true_coordZ = float(true_coordZ)
+        true_diameter_mm = float(true_diameter_mm)
+        pred_coordX = float(pred_coordX)
+        pred_coordY = float(pred_coordY)
+        pred_coordZ = float(pred_coordZ)
+        pred_diameter_mm = float(pred_diameter_mm)
 
     new_row.append(true_coordX)
     new_row.append(true_coordY)

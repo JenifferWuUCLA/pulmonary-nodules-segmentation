@@ -19,13 +19,13 @@ except:
 #
 # Getting list of image files
 subset = "val_subset_all/"
-# subset = "subset0/"
+# subset = "data_set/val/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
 tianchi_subset_path = tianchi_path + subset
 
 output_path = "/home/ucla/Downloads/Caffe_CNN_Data/csv/pred/"
-# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/csv/train/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/csv/pred/"
 
 file_list = glob(tianchi_subset_path + "*.mhd")
 
@@ -74,6 +74,8 @@ csvFileObj.close()
 
 
 def get_prediction_error(images_name, coordX, coordY, coordZ, diameter_mm):
+    # print("images_name, coordX, coordY, coordZ, diameter_mm: ")
+    # print(images_name, coordX, coordY, coordZ, diameter_mm)
     for stat_row in stat_csvRows:
         seriesuid = stat_row[0]
 
@@ -88,6 +90,8 @@ def get_prediction_error(images_name, coordX, coordY, coordZ, diameter_mm):
         diam_error_ratio = stat_row[8]
 
         if seriesuid == images_name and pred_coordX == coordX and pred_coordY == coordY and pred_coordZ == coordZ and pred_diameter_mm == diameter_mm:
+            # print("X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio: ")
+            # print(X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
             return X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio
 
 
@@ -127,6 +131,7 @@ for fcount, img_file in enumerate(tqdm(file_list)):
         origin = np.array(itk_img.GetOrigin())  # x,y,z  Origin in world coordinates (mm)
         spacing = np.array(itk_img.GetSpacing())  # spacing of voxels in world coor. (mm)
         # go through all nodes (why just the biggest?)
+        # print(mini_df)
         for node_idx, cur_row in mini_df.iterrows():
             node_x = cur_row["coordX"]
             node_y = cur_row["coordY"]
@@ -138,8 +143,9 @@ for fcount, img_file in enumerate(tqdm(file_list)):
             # print("images_%04d_%04d.npy" % (fcount, node_idx))
             # print("masks_%04d_%04d.npy" % (fcount, node_idx))
             images_name = "nodule_images_%s" % (cur_row["seriesuid"])
+            # print("images_name: %s" % images_name)
             X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio = get_prediction_error(cur_row["seriesuid"], node_x, node_y, node_z, diam)
-            print("X_error_ratio: %s, Y_error_ratio: %s, Z_error_ratio: %s, diam_error_ratio: %s: " % (X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio))
+            # print("X_error_ratio: %s, Y_error_ratio: %s, Z_error_ratio: %s, diam_error_ratio: %s: " % (X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio))
             # for i in range(3):
             csv_row("pred/" + images_name, node_x, node_y, node_z, diam, X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
 

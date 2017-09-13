@@ -89,7 +89,11 @@ def get_prediction_error(images_name, coordX, coordY, coordZ, diameter_mm):
         Z_error_ratio = stat_row[7]
         diam_error_ratio = stat_row[8]
 
-        if seriesuid == images_name and pred_coordX == coordX and pred_coordY == coordY and pred_coordZ == coordZ and pred_diameter_mm == diameter_mm:
+        if seriesuid == images_name \
+                and abs(float(pred_coordX) - float(coordX)) < 1e-9 \
+                and abs(float(pred_coordY) - float(coordY)) < 1e-9 \
+                and abs(float(pred_coordZ) - float(coordZ)) < 1e-9 \
+                and abs(float(pred_diameter_mm) - float(diameter_mm)) < 1e-9:
             # print("X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio: ")
             # print(X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
             return X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio
@@ -142,12 +146,12 @@ for fcount, img_file in enumerate(tqdm(file_list)):
             v_center = np.rint((center - origin) / spacing)  # nodule center in voxel space (still x,y,z ordering)
             # print("images_%04d_%04d.npy" % (fcount, node_idx))
             # print("masks_%04d_%04d.npy" % (fcount, node_idx))
-            images_name = "nodule_images_%s" % (cur_row["seriesuid"])
+            images_name = "nodule_images_%s_%s" % (cur_row["seriesuid"], int(v_center[2]))
             # print("images_name: %s" % images_name)
             X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio = get_prediction_error(cur_row["seriesuid"], node_x, node_y, node_z, diam)
             # print("X_error_ratio: %s, Y_error_ratio: %s, Z_error_ratio: %s, diam_error_ratio: %s: " % (X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio))
-            # for i in range(3):
-            csv_row("pred/" + images_name, node_x, node_y, node_z, diam, X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
+            for i in range(3):
+                csv_row("pred/" + images_name + "_" + str(i), node_x, node_y, node_z, diam, X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
 
 # Re-Write out the annotations.txt CSV file.
 csvFileObj = open(os.path.join(output_path, "annotations.csv"), 'w')

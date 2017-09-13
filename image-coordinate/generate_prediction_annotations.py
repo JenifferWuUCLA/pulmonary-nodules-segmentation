@@ -57,7 +57,7 @@ for row in readerObj:
     stat_csvRows.append(row)
 csvFileObj.close()
 
-csv_annotations_row("seriesuid", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm")
+csv_annotations_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
 
 csv_error_ratios_row("seriesuid", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm", "X_error_ratio", "Y_error_ratio",
         "Z_error_ratio", "diam_error_ratio")

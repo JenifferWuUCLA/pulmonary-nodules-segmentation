@@ -98,7 +98,7 @@ for fcount, img_file in enumerate(tqdm(file_list)):
             v_center = np.rint((center - origin) / spacing)  # nodule center in voxel space (still x,y,z ordering)
             # print("images_%04d_%04d.npy" % (fcount, node_idx))
             # print("masks_%04d_%04d.npy" % (fcount, node_idx))
-            images_name = "nodule_images_%s_%s.npy" % (cur_row["seriesuid"], int(v_center[2]))
+            images_name = "nodule_images_%s_%s" % (cur_row["seriesuid"], int(v_center[2]))
             for i in range(3):
                 csv_row("val/" + images_name + "_" + str(i), node_x, node_y, node_z, diam)
 

@@ -74,7 +74,7 @@ Returns uint16 version
 
 
 ############
-test_data_path = os.path.join(tianchi_path, "test")
+test_data_path = os.path.join(tianchi_path, subset)
 test_images = glob(test_data_path + "*.mhd")
 
 tmp_workspace = os.path.join(output_path, "test/")

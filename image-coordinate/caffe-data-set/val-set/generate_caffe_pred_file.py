@@ -33,11 +33,11 @@ def csv_row(seriesuid, nodule_class):
     val_dir, image_file, image_path = "", "", ""
     if nodule_class == 0:
         # val_dir = "n01440010/"
-        image_file = "PULMONARY_NODULES_val" + re_series_uid + ".jpg"
+        image_file = "PULMONARY_NODULES_pred" + re_series_uid + ".jpg"
         image_path = val_dir + image_file
     elif nodule_class == 1:
         # val_dir = "n01440011/"
-        image_file = "PULMONARY_NODULES_val" + re_series_uid + ".jpg"
+        image_file = "PULMONARY_NODULES_pred" + re_series_uid + ".jpg"
         image_path = val_dir + image_file
     new_row.append(image_path)
     # new_row.append(diameter_mm)

@@ -72,7 +72,7 @@ for stat_row in stat_csvRows:
     pred_coordX = float(stat_row[5])
     pred_coordY = float(stat_row[6])
     pred_coordZ = float(stat_row[7])
-    pred_diameter_mm = float(stat_row[8])
+    pred_diameter_mm = true_diameter_mm
 
     coordZ_error = abs(true_coordZ - pred_coordZ)
     diameter_mm_error = abs(true_diameter_mm - pred_diameter_mm)

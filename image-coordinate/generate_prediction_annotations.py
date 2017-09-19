@@ -10,7 +10,7 @@ statistics_error_ratios_file = os.path.join(csv_path, "statistics_error_ratios.c
 csvAnnotationsRows = []
 
 
-def csv_annotations_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm):
+def csv_annotations_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, true_diameter_mm):
     new_row = []
 
     new_row.append(seriesuid)
@@ -18,7 +18,7 @@ def csv_annotations_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_d
     new_row.append(pred_coordX)
     new_row.append(pred_coordY)
     new_row.append(pred_coordZ)
-    new_row.append(pred_diameter_mm)
+    new_row.append(true_diameter_mm)
 
     csvAnnotationsRows.append(new_row)
 
@@ -94,7 +94,7 @@ for stat_row in stat_csvRows:
         true_coordZ != last_true_coordZ) or (true_diameter_mm != last_true_diameter_mm)
 
     if condition_1 or condition_2:
-        csv_annotations_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
+        csv_annotations_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, true_diameter_mm)
         csv_error_ratios_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm,
                 X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
 

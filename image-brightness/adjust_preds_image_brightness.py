@@ -2,7 +2,7 @@ import cv2
 from glob import glob
 import os
 
-# out_subset = "server-test-3D/"
+# out_subset = "z-nerve/"
 output_path = "/home/ucla/Downloads/tianchi-2D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 

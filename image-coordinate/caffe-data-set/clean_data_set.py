@@ -63,8 +63,8 @@ for img_file in nodule_images:
     # print("cnts: ")
     # print(cnts)
     if len(cnts) == 0:
-        # shutil.move(img_file, data_clean_path)
-        shutil.copy(img_file, data_clean_path)
+        shutil.move(img_file, data_clean_path)
+        # shutil.copy(img_file, data_clean_path)
         csv_row(o_image_name, cnts)
 
 # Write out the nodule_cnts CSV file.

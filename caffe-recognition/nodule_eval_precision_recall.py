@@ -7,6 +7,8 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import roc_curve, auc
+import matplotlib.pyplot as plt
 
 
 # 1. Setup
@@ -78,16 +80,30 @@ target_names = ['It is not a real lung nodule.', 'It is a real lung nodule.']
 print(classification_report(groundTruths, predictions, target_names=target_names))
 
 # estimate precision and recall of the Caffe model
-precision_score(groundTruths, predictions, average='macro') 
-precision_score(groundTruths, predictions, average='micro') 
-precision_score(groundTruths, predictions, average='weighted') 
-precision_score(groundTruths, predictions, average=None) 
+print(precision_score(groundTruths, predictions, average='macro'))
+print(precision_score(groundTruths, predictions, average='micro'))
+print(precision_score(groundTruths, predictions, average='weighted'))
+print(precision_score(groundTruths, predictions, average=None))
 
-recall_score(groundTruths, predictions, average='macro')  
-recall_score(groundTruths, predictions, average='micro')  
-recall_score(groundTruths, predictions, average='weighted')  
-recall_score(groundTruths, predictions, average=None)  
+print(recall_score(groundTruths, predictions, average='macro'))
+print(recall_score(groundTruths, predictions, average='micro'))
+print(recall_score(groundTruths, predictions, average='weighted'))
+print(recall_score(groundTruths, predictions, average=None))
 
-precision_recall_fscore_support(groundTruths, predictions, average='macro')
-precision_recall_fscore_support(groundTruths, predictions, average='micro')
-precision_recall_fscore_support(groundTruths, predictions, average='weighted')
+print(precision_recall_fscore_support(groundTruths, predictions, average='macro'))
+print(precision_recall_fscore_support(groundTruths, predictions, average='micro'))
+print(precision_recall_fscore_support(groundTruths, predictions, average='weighted'))
+
+# plot a Receiver Operating Characteristic (ROC) Curve
+false_positive_rate, true_positive_rate, thresholds = roc_curve(groundTruths, predictions)
+roc_auc = auc(false_positive_rate, true_positive_rate)
+
+plt.title('Receiver Operating Characteristic')
+plt.plot(false_positive_rate, true_positive_rate, 'b', label='AUC = %0.2f' % roc_auc)
+plt.legend(loc='lower right')
+plt.plot([0, 1], [0, 1], 'r--')
+plt.xlim([-0.1, 1.2])
+plt.ylim([-0.1, 1.2])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()

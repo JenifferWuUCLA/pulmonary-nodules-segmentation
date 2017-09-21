@@ -89,7 +89,7 @@ csv_cmp_row("seriesuid", "true_coordX", "true_coordY", "true_coordZ", "true_diam
 
 csv_row("seriesuid", "avg_error", "avg_error_ratio", "coordX-error", "coordY-error", "coordZ-error", "diameter_mm-error", "X_error_ratio", "Y_error_ratio", "Z_error_ratio", "diam_error_ratio")
 
-csv_MSE_row("seriesuid", "true_coordX", "true_coordY", "true_coordZ", "true_diameter_mm", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm")
+# csv_MSE_row("seriesuid", "true_coordX", "true_coordY", "true_coordZ", "true_diameter_mm", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm")
 
 last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = "", "", "", "", ""
 for stat_row in stat_csvRows:
@@ -103,15 +103,15 @@ for stat_row in stat_csvRows:
     avg_error = stat_row[5]
     avg_error_ratio = stat_row[6]
 
-    coordX_error = stat_row[7]
-    coordY_error = stat_row[8]
-    coordZ_error = stat_row[9]
-    diameter_mm_error = stat_row[10]
+    coordX_error = stat_row[9]
+    coordY_error = stat_row[7]
+    coordZ_error = stat_row[10]
+    diameter_mm_error = stat_row[8]
 
-    X_error_ratio = stat_row[11]
-    Y_error_ratio = stat_row[12]
-    Z_error_ratio = stat_row[13]
-    diam_error_ratio = stat_row[14]
+    X_error_ratio = stat_row[13]
+    Y_error_ratio = stat_row[11]
+    Z_error_ratio = stat_row[14]
+    diam_error_ratio = stat_row[12]
 
     pred_coordX = stat_row[15]
     pred_coordY = stat_row[16]

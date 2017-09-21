@@ -26,15 +26,15 @@ def csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
     new_row.append(avg_error)
     new_row.append(avg_error_ratio)
 
-    new_row.append(coordX_error)
     new_row.append(coordY_error)
-    new_row.append(coordZ_error)
     new_row.append(diameter_mm_error)
+    new_row.append(coordX_error)
+    new_row.append(coordZ_error)
 
-    new_row.append(X_error_ratio)
     new_row.append(Y_error_ratio)
-    new_row.append(Z_error_ratio)
     new_row.append(diam_error_ratio)
+    new_row.append(X_error_ratio)
+    new_row.append(Z_error_ratio)
 
     new_row.append(pred_coordX)
     new_row.append(pred_coordY)
@@ -72,7 +72,7 @@ for stat_row in stat_csvRows:
     pred_coordX = float(stat_row[5])
     pred_coordY = float(stat_row[6])
     pred_coordZ = float(stat_row[7])
-    pred_diameter_mm = true_diameter_mm
+    pred_diameter_mm = float(stat_row[8])
 
     coordZ_error = abs(true_coordZ - pred_coordZ)
     diameter_mm_error = abs(true_diameter_mm - pred_diameter_mm)

@@ -32,9 +32,9 @@ output_path = "/home/ucla/Downloads/tianchi-Unet/"
 csvRows = []
 
 
-def csv_row(index, seriesuid, imgs_mask_val):
+def csv_row(seriesuid, imgs_mask_val):
     new_row = []
-    new_row.append(index)
+    # new_row.append(index)
     new_row.append(seriesuid)
     new_row.append(imgs_mask_val)
     csvRows.append(new_row)
@@ -192,12 +192,12 @@ class Alibaba_tianchi(object):
         np.save(os.path.join(self.tmp_workspace, "valImages.npy"), final_images[rand_i[:]])
         np.save(os.path.join(self.tmp_workspace, "valMasks.npy"), final_masks[rand_i[:]])
 
-        csv_row("index", "seriesuid", "pred_image")
+        csv_row("seriesuid", "pred_image")
         for i in range(num_images):
             index = rand_i[i]
             seriesuid = seriesuids[index]
             imgs_mask_test = 'imgs_mask_test_%04d.npy' % (i)
-            csv_row(index, seriesuid, imgs_mask_test)
+            csv_row(seriesuid, imgs_mask_test)
 
         # Write out the imgs_mask_val_coordinate CSV file.
         pred_image_file = "seriesuid_pred_image.csv"

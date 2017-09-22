@@ -1,20 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-
-"""
-@version: python 2.7
-@author: Jeniffer Wu
-@license: Apache Licence 
-@contact: yywu@szucla.org
-@file: test_dataset_preprocessing_2DUnet.py
-@time: 2017/6/30 12:24
-"""
 from __future__ import print_function, division
 import SimpleITK as sitk
 import scipy.ndimage
 import numpy as np
-import csv
 import cv2
 import os
 from glob import glob
@@ -33,7 +23,7 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_subset_path = tianchi_path + subset
 
 # out_subset = "nerve-mine-2D"
-output_path = "/home/ucla/Downloads/tianchi-2D/"
+output_path = "/home/ucla/Downloads/tianchi-Unet/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/"
 
 ###################################################################################
@@ -159,31 +149,31 @@ class Alibaba_tianchi(object):
                     i_z = int(v_nodule_center[2])
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
-                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
+                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
                     nodule_mask[nodule_mask < 0.5] = 0
                     nodule_mask[nodule_mask > 0.5] = 1
                     nodule_mask = nodule_mask.astype('int8')
+
                     slice = img_array[i_z]
-                    slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')
+                    slice = scipy.ndimage.interpolation.zoom(slice, [0.5, 0.5], mode='nearest')
                     slice = 255.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
-
-                    nodule_mask = 255.0 * nodule_mask
-                    nodule_mask = nodule_mask.astype(np.uint8)
 
                     out_images.append(slice)
                     out_nodemasks.append(nodule_mask)
                     seriesuids.append(cur_row["seriesuid"])
 
-                    np.save(os.path.join(self.tmp_workspace, "images_%s_%04d_%04d_%04d.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)), slice)
-                    np.save(os.path.join(self.tmp_workspace, "masks_%s_%04d_%04d_%04d_o.npy" % (cur_row["seriesuid"], fcount, node_idx, i_z)), nodule_mask)
+                    np.save(os.path.join(self.tmp_workspace, "images_%s_%s.npy" % (cur_row["seriesuid"], i_z)), slice)
+                    np.save(os.path.join(self.tmp_workspace, "masks_%s_%s.npy" % (cur_row["seriesuid"], i_z)), nodule_mask)
 
                     # ===================================
                     # ---以下代码是生成图片来观察分割是否有问题的
+                    nodule_mask = 255.0 * nodule_mask
+                    nodule_mask = nodule_mask.astype(np.uint8)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%04d_%04d_%04d.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), slice)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%s.jpg" % (cur_row["seriesuid"], i_z)), slice)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%s_%04d_%04d_%04d_o.jpg" % (cur_row["seriesuid"], fcount, node_idx, i_z)), nodule_mask)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%s_%s.jpg" % (cur_row["seriesuid"], i_z)), nodule_mask)
 
         num_images = len(out_images)
         #
@@ -200,23 +190,6 @@ class Alibaba_tianchi(object):
 
         np.save(os.path.join(self.tmp_workspace, "testImages.npy"), final_images[rand_i[:]])
         np.save(os.path.join(self.tmp_workspace, "testMasks.npy"), final_masks[rand_i[:]])
-
-        csv_row("index", "seriesuid", "pred_image")
-        for i in range(num_images):
-            index = rand_i[i]
-            seriesuid = seriesuids[index]
-            imgs_mask_test = 'imgs_mask_test_%04d.npy' % (i)
-            csv_row(index, seriesuid, imgs_mask_test)
-
-        # Write out the imgs_mask_val_coordinate CSV file.
-        pred_image_file = "seriesuid_pred_image.csv"
-        print(os.path.join(output_path, pred_image_file))
-        csvFileObj = open(os.path.join(output_path, pred_image_file), 'w')
-        csvWriter = csv.writer(csvFileObj)
-        for row in csvRows:
-            # print row
-            csvWriter.writerow(row)
-        csvFileObj.close()
 
 
 if __name__ == '__main__':

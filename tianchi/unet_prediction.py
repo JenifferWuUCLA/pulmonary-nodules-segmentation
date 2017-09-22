@@ -10,7 +10,7 @@ import cv2
 
 
 # subset = "server-test-2D/"
-output_path = "/home/ucla/Downloads/tianchi-2D/"
+output_path = "/home/ucla/Downloads/tianchi-Unet/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
 

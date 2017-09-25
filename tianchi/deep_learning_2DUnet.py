@@ -23,6 +23,11 @@ img_cols = 512
 smooth = 1.
 
 
+# ########################################U-Net Segmentation Prediction IoU Start######################################
+def dice_coef_loss(y_true, y_pred):
+    return -dice_coef(y_true, y_pred)
+
+
 def dice_coef(y_true, y_pred):
     y_true_f = K.flatten(y_true)
     y_pred_f = K.flatten(y_pred)
@@ -37,8 +42,18 @@ def dice_coef_np(y_true, y_pred):
     return (2. * intersection + smooth) / (np.sum(y_true_f) + np.sum(y_pred_f) + smooth)
 
 
-def dice_coef_loss(y_true, y_pred):
-    return -dice_coef(y_true, y_pred)
+def computeIoU(y_true_batch, y_pred_batch):
+    return np.mean(np.asarray([pixelAccuracy(y_true_batch[i], y_pred_batch[i]) for i in range(len(y_true_batch))]))
+
+
+def pixelAccuracy(y_true, y_pred):
+    y_true = np.argmax(np.reshape(y_true, [img_rows, img_cols]), axis=0)
+    y_pred = np.argmax(np.reshape(y_pred, [img_rows, img_cols]), axis=0)
+    y_pred = y_pred * (y_true > 0)
+
+    return 1.0 * np.sum((y_pred == y_true) * (y_true > 0)) / np.sum(y_true > 0)
+
+# ########################################U-Net Segmentation Prediction IoU End######################################
 
 
 def get_unet():
@@ -149,11 +164,24 @@ def train_and_predict(use_existing):
         np.save(os.path.join(output_path + "preds/", 'imgs_mask_test_%04d.npy' % (i)), imgs_mask_test[i, 0])
         cv2.imwrite(os.path.join(output_path + "ROI/preds/", 'imgs_mask_test_%04d.jpg' % (i)), imgs_mask_test[i, 0])
 
+    print("====================================U-Net Segmentation Prediction IoU======================================")
+    mean = 0.0
+    for i in range(num_test):
+        mean += dice_coef_loss(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
+    mean /= num_test
+    print("Mean Dice Coeff Loss : ", mean)
+
     mean = 0.0
     for i in range(num_test):
         mean += dice_coef_np(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
     mean /= num_test
-    print("Mean Dice Coeff : ", mean)
+    print("Mean Dice Coeff NP : ", mean)
+
+    # mean = 0.0
+    # for i in range(num_test):
+    # mean += computeIoU(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
+    IoU = computeIoU(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
+    print("Intersection Over Union : ", IoU)
 
 
 if __name__ == '__main__':

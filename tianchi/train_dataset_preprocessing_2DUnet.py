@@ -23,7 +23,7 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
 # tianchi_subset_path = tianchi_path + subset
 
-# out_subset = "nerve-mine-2D"
+# out_subset = "z-nerve-Unet/"
 output_path = "/home/ucla/Downloads/tianchi-Unet/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
@@ -140,13 +140,13 @@ class Alibaba_tianchi(object):
                     i_z = int(v_nodule_center[2])
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
-                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
+                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
                     nodule_mask[nodule_mask < 0.5] = 0
                     nodule_mask[nodule_mask > 0.5] = 1
                     nodule_mask = nodule_mask.astype('int8')
 
                     slice = img_array[i_z]
-                    slice = scipy.ndimage.interpolation.zoom(slice, [0.5, 0.5], mode='nearest')
+                    slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')
                     slice = 255.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
 

@@ -151,16 +151,16 @@ class Alibaba_tianchi(object):
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
                     nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
-                    nodule_mask[nodule_mask < 1.0] = 0
-                    nodule_mask[nodule_mask > 1.0] = 1
+                    nodule_mask[nodule_mask < 0.5] = 0
+                    nodule_mask[nodule_mask > 0.5] = 1
                     nodule_mask = nodule_mask.astype('int8')
 
                     slice = img_array[i_z]
                     slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')
-                    slice = 510.0 * self.normalize(slice)
+                    slice = 255.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
 
-                    nodule_mask = 510.0 * nodule_mask
+                    nodule_mask = 255.0 * nodule_mask
                     nodule_mask = nodule_mask.astype(np.uint8)
 
                     out_images.append(slice)

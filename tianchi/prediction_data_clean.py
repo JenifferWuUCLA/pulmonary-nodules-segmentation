@@ -43,13 +43,14 @@ def csv_row(seriesuid, imgs_mask_val):
 
 
 ###################################################################################
+csv_row("seriesuid", "pred_image")
 
 val_images = glob(os.path.join(output_path, "val/images_*.npy"))
 for img_file in val_images:
     # I ran into an error when using Kmean on np.float16, so I'm using np.float64 here
     imgs_to_process = np.load(img_file).astype(np.float64)
     print("on val image: %s" % img_file)
-    o_image_name = img_file.replace(tmp_workspace, "").replace(".npy", "")
+    o_image_name = img_file.replace(tmp_workspace + "images_", "").replace(".npy", "")
     print("o_image_name: %s" % o_image_name)
 
     pred_image = image_file_name(o_image_name)

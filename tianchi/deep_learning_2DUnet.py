@@ -167,15 +167,9 @@ def train_and_predict(use_existing):
     print("====================================U-Net Segmentation Prediction IoU======================================")
     mean = 0.0
     for i in range(num_test):
-        mean += dice_coef_loss(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
-    mean /= num_test
-    print("Mean Dice Coeff Loss : ", mean)
-
-    mean = 0.0
-    for i in range(num_test):
         mean += dice_coef_np(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
     mean /= num_test
-    print("Mean Dice Coeff NP : ", mean)
+    print("Mean Dice Coeff : ", mean)
 
     # mean = 0.0
     # for i in range(num_test):

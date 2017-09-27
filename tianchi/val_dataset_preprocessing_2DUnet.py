@@ -10,6 +10,7 @@ import cv2
 import os
 from glob import glob
 import pandas as pd
+from skimage.transform import resize
 
 try:
     from tqdm import tqdm  # long waits are not fun
@@ -24,7 +25,7 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_subset_path = tianchi_path + subset
 
 # out_subset = "z-nerve/"
-output_path = "/home/ucla/Downloads/tianchi-Unet/"
+output_path = "/home/ucla/Downloads/tianchi-Segmentation/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 ###################################################################################
@@ -150,32 +151,35 @@ class Alibaba_tianchi(object):
                     i_z = int(v_nodule_center[2])
                     nodule_mask = self.make_mask(w_nodule_center, diam, i_z * spacing[2] + origin[2], width, height,
                                                  spacing, origin)
-                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
+                    nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [0.5, 0.5], mode='nearest')
                     nodule_mask[nodule_mask < 0.5] = 0
                     nodule_mask[nodule_mask > 0.5] = 1
                     nodule_mask = nodule_mask.astype('int8')
 
                     slice = img_array[i_z]
-                    slice = scipy.ndimage.interpolation.zoom(slice, [1.0, 1.0], mode='nearest')
+                    slice = scipy.ndimage.interpolation.zoom(slice, [0.5, 0.5], mode='nearest')
                     slice = 255.0 * self.normalize(slice)
                     slice = slice.astype(np.uint8)  # ---因为int16有点大，我们改成了uint8图（值域0~255）
 
                     nodule_mask = 255.0 * nodule_mask
                     nodule_mask = nodule_mask.astype(np.uint8)
 
-                    out_images.append(slice)
-                    out_nodemasks.append(nodule_mask)
+                    new_slice = resize(slice, [512, 512])
+                    new_nodule_mask = resize(nodule_mask, [512, 512])
+
+                    out_images.append(new_slice)
+                    out_nodemasks.append(new_nodule_mask)
                     seriesuids.append(cur_row["seriesuid"] + "_%s" % i_z)
 
-                    np.save(os.path.join(self.tmp_workspace, "images_%s_%s.npy" % (cur_row["seriesuid"], i_z)), slice)
-                    np.save(os.path.join(self.tmp_workspace, "masks_%s_%s.npy" % (cur_row["seriesuid"], i_z)), nodule_mask)
+                    np.save(os.path.join(self.tmp_workspace, "images_%s_%s.npy" % (cur_row["seriesuid"], i_z)), new_slice)
+                    np.save(os.path.join(self.tmp_workspace, "masks_%s_%s.npy" % (cur_row["seriesuid"], i_z)), new_nodule_mask)
 
                     # ===================================
                     # ---以下代码是生成图片来观察分割是否有问题的
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%s.jpg" % (cur_row["seriesuid"], i_z)), slice)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "images_%s_%s.jpg" % (cur_row["seriesuid"], i_z)), new_slice)
                     # print("cv2.imwrite(os.path.join(self.tmp_workspace, ")
-                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%s_%s.jpg" % (cur_row["seriesuid"], i_z)), nodule_mask)
+                    cv2.imwrite(os.path.join(self.tmp_jpg_workspace, "masks_%s_%s.jpg" % (cur_row["seriesuid"], i_z)), new_nodule_mask)
 
         num_images = len(out_images)
         #

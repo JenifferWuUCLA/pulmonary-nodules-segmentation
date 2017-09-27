@@ -52,8 +52,8 @@ def voxel_2_world(voxelCoord, origin, spacing):
 
 def image_file_name(image_name):
     # Read the annotations CSV file in (skipping first row).
-    if os.path.exists(os.path.join(output_path, "seriesuid_pred_image_clean.csv")):
-        csvFileObj = open(os.path.join(output_path, "seriesuid_pred_image_clean.csv"), 'r')
+    if os.path.exists(os.path.join(output_path, "seriesuid_pred_image.csv")):
+        csvFileObj = open(os.path.join(output_path, "seriesuid_pred_image.csv"), 'r')
         readerObj = csv.DictReader(csvFileObj)
         for row in readerObj:
             if readerObj.line_num == 1:

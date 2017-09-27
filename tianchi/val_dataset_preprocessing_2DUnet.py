@@ -23,9 +23,9 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
 # tianchi_subset_path = tianchi_path + subset
 
-# out_subset = "nerve-mine-2D"
+# out_subset = "z-nerve/"
 output_path = "/home/ucla/Downloads/tianchi-Unet/"
-# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/"
+# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 ###################################################################################
 
@@ -165,7 +165,7 @@ class Alibaba_tianchi(object):
 
                     out_images.append(slice)
                     out_nodemasks.append(nodule_mask)
-                    seriesuids.append(cur_row["seriesuid"])
+                    seriesuids.append(cur_row["seriesuid"] + "_%s" % i_z)
 
                     np.save(os.path.join(self.tmp_workspace, "images_%s_%s.npy" % (cur_row["seriesuid"], i_z)), slice)
                     np.save(os.path.join(self.tmp_workspace, "masks_%s_%s.npy" % (cur_row["seriesuid"], i_z)), nodule_mask)

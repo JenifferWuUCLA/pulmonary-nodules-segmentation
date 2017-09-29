@@ -106,8 +106,8 @@ for true_row in true_csvRows:
 
             csv_row(true_seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
                     avg_error, avg_error_ratio,
-                    coordX_error, coordY_error, coordZ_error, diameter_mm_error,
-                    X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio,
+                    coordX_error, coordY_error, coordZ_error,
+                    X_error_ratio, Y_error_ratio, Z_error_ratio, diameter_mm_error, diam_error_ratio,
                     pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
 
 # Write out the statistics file.

@@ -120,15 +120,15 @@ for stat_row in stat_csvRows:
     avg_error = stat_row[5]
     avg_error_ratio = stat_row[6]
 
-    coordX_error = stat_row[9]
-    coordY_error = stat_row[7]
-    coordZ_error = stat_row[10]
-    diameter_mm_error = stat_row[8]
+    coordX_error = stat_row[7]
+    coordY_error = stat_row[8]
+    coordZ_error = stat_row[9]
+    diameter_mm_error = stat_row[13]
 
-    X_error_ratio = stat_row[13]
+    X_error_ratio = stat_row[10]
     Y_error_ratio = stat_row[11]
-    Z_error_ratio = stat_row[14]
-    diam_error_ratio = stat_row[12]
+    Z_error_ratio = stat_row[12]
+    diam_error_ratio = stat_row[14]
 
     pred_coordX = stat_row[15]
     pred_coordY = stat_row[16]

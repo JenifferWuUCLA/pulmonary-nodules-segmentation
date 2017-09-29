@@ -26,6 +26,13 @@ coordY_error = df['coordY-error'].astype(float)
 coordZ_error = df['coordZ-error'].astype(float)
 diameter_mm_error = df['diameter_mm-error'].astype(float)
 
+'''
+coordX_error = df['X_error_ratio'].astype(float)
+coordY_error = df['Y_error_ratio'].astype(float)
+coordZ_error = df['Z_error_ratio'].astype(float)
+diameter_mm_error = df['diam_error_ratio'].astype(float)
+'''
+
 x = range(len(seriesuid))
 y_1 = coordX_error
 y_2 = coordY_error

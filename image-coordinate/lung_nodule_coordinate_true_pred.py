@@ -28,14 +28,15 @@ def csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
     new_row.append(avg_error_ratio)
 
     new_row.append(coordY_error)
-    new_row.append(diameter_mm_error)
     new_row.append(coordX_error)
     new_row.append(coordZ_error)
 
     new_row.append(Y_error_ratio)
-    new_row.append(diam_error_ratio)
     new_row.append(X_error_ratio)
     new_row.append(Z_error_ratio)
+
+    new_row.append(diameter_mm_error)
+    new_row.append(diam_error_ratio)
 
     new_row.append(pred_coordX)
     new_row.append(pred_coordY)
@@ -106,8 +107,8 @@ for true_row in true_csvRows:
 
             csv_row(true_seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
                     avg_error, avg_error_ratio,
-                    coordX_error, coordY_error, coordZ_error,
-                    X_error_ratio, Y_error_ratio, Z_error_ratio, diameter_mm_error, diam_error_ratio,
+                    coordX_error, coordY_error, coordZ_error, diameter_mm_error,
+                    X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio,
                     pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
 
 # Write out the statistics file.

@@ -123,11 +123,12 @@ for stat_row in stat_csvRows:
     coordX_error = stat_row[7]
     coordY_error = stat_row[8]
     coordZ_error = stat_row[9]
-    diameter_mm_error = stat_row[13]
 
     X_error_ratio = stat_row[10]
     Y_error_ratio = stat_row[11]
     Z_error_ratio = stat_row[12]
+
+    diameter_mm_error = stat_row[13]
     diam_error_ratio = stat_row[14]
 
     pred_coordX = stat_row[15]

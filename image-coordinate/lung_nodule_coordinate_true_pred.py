@@ -87,7 +87,7 @@ for true_row in true_csvRows:
         pred_coordX = pred_row[1]
         pred_coordY = pred_row[2]
         pred_coordZ = pred_row[3]
-        pred_diameter_mm = pred_row[4]
+        pred_diameter_mm = true_diameter_mm
         # print("Prediction value: ")
         # print(pred_seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
         if true_seriesuid == pred_seriesuid:

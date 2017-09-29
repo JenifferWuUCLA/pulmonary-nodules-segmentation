@@ -98,8 +98,8 @@ for stat_row in stat_csvRows:
     Y_error_ratio_negative = float(coordY_error_negative) / float(true_diameter_mm)
 
     # pred_coordX positive and pred_coordY positive
-    avg_error_pp = (float)((coordX_error_positive + coordY_error_positive + coordZ_error + diameter_mm_error) / 3)
-    avg_error_ratio_pp = (float)((X_error_ratio_positive + Y_error_ratio_positive + Z_error_ratio + diam_error_ratio) / 3)
+    avg_error_pp = (float)((coordX_error_positive + coordY_error_positive + coordZ_error) / 3)
+    avg_error_ratio_pp = (float)((X_error_ratio_positive + Y_error_ratio_positive + Z_error_ratio) / 3)
     csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
             avg_error_pp, avg_error_ratio_pp,
             coordX_error_positive, coordY_error_positive, coordZ_error, diameter_mm_error,
@@ -107,8 +107,8 @@ for stat_row in stat_csvRows:
             pred_coordX_positive, pred_coordY_positive, pred_coordZ, pred_diameter_mm)
 
     # pred_coordX positive and pred_coordY negative
-    avg_error_pn = (float)((coordX_error_positive + coordY_error_negative + coordZ_error + diameter_mm_error) / 3)
-    avg_error_ratio_pn = (float)((X_error_ratio_positive + Y_error_ratio_negative + Z_error_ratio + diam_error_ratio) / 3)
+    avg_error_pn = (float)((coordX_error_positive + coordY_error_negative + coordZ_error) / 3)
+    avg_error_ratio_pn = (float)((X_error_ratio_positive + Y_error_ratio_negative + Z_error_ratio) / 3)
     csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
             avg_error_pn, avg_error_ratio_pn,
             coordX_error_positive, coordY_error_negative, coordZ_error, diameter_mm_error,
@@ -116,8 +116,8 @@ for stat_row in stat_csvRows:
             pred_coordX_positive, pred_coordY_negative, pred_coordZ, pred_diameter_mm)
 
     # pred_coordX negative and pred_coordY positive
-    avg_error_np = (float)((coordX_error_negative + coordY_error_positive + coordZ_error + diameter_mm_error) / 3)
-    avg_error_ratio_np = (float)((X_error_ratio_negative + Y_error_ratio_positive + Z_error_ratio + diam_error_ratio) / 3)
+    avg_error_np = (float)((coordX_error_negative + coordY_error_positive + coordZ_error) / 3)
+    avg_error_ratio_np = (float)((X_error_ratio_negative + Y_error_ratio_positive + Z_error_ratio) / 3)
     csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
             avg_error_np, avg_error_ratio_np,
             coordX_error_negative, coordY_error_positive, coordZ_error, diameter_mm_error,
@@ -125,8 +125,8 @@ for stat_row in stat_csvRows:
             pred_coordX_negative, pred_coordY_positive, pred_coordZ, pred_diameter_mm)
 
     # pred_coordX negative and pred_coordY negative
-    avg_error_nn = (float)((coordX_error_negative + coordY_error_negative + coordZ_error + diameter_mm_error) / 3)
-    avg_error_ratio_nn = (float)((X_error_ratio_negative + Y_error_ratio_negative + Z_error_ratio + diam_error_ratio) / 3)
+    avg_error_nn = (float)((coordX_error_negative + coordY_error_negative + coordZ_error) / 3)
+    avg_error_ratio_nn = (float)((X_error_ratio_negative + Y_error_ratio_negative + Z_error_ratio) / 3)
     csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
             avg_error_nn, avg_error_ratio_nn,
             coordX_error_negative, coordY_error_negative, coordZ_error, diameter_mm_error,

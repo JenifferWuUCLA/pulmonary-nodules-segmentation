@@ -41,6 +41,44 @@ def dice_coef_np(y_true, y_pred):
     return (2. * intersection + smooth) / (np.sum(y_true_f) + np.sum(y_pred_f) + smooth)
 
 
+def dice(im1, im2, empty_score=1.0):
+    """
+    Computes the Dice coefficient, a measure of set similarity.
+    Parameters
+    ----------
+    im1 : array-like, bool
+        Any array of arbitrary size. If not boolean, will be converted.
+    im2 : array-like, bool
+        Any other array of identical size. If not boolean, will be converted.
+    Returns
+    -------
+    dice : float
+        Dice coefficient as a float on range [0,1].
+        Maximum similarity = 1
+        No similarity = 0
+        Both are empty (sum eq to zero) = empty_score
+
+    Notes
+    -----
+    The order of inputs for `dice` is irrelevant. The result will be
+    identical if `im1` and `im2` are switched.
+    """
+    im1 = np.asarray(im1).astype(np.bool)
+    im2 = np.asarray(im2).astype(np.bool)
+
+    if im1.shape != im2.shape:
+        raise ValueError("Shape mismatch: im1 and im2 must have the same shape.")
+
+    im_sum = im1.sum() + im2.sum()
+    if im_sum == 0:
+        return empty_score
+
+    # Compute Dice coefficient
+    intersection = np.logical_and(im1, im2)
+
+    return 2. * intersection.sum() / im_sum
+
+
 def computeIoU(y_true_batch, y_pred_batch):
     return np.mean(np.asarray([pixelAccuracy(y_true_batch[i], y_pred_batch[i]) for i in range(len(y_true_batch))]))
 
@@ -51,6 +89,21 @@ def pixelAccuracy(y_true, y_pred):
     y_pred = y_pred * (y_true > 0)
 
     return 1.0 * np.sum((y_pred == y_true) * (y_true > 0)) / np.sum(y_true > 0)
+
+
+def intersect(im1, im2):
+    """ return the intersection of two lists """
+    return list(set(im1) & set(im2))
+
+
+def union(im1, im2):
+    """ return the union of two lists """
+    return list(set(im1) | set(im2))
+
+
+def intersectOverUnion(I, U):
+    """ return the intersection over union of two lists """
+    return len(I)/float(len(U))
 
 # ########################################U-Net Segmentation Prediction IoU End######################################
 
@@ -139,20 +192,16 @@ def predict():
     print("====================================U-Net Segmentation Prediction IoU======================================")
     mean = 0.0
     for i in range(num_test):
-        mean += dice_coef_loss(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
+        mean += dice(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
     mean /= num_test
-    print("Mean Dice Coeff Loss : ", mean)
-
-    mean = 0.0
-    for i in range(num_test):
-        mean += dice_coef_np(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
-    mean /= num_test
-    print("Mean Dice Coeff NP : ", mean)
+    print("Mean Dice Coeff : ", mean)
 
     # mean = 0.0
     # for i in range(num_test):
     # mean += computeIoU(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
-    IoU = computeIoU(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
+    I = intersect(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
+    U = union(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
+    IoU = intersectOverUnion(I, U)
     print("Intersection Over Union : ", IoU)
 
 

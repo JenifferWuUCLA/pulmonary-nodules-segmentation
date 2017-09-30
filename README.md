@@ -113,6 +113,9 @@ should be generated. I suggest you examine these masks for getting further insig
 
 Check out function ```submission()``` and ```run_length_enc()``` (thanks woshialex) for details.
 
+### Authors
+Pulmonary-nodules-segmentation is designed and implemented by Yingyi Wu  <yywu@szucla.org>.
+
 
 ## About Keras
 

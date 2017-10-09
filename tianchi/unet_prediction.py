@@ -9,8 +9,8 @@ import os
 import cv2
 
 
-# subset = "server-test-2D/"
-output_path = "/home/ucla/Downloads/tianchi-Unet/"
+# subset = "server-test/"
+output_path = "/home/ucla/Downloads/tianchi-Segmentation/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
 
@@ -93,12 +93,16 @@ def pixelAccuracy(y_true, y_pred):
 
 def intersect(im1, im2):
     """ return the intersection of two lists """
-    return list(set(im1) & set(im2))
+    print("im1[0][0][0]: ")
+    print(im1[0][0][0])
+    print("im2[0][0][0]: ")
+    print(im2[0][0][0])
+    return list(set(im1[0][0][0]) & set(im2[0][0][0]))
 
 
 def union(im1, im2):
     """ return the union of two lists """
-    return list(set(im1) | set(im2))
+    return list(set(im1[0][0][0]) | set(im2[0][0][0]))
 
 
 def intersectOverUnion(I, U):
@@ -199,8 +203,12 @@ def predict():
     # mean = 0.0
     # for i in range(num_test):
     # mean += computeIoU(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
-    I = intersect(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
-    U = union(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
+    # print("imgs_mask_test_true: ")
+    # print(imgs_mask_test_true)
+    # print("imgs_mask_test: ")
+    # print(imgs_mask_test)
+    I = intersect(imgs_mask_test_true, imgs_mask_test)
+    U = union(imgs_mask_test_true, imgs_mask_test)
     IoU = intersectOverUnion(I, U)
     print("Intersection Over Union : ", IoU)
 

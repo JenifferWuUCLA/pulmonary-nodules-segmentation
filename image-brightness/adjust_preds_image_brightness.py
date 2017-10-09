@@ -14,7 +14,7 @@ if __name__ == '__main__':
     for fn in test_images:
         print('loading %s ...' % fn)
         print('processing...')
-        image_name = fn.replace(output_path + "image-coordinate-2D/", "")
+        image_name = fn.replace(output_path + "image-coordinate-Segmentation/", "")
         print("image_name: %s" % image_name)
         img = cv2.imread(fn)
         w = img.shape[1]

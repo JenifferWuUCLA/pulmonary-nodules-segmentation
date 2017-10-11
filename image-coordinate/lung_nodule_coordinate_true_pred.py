@@ -1,6 +1,6 @@
 import csv, os
 
-csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
+csv_path = "/home/ucla/Downloads/tianchi-Segmentation/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 annotations_true_file = os.path.join(csv_path, "annotations.csv")
 annotations_pred_file = os.path.join(csv_path, "imgs_mask_test_coordinate.csv")
@@ -88,7 +88,7 @@ for true_row in true_csvRows:
         pred_coordX = pred_row[1]
         pred_coordY = pred_row[2]
         pred_coordZ = pred_row[3]
-        pred_diameter_mm = true_diameter_mm
+        pred_diameter_mm = pred_row[4]
         # print("Prediction value: ")
         # print(pred_seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
         if true_seriesuid == pred_seriesuid:

@@ -1,6 +1,6 @@
 import csv, os
 
-csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
+csv_path = "/home/ucla/Downloads/tianchi-3D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 statistics_cmp_file = os.path.join(csv_path, "statistics_cmp.csv")
 statistics_sign_file = os.path.join(csv_path, "statistics_sign.csv")
@@ -29,12 +29,11 @@ def csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
     new_row.append(coordY_error)
     new_row.append(coordX_error)
     new_row.append(coordZ_error)
+    new_row.append(diameter_mm_error)
 
     new_row.append(Y_error_ratio)
     new_row.append(X_error_ratio)
     new_row.append(Z_error_ratio)
-
-    new_row.append(diameter_mm_error)
     new_row.append(diam_error_ratio)
 
     new_row.append(pred_coordX)

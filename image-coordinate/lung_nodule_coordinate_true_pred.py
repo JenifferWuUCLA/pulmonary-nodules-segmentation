@@ -1,6 +1,6 @@
 import csv, os
 
-csv_path = "/home/ucla/Downloads/tianchi-Segmentation/csv"
+csv_path = "/home/ucla/Downloads/tianchi-3D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 annotations_true_file = os.path.join(csv_path, "annotations.csv")
 annotations_pred_file = os.path.join(csv_path, "imgs_mask_test_coordinate.csv")
@@ -30,12 +30,11 @@ def csv_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
     new_row.append(coordY_error)
     new_row.append(coordX_error)
     new_row.append(coordZ_error)
+    new_row.append(diameter_mm_error)
 
     new_row.append(Y_error_ratio)
     new_row.append(X_error_ratio)
     new_row.append(Z_error_ratio)
-
-    new_row.append(diameter_mm_error)
     new_row.append(diam_error_ratio)
 
     new_row.append(pred_coordX)

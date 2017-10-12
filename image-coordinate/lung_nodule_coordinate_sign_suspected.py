@@ -1,6 +1,6 @@
 import csv, os
 
-csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
+csv_path = "/home/ucla/Downloads/tianchi-3D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 statistics_sign_file = os.path.join(csv_path, "statistics_sign.csv")
 statistics_cmp_file = os.path.join(csv_path, "statistics_tianchi.csv")
@@ -123,12 +123,11 @@ for stat_row in stat_csvRows:
     coordX_error = stat_row[7]
     coordY_error = stat_row[8]
     coordZ_error = stat_row[9]
+    diameter_mm_error = stat_row[10]
 
-    X_error_ratio = stat_row[10]
-    Y_error_ratio = stat_row[11]
-    Z_error_ratio = stat_row[12]
-
-    diameter_mm_error = stat_row[13]
+    X_error_ratio = stat_row[11]
+    Y_error_ratio = stat_row[12]
+    Z_error_ratio = stat_row[13]
     diam_error_ratio = stat_row[14]
 
     pred_coordX = stat_row[15]

@@ -3,10 +3,10 @@ from glob import glob
 import os
 
 # out_subset = "z-nerve/"
-output_path = "/home/ucla/Downloads/tianchi-Segmentation/"
+output_path = "/home/ucla/Downloads/tianchi-3D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
-folder_name = "image-coordinate-Segmentation/"
+folder_name = "image-coordinate/"
 
 test_images = glob(output_path + folder_name + "*.jpg")
 

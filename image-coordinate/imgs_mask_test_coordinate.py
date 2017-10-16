@@ -14,12 +14,13 @@ except:
 
 
 # out_subset = "z-nerve/"
-output_path = "/home/ucla/Downloads/tianchi-Unet/"
+output_path = "/home/ucla/Downloads/tianchi-3D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
-coordinate_file = "image-coordinate-2D/imgs_mask_test_coordinate.csv"
+folder_name = "image-coordinate/"
+coordinate_file = folder_name + "imgs_mask_test_coordinate.csv"
 
-subset = "val_subset_all/"
+subset = "tianchi_val_dataset/"
 # subset = "test_subset_all/"
 # subset = "train_dataset/"
 # subset = "data_set/"
@@ -83,7 +84,7 @@ def csv_row(image_name, x, y, z, radius):
 
 # load the image, convert it to grayscale, blur it slightly,
 # and threshold it
-tmp_workspace = os.path.join(output_path, "image-coordinate-2D/bright_02/")
+tmp_workspace = os.path.join(output_path, folder_name + "bright_02/")
 test_images = glob(tmp_workspace + "*.jpg")
 # index = 0
 csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")

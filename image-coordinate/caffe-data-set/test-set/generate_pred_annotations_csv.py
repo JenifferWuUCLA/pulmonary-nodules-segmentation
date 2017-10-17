@@ -18,7 +18,7 @@ except:
 ############
 #
 # Getting list of image files
-subset = "val_subset_all/"
+subset = "tianchi_val_dataset/"
 # subset = "data_set/val/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
@@ -58,7 +58,7 @@ def csv_row(seriesuid, coordX, coordY, coordZ, diameter_mm, X_error_ratio, Y_err
 
 ########################################################################################################################
 
-csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
+csv_path = "/home/ucla/Downloads/tianchi-3D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
 statistics_original_file = os.path.join(csv_path, "statistics_error_ratios.csv")
 

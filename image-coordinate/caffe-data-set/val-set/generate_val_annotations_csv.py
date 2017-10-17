@@ -18,7 +18,7 @@ except:
 ############
 #
 # Getting list of image files
-subset = "val_subset_all/"
+subset = "tianchi_val_dataset/"
 # subset = "subset0/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"

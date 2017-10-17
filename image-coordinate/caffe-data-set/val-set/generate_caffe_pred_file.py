@@ -23,6 +23,10 @@ original_data_path = "/root/code/Data/"
 val_data_path = "/root/code/Pulmonary_nodules_data/val/"
 # val_data_path = "/home/jenifferwu/IMAGE_MASKS_DATA/JPEG/Pulmonary_nodules_data/val/"
 
+X_avg_error_ratio = 3.191662514630957
+Y_avg_error_ratio = 2.331546809978415
+Z_avg_error_ratio = 0.9738836034991584
+diam_avg_error_ratio = 1.0494980892679413
 
 #####################
 def csv_row(seriesuid, nodule_class):
@@ -58,7 +62,10 @@ def is_nodule(X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
     nodule_class = 0
     # print float(avg_error)
     # print float(avg_error) >= 10
-    if abs(float(X_error_ratio)) <= 0.1 and abs(float(Y_error_ratio)) <= 0.1 and abs(float(Z_error_ratio)) <= 0.1:
+    if abs(float(X_error_ratio)) <= float(X_avg_error_ratio) \
+            and abs(float(Y_error_ratio)) <= float(Y_avg_error_ratio) \
+            and abs(float(Z_error_ratio)) <= float(Z_avg_error_ratio) \
+            and abs(float(diam_error_ratio)) <= float(diam_avg_error_ratio):
         nodule_class = 1
     return nodule_class
 

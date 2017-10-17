@@ -7,7 +7,6 @@ from sklearn.cluster import KMeans
 from glob import glob
 import os
 import cv2
-import scipy.ndimage
 
 
 # out_subset = "z-nerve/"
@@ -17,21 +16,6 @@ output_path = "/home/ucla/Downloads/tianchi-caffe/"
 tmp_workspace = os.path.join(output_path, "val/")
 tmp_jpg_workspace = os.path.join(output_path, "ROI/val/")
 
-
-###################################################################################
-
-csvRows = []
-
-
-def csv_row(seriesuid, imgs_mask_val):
-    new_row = []
-    # new_row.append(index)
-    new_row.append(seriesuid)
-    new_row.append(imgs_mask_val)
-    csvRows.append(new_row)
-
-
-###################################################################################
 
 val_images = glob(os.path.join(output_path, "val/images_*.npy"))
 for img_file in val_images:
@@ -105,6 +89,7 @@ for img_file in val_images:
         imgs_to_process[i] = mask
     np.save(img_file.replace("images", "lungmask"), imgs_to_process)
 
+
 #
 #    Here we're applying the masks and cropping and resizing the image
 #
@@ -113,7 +98,6 @@ for img_file in val_images:
 val_images = glob(os.path.join(output_path, "val/lungmask_*.npy"))
 out_images = []  # final set of images
 out_nodule_masks = []  # final set of nodule_masks
-seriesuids = []
 for fname in val_images:
     print("working on val lung mask file: %s" % fname)
     imgs_to_process = np.load(fname.replace("lungmask", "images"))
@@ -131,13 +115,6 @@ for fname in val_images:
         image_path = tmp_jpg_workspace
         print(new_lung_name, image_path)
         cv2.imwrite(os.path.join(image_path, new_lung_name), slice)
-
-        nodule_mask = scipy.ndimage.interpolation.zoom(nodule_mask, [1.0, 1.0], mode='nearest')
-        nodule_mask[nodule_mask < 0.5] = 0
-        nodule_mask[nodule_mask > 0.5] = 1
-        nodule_mask = nodule_mask.astype('int8')
-        nodule_mask = 255.0 * nodule_mask
-        nodule_mask = nodule_mask.astype(np.uint8)
 
         nodule_slice = img * nodule_mask
         filename = fname.replace(tmp_workspace, "").replace("lungmask", "nodule_images")

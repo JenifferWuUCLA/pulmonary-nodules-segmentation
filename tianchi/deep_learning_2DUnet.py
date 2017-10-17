@@ -220,16 +220,16 @@ def train_and_predict(use_existing):
     print("====================================U-Net Segmentation Prediction IoU======================================")
     mean = 0.0
     for i in range(num_test):
-        mean += dice(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
+        mean += dice_coef_np(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
     mean /= num_test
     print("Mean Dice Coeff : ", mean)
 
-    # mean = 0.0
+    IoU = 0.0
     # for i in range(num_test):
-    # mean += computeIoU(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
-    I = intersect(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
-    U = union(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
-    IoU = intersectOverUnion(I, U)
+    IoU += computeIoU(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
+    # I = intersect(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
+    # U = union(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
+    # IoU = intersectOverUnion(I, U)
     print("Intersection Over Union : ", IoU)
 
 

@@ -7,6 +7,8 @@ statistics_cmp_file = os.path.join(csv_path, "statistics_tianchi.csv")
 statistics_file = os.path.join(csv_path, "statistics_sign_error.csv")
 statistics_MSE_file = os.path.join(csv_path, "statistics_sign_MSE.csv")
 
+confused_file = os.path.join(csv_path, "confused_sign_error.csv")
+
 ########################################################################################################################
 csvCmpRows = []
 
@@ -32,6 +34,8 @@ def csv_cmp_row(seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_
 
 csvRows = []
 
+confusedRows = []
+
 
 def csv_row(seriesuid, avg_error, avg_error_ratio, coordX_error, coordY_error, coordZ_error, diameter_mm_error,
             X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
@@ -53,6 +57,9 @@ def csv_row(seriesuid, avg_error, avg_error_ratio, coordX_error, coordY_error, c
     new_row.append(diam_error_ratio)
 
     csvRows.append(new_row)
+
+    if coordZ_error >= 5:
+        confusedRows.append(new_row)
 
 
 csvMSERows = []
@@ -163,6 +170,15 @@ print(statistics_file)
 csvFileObj = open(statistics_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvRows:
+    # print row
+    csvWriter.writerow(row)
+csvFileObj.close()
+
+# Write out the confused_sign_error.csv file.
+print(confused_file)
+csvFileObj = open(confused_file, 'w')
+csvWriter = csv.writer(csvFileObj)
+for row in confusedRows:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()

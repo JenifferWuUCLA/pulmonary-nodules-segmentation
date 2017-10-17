@@ -202,7 +202,7 @@ def predict():
 
     IoU = 0.0
     # for i in range(num_test):
-    IoU += computeIoU(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
+    IoU += computeIoU(imgs_mask_test_true, imgs_mask_test)
     # print("imgs_mask_test_true: ")
     # print(imgs_mask_test_true)
     # print("imgs_mask_test: ")

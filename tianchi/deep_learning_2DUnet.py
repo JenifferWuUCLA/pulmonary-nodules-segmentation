@@ -226,7 +226,7 @@ def train_and_predict(use_existing):
 
     IoU = 0.0
     # for i in range(num_test):
-    IoU += computeIoU(imgs_mask_test_true[i, 0], imgs_mask_test[i, 0])
+    IoU += computeIoU(imgs_mask_test_true, imgs_mask_test)
     # I = intersect(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
     # U = union(imgs_mask_test_true[:, 0], imgs_mask_test[:, 0])
     # IoU = intersectOverUnion(I, U)

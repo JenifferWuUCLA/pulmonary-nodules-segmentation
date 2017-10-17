@@ -17,7 +17,7 @@ except:
     print('tqdm 是一个轻量级的进度条小包。。。')
     tqdm = lambda x: x
 
-subset = "train_subset_all/"
+subset = "tianchi_train_dataset/"
 # subset = "val_subset_all/"
 # subset = "data_set/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
@@ -25,7 +25,7 @@ tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_subset_path = tianchi_path + subset
 
 # out_subset = "z-nerve-Unet/"
-output_path = "/home/ucla/Downloads/tianchi-Segmentation/"
+output_path = "/home/ucla/Downloads/tianchi-3D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 

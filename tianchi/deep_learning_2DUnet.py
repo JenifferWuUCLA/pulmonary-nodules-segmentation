@@ -11,7 +11,7 @@ import cv2
 
 
 # subset = "z-nerve/"
-output_path = "/home/ucla/Downloads/tianchi-Unet/"
+output_path = "/home/ucla/Downloads/tianchi-3D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + subset
 
 

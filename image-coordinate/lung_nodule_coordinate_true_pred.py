@@ -93,15 +93,17 @@ for true_row in true_csvRows:
         pred_diameter_mm = pred_row[4]
         print("pred_row[0], pred_seriesuid, p_coordZ: ")
         print(pred_row[0], pred_seriesuid, p_coordZ)
-        print("true_coordZ, p_coordZ: ")
-        print(true_coordZ, p_coordZ)
-        print("coordZ_error: %s, coordZ_error>5: %s" % (coordZ_error, str(float(coordZ_error) > 5)))
+        print("true_coordZ, p_coordZ, (true_coordZ == p_coordZ): ")
+        print(true_coordZ, p_coordZ, true_coordZ == p_coordZ)
         # print("Prediction value: ")
         # print(pred_seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
         if true_seriesuid == pred_seriesuid and true_coordZ == p_coordZ:
             coordX_error = abs(abs(float(true_coordX)) - abs(float(pred_coordX)))
             coordY_error = abs(abs(float(true_coordY)) - abs(float(pred_coordY)))
             coordZ_error = abs(abs(float(true_coordZ)) - abs(float(pred_coordZ)))
+
+            print("coordZ_error: %s, coordZ_error > 5: %s" % (coordZ_error, str(float(coordZ_error) > 5)))
+
             if float(coordZ_error) > 5:
                 continue
             diameter_mm_error = abs(abs(float(true_diameter_mm)) - abs(float(pred_diameter_mm)))

@@ -94,6 +94,8 @@ for true_row in true_csvRows:
             coordX_error = abs(abs(float(true_coordX)) - abs(float(pred_coordX)))
             coordY_error = abs(abs(float(true_coordY)) - abs(float(pred_coordY)))
             coordZ_error = abs(abs(float(true_coordZ)) - abs(float(pred_coordZ)))
+            if float(coordZ_error) > 5:
+                continue
             diameter_mm_error = abs(abs(float(true_diameter_mm)) - abs(float(pred_diameter_mm)))
 
             X_error_ratio = float(coordX_error) / float(true_diameter_mm)

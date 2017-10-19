@@ -58,8 +58,9 @@ def csv_row(seriesuid, avg_error, avg_error_ratio, coordX_error, coordY_error, c
 
     csvRows.append(new_row)
 
-    if coordZ_error >= 5:
-        confusedRows.append(new_row)
+    if seriesuid != "seriesuid":
+        if float(coordZ_error) >= 5:
+            confusedRows.append(new_row)
 
 
 csvMSERows = []

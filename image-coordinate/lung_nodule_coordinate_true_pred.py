@@ -106,6 +106,7 @@ for true_row in true_csvRows:
 
             if float(coordZ_error) > 5:
                 continue
+
             diameter_mm_error = abs(abs(float(true_diameter_mm)) - abs(float(pred_diameter_mm)))
 
             X_error_ratio = float(coordX_error) / float(true_diameter_mm)

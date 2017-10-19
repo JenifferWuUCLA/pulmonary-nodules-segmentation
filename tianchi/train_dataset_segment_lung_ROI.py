@@ -8,14 +8,12 @@ from glob import glob
 import os
 import cv2
 
-
 # out_subset = "z-nerve/"
 output_path = "/home/ucla/Downloads/tianchi-caffe/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 tmp_workspace = os.path.join(output_path, "train/")
 tmp_jpg_workspace = os.path.join(output_path, "ROI/train/")
-
 
 train_images = glob(os.path.join(output_path, "train/images_*.npy"))
 for img_file in train_images:
@@ -24,31 +22,31 @@ for img_file in train_images:
     print("on train image: %s" % img_file)
     for i in range(len(imgs_to_process)):
         img = imgs_to_process[i]
-        #Standardize the pixel values
+        # Standardize the pixel values
         mean = np.mean(img)
         std = np.std(img)
-        img = img-mean
-        img = img/std
+        img = img - mean
+        img = img / std
         # Find the average pixel value near the lungs
         # to renormalize washed out images
         middle = img[100:400, 100:400]
-        mean = np.mean(middle)  
+        mean = np.mean(middle)
         max = np.max(img)
         min = np.min(img)
         # To improve threshold finding, I'm moving the 
         # underflow and overflow on the pixel spectrum
-        img[img==max]=mean
-        img[img==min]=mean
+        img[img == max] = mean
+        img[img == min] = mean
         #
         # Using Kmeans to separate foreground (radio-opaque tissue)
         # and background (radio transparent tissue ie lungs)
         # Doing this only on the center of the image to avoid 
         # the non-tissue parts of the image as much as possible
         #
-        kmeans = KMeans(n_clusters=2).fit(np.reshape(middle,[np.prod(middle.shape),1]))
+        kmeans = KMeans(n_clusters=2).fit(np.reshape(middle, [np.prod(middle.shape), 1]))
         centers = sorted(kmeans.cluster_centers_.flatten())
         threshold = np.mean(centers)
-        thresh_img = np.where(img<threshold, 1.0, 0.0)  # threshold the image
+        thresh_img = np.where(img < threshold, 1.0, 0.0)  # threshold the image
         #
         # I found an initial erosion helful for removing graininess from some of the regions
         # and then large dialation is used to make the lung region 
@@ -88,7 +86,6 @@ for img_file in train_images:
         mask = morphology.dilation(mask, np.ones([10, 10]))  # one last dilation
         imgs_to_process[i] = mask
     np.save(img_file.replace("images", "lungmask"), imgs_to_process)
-    
 
 #
 #    Here we're applying the masks and cropping and resizing the image
@@ -96,8 +93,8 @@ for img_file in train_images:
 
 
 train_images = glob(os.path.join(output_path, "train/lungmask_*.npy"))
-out_images = []      #final set of images
-out_nodule_masks = []   #final set of nodule_masks
+out_images = []  # final set of images
+out_nodule_masks = []  # final set of nodule_masks
 for fname in train_images:
     print("working on train lung mask file: %s" % fname)
     imgs_to_process = np.load(fname.replace("lungmask", "images"))
@@ -109,7 +106,7 @@ for fname in train_images:
         img = imgs_to_process[i, :, :]
         # new_size = [512, 512]   # we're scaling back up to the original size of the image
 
-        slice = img * mask         # apply lung mask
+        slice = img * mask  # apply lung mask
         filename = fname.replace(tmp_workspace, "").replace("lungmask", "lung_images")
         new_lung_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
         image_path = tmp_jpg_workspace

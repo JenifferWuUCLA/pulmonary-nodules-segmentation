@@ -8,14 +8,12 @@ from glob import glob
 import os
 import cv2
 
-
 # out_subset = "z-nerve/"
 output_path = "/home/ucla/Downloads/tianchi-caffe/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 tmp_workspace = os.path.join(output_path, "val/")
 tmp_jpg_workspace = os.path.join(output_path, "ROI/val/")
-
 
 val_images = glob(os.path.join(output_path, "val/images_*.npy"))
 for img_file in val_images:
@@ -89,7 +87,6 @@ for img_file in val_images:
         imgs_to_process[i] = mask
     np.save(img_file.replace("images", "lungmask"), imgs_to_process)
 
-
 #
 #    Here we're applying the masks and cropping and resizing the image
 #
@@ -109,7 +106,7 @@ for fname in val_images:
         img = imgs_to_process[i, :, :]
         # new_size = [512, 512]  # we're scaling back up to the original size of the image
 
-        slice = img * mask        # apply lung mask
+        slice = img * mask  # apply lung mask
         filename = fname.replace(tmp_workspace, "").replace("lungmask", "lung_images")
         new_lung_name = filename.replace(".npy", "") + "_%s.jpg" % (i)
         image_path = tmp_jpg_workspace

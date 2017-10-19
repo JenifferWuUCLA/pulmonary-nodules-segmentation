@@ -12,11 +12,11 @@ except:
     print('TQDM does make much nicer wait bars...')
     tqdm = lambda x: x
 
-
 # out_subset = "z-nerve/"
 output_path = "/home/ucla/Downloads/tianchi-3D/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
+# folder_name = "image-coordinate-2D/"
 folder_name = "image-coordinate/"
 coordinate_file = folder_name + "imgs_mask_test_coordinate.csv"
 
@@ -144,9 +144,10 @@ for img_file in test_images:
             print("w_center: ")
             print(w_center, radius)
 
-            csv_row(image_name.replace(".mhd", "") + "_" + w_center[2], w_center[0], w_center[1], w_center[2], radius)
+            csv_row(image_name.replace(".mhd", "") + "_" + str(w_center[2]), w_center[0], w_center[1], w_center[2],
+                    radius)
 
-        # index += 1
+            # index += 1
 
 # Write out the imgs_mask_test_coordinate CSV file.
 print(os.path.join(output_path, coordinate_file))

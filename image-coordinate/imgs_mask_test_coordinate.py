@@ -144,7 +144,7 @@ for img_file in test_images:
             print("w_center: ")
             print(w_center, radius)
 
-            csv_row(image_name.replace(".mhd", ""), w_center[0], w_center[1], w_center[2], radius)
+            csv_row(image_name.replace(".mhd", "") + "_" + w_center[2], w_center[0], w_center[1], w_center[2], radius)
 
         # index += 1
 

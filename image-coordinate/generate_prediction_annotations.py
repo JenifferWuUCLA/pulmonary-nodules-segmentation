@@ -64,7 +64,7 @@ csv_error_ratios_row("seriesuid", "pred_coordX", "pred_coordY", "pred_coordZ", "
 
 last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = "", "", "", "", ""
 for stat_row in stat_csvRows:
-    seriesuid = stat_row[0]
+    seriesuid = stat_row[0].split("_")[0]
 
     true_coordX = stat_row[1]
     true_coordY = stat_row[2]

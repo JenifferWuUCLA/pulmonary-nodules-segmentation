@@ -106,7 +106,7 @@ for true_row in true_csvRows:
             avg_error = (float)((coordX_error + coordY_error + coordZ_error) / 3)
             avg_error_ratio = (float)((X_error_ratio + Y_error_ratio + Z_error_ratio) / 3)
 
-            csv_row(true_seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
+            csv_row(true_seriesuid + "_" + true_coordZ, true_coordX, true_coordY, true_coordZ, true_diameter_mm,
                     avg_error, avg_error_ratio,
                     coordX_error, coordY_error, coordZ_error, diameter_mm_error,
                     X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio,

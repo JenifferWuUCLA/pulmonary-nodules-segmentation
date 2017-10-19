@@ -62,6 +62,8 @@ pred_csvRows = []
 csvFileObj = open(annotations_pred_file)
 readerObj = csv.reader(csvFileObj)
 for row in readerObj:
+    if readerObj.line_num == 1:
+        continue  # skip first row
     pred_csvRows.append(row)
 csvFileObj.close()
 

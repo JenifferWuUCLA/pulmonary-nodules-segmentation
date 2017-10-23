@@ -102,6 +102,7 @@ tmp_workspace = os.path.join(output_path, folder_name + "bright_02/")
 test_images = glob(tmp_workspace + "*.jpg")
 # index = 0
 csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
+pred_csv_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
 for img_file in test_images:
     print("img_file: %s" % img_file)
     o_image_name = img_file.replace(tmp_workspace, "")
@@ -172,7 +173,7 @@ for row in csvRows:
     csvWriter.writerow(row)
 csvFileObj.close()
 
-# Write out the pred_annotations CSV file.
+# Write out the tianchi_pred_annotations CSV file.
 print(os.path.join(output_path, pred_annotations_file))
 csvFileObj = open(os.path.join(output_path, pred_annotations_file), 'w')
 csvWriter = csv.writer(csvFileObj)

@@ -19,6 +19,7 @@ output_path = "/home/ucla/Downloads/tianchi-3D/"
 # folder_name = "image-coordinate-2D/"
 folder_name = "image-coordinate/"
 coordinate_file = folder_name + "imgs_mask_test_coordinate.csv"
+pred_annotations_file = folder_name + "tianchi_pred_annotations.csv"
 
 subset = "tianchi_val_dataset/"
 # subset = "test_subset_all/"
@@ -78,6 +79,19 @@ def csv_row(image_name, x, y, z, radius):
     new_row.append(z)
     new_row.append(radius)
     csvRows.append(new_row)
+
+
+predRows = []
+
+
+def pred_csv_row(image_name, x, y, z, radius):
+    new_row = []
+    new_row.append(image_name)
+    new_row.append(x)
+    new_row.append(y)
+    new_row.append(z)
+    new_row.append(radius)
+    predRows.append(new_row)
 
 
 ###################################################################################
@@ -144,8 +158,8 @@ for img_file in test_images:
             print("w_center: ")
             print(w_center, radius)
 
-            csv_row(image_name.replace(".mhd", "_") + str(w_center[2]), w_center[0], w_center[1], w_center[2],
-                    radius)
+            csv_row(image_name.replace(".mhd", "_") + str(w_center[2]), w_center[0], w_center[1], w_center[2], radius)
+            pred_csv_row(image_name.replace(".mhd", ""), w_center[0], w_center[1], w_center[2], radius)
 
             # index += 1
 
@@ -154,6 +168,15 @@ print(os.path.join(output_path, coordinate_file))
 csvFileObj = open(os.path.join(output_path, coordinate_file), 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvRows:
+    # print row
+    csvWriter.writerow(row)
+csvFileObj.close()
+
+# Write out the pred_annotations CSV file.
+print(os.path.join(output_path, pred_annotations_file))
+csvFileObj = open(os.path.join(output_path, pred_annotations_file), 'w')
+csvWriter = csv.writer(csvFileObj)
+for row in predRows:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()

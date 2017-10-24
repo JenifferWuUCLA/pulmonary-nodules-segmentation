@@ -8,6 +8,7 @@ sed "s/,/ /g" < val_tmp.txt > val.txt
 
 
 # Merge test_annotations.csv with suspected_annotations.csv
-cat /home/ucla/Downloads/tianchi-3D/csv/test_annotations.txt /home/ucla/Downloads/tianchi-3D/csv/suspected_annotations.txt > /home/ucla/Downloads/tianchi-3D/csv/pred_annotations.txt
+cat /home/ucla/Downloads/tianchi-3D/csv/test_annotations.csv /home/ucla/Downloads/tianchi-3D/csv/suspected_annotations.csv > /home/ucla/Downloads/tianchi-3D/csv/pred_annotations.csv
 
-cat /home/ucla/Downloads/tianchi-3D/csv/test_error_ratios.txt /home/ucla/Downloads/tianchi-3D/csv/suspected_error_ratios.txt > /home/ucla/Downloads/tianchi-3D/csv/statistics_error_ratios.txt
+# Merge test_error_ratios.csv with suspected_error_ratios.csv
+cat /home/ucla/Downloads/tianchi-3D/csv/test_error_ratios.csv /home/ucla/Downloads/tianchi-3D/csv/suspected_error_ratios.csv > /home/ucla/Downloads/tianchi-3D/csv/statistics_error_ratios.csv

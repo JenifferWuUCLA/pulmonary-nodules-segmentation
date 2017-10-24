@@ -2,9 +2,9 @@ import csv, os
 
 csv_path = "/home/ucla/Downloads/tianchi-3D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
-statistics_sign_file = os.path.join(csv_path, "statistics_sign.csv")
-test_annotations_file = os.path.join(csv_path, "test_annotations.csv")
-statistics_error_ratios_file = os.path.join(csv_path, "test_error_ratios.csv")
+suspected_sign_file = os.path.join(csv_path, "suspected_original.csv")
+suspected_annotations_file = os.path.join(csv_path, "suspected_annotations.csv")
+suspected_error_ratios_file = os.path.join(csv_path, "suspected_error_ratios.csv")
 
 ########################################################################################################################
 csvAnnotationsRows = []
@@ -27,7 +27,7 @@ csvRows = []
 
 
 def csv_error_ratios_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm,
-            X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
+                         X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio):
     new_row = []
 
     new_row.append(seriesuid)
@@ -47,9 +47,9 @@ def csv_error_ratios_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_
 
 ########################################################################################################################
 
-# Read the statistics_original.csv in (skipping first row).
+# Read the suspected_original.csv in (skipping first row).
 stat_csvRows = []
-csvFileObj = open(statistics_sign_file)
+csvFileObj = open(suspected_sign_file)
 readerObj = csv.reader(csvFileObj)
 for row in readerObj:
     if readerObj.line_num == 1:
@@ -59,10 +59,10 @@ csvFileObj.close()
 
 csv_annotations_row("seriesuid", "coordX", "coordY", "coordZ", "diameter_mm")
 
-csv_error_ratios_row("seriesuid", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm", "X_error_ratio", "Y_error_ratio",
-        "Z_error_ratio", "diam_error_ratio")
+csv_error_ratios_row("seriesuid", "pred_coordX", "pred_coordY", "pred_coordZ", "pred_diameter_mm", "X_error_ratio",
+                     "Y_error_ratio",
+                     "Z_error_ratio", "diam_error_ratio")
 
-last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = "", "", "", "", ""
 for stat_row in stat_csvRows:
     seriesuid = stat_row[0].split("_")[0]
 
@@ -89,29 +89,22 @@ for stat_row in stat_csvRows:
     pred_coordZ = stat_row[17]
     pred_diameter_mm = stat_row[18]
 
-    condition_1 = (seriesuid != last_seriesuid)
-    condition_2 = (true_coordX != last_true_coordX) or (true_coordY != last_true_coordY) or (
-        true_coordZ != last_true_coordZ) or (true_diameter_mm != last_true_diameter_mm)
+    csv_annotations_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
+    csv_error_ratios_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm, X_error_ratio,
+                         Y_error_ratio, Z_error_ratio, diam_error_ratio)
 
-    if condition_1 or condition_2:
-        csv_annotations_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm)
-        csv_error_ratios_row(seriesuid, pred_coordX, pred_coordY, pred_coordZ, pred_diameter_mm,
-                X_error_ratio, Y_error_ratio, Z_error_ratio, diam_error_ratio)
-
-    last_seriesuid, last_true_coordX, last_true_coordY, last_true_coordZ, last_true_diameter_mm = seriesuid, true_coordX, true_coordY, true_coordZ, true_diameter_mm
-
-# Write out the test_annotations.csv file.
-print(test_annotations_file)
-csvFileObj = open(test_annotations_file, 'w')
+# Write out the suspected_annotations.csv file.
+print(suspected_annotations_file)
+csvFileObj = open(suspected_annotations_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvAnnotationsRows:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()
 
-# Write out the statistics_error_ratios.csv file.
-print(statistics_error_ratios_file)
-csvFileObj = open(statistics_error_ratios_file, 'w')
+# Write out the suspected_error_ratios.csv file.
+print(suspected_error_ratios_file)
+csvFileObj = open(suspected_error_ratios_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvRows:
     # print row

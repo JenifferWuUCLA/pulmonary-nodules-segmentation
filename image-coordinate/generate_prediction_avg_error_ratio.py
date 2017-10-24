@@ -1,8 +1,8 @@
 import csv, os
 
-csv_path = "/home/ucla/Downloads/tianchi-2D/csv"
+csv_path = "/home/ucla/Downloads/tianchi-3D/csv"
 # csv_path = "/home/jenifferwu/IMAGE_MASKS_DATA/z-nerve/csv"
-statistics_error_ratios_file = os.path.join(csv_path, "statistics_error_ratios.csv")
+statistics_error_ratios_file = os.path.join(csv_path, "test_error_ratios.csv")
 prediction_avg_error_ratios_file = os.path.join(csv_path, "prediction_avg_error_ratios.csv")
 
 ########################################################################################################################

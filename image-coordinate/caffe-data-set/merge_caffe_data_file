@@ -5,3 +5,9 @@ cat /home/ucla/Downloads/Caffe_CNN_Data/val_1.txt /home/ucla/Downloads/Caffe_CNN
 sed "s/,/ /g" < train_tmp.txt > train.txt
 
 sed "s/,/ /g" < val_tmp.txt > val.txt
+
+
+# Merge test_annotations.csv with suspected_annotations.csv
+cat /home/ucla/Downloads/tianchi-3D/csv/test_annotations.txt /home/ucla/Downloads/tianchi-3D/csv/suspected_annotations.txt > /home/ucla/Downloads/tianchi-3D/csv/pred_annotations.txt
+
+cat /home/ucla/Downloads/tianchi-3D/csv/test_error_ratios.txt /home/ucla/Downloads/tianchi-3D/csv/suspected_error_ratios.txt > /home/ucla/Downloads/tianchi-3D/csv/statistics_error_ratios.txt

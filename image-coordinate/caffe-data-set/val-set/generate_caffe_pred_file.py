@@ -23,10 +23,10 @@ original_data_path = "/root/code/Data/"
 val_data_path = "/root/code/Pulmonary_nodules_data/val/"
 # val_data_path = "/home/jenifferwu/IMAGE_MASKS_DATA/JPEG/Pulmonary_nodules_data/val/"
 
-X_avg_error_ratio = 3.191662514630957
-Y_avg_error_ratio = 2.331546809978415
-Z_avg_error_ratio = 0.9738836034991584
-diam_avg_error_ratio = 1.0494980892679413
+X_avg_error_ratio = 3.4726924461669744
+Y_avg_error_ratio = 2.2911813820557274
+Z_avg_error_ratio = 0.011456632666513242
+diam_avg_error_ratio = 0.9768703317294137
 
 #####################
 def csv_row(seriesuid, nodule_class):

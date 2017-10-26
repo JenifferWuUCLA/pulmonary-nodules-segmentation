@@ -50,6 +50,11 @@ def csv_row(seriesuid, nodule_class):
 
     original_image = original_data_path + subset + "/" + series_uid + ".jpg"
     # print("original_image: %s" % str(original_image))
+    file_exists = os.path.exists(original_image)
+    if file_exists == False:
+        print("image_path: %s" % image_path)
+        print(original_image, file_exists)
+
     tmp_image = train_data_path + train_dir + series_uid + ".jpg"
     train_image = train_data_path + train_dir + image_file
 

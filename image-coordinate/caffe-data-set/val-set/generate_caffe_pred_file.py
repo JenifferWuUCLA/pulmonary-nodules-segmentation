@@ -49,6 +49,11 @@ def csv_row(seriesuid, nodule_class):
     csvRows.append(new_row)
 
     original_image = original_data_path + subset + "/" + series_uid + ".jpg"
+    file_exists = os.path.exists(original_image)
+    if file_exists == False:
+        print("image_path: %s" % image_path)
+        print(original_image, file_exists)
+
     # print("original_image: %s" % str(original_image))
     tmp_image = val_data_path + val_dir + series_uid + ".jpg"
     val_image = val_data_path + val_dir + image_file

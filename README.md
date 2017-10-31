@@ -17,7 +17,7 @@
 ![Extracting the mask of the nodules and training the network on the Segmented lungs.jpeg](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/img/Pulmonary_nodule_intelligent_diagnosis_flow_chart.jpeg)
 
 #### Lung nodule prediction error:
-##### ![Index Page](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/image-coordinate/Lung%20nodule%20prediction%20error.png)
+>##### ![Index Page](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/image-coordinate/Lung%20nodule%20prediction%20error.png)
 
 This tutorial shows how to use [Keras library](http://keras.io/) to build deep neural network for pulmonary nodules image segmentation.
 

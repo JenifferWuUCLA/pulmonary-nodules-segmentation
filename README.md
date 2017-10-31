@@ -23,6 +23,9 @@ and can be a good staring point for further, more serious approaches.
 
 The architecture was inspired by [U-Net: Convolutional Networks for Biomedical Image Segmentation](http://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/).
 
+#### Lung nodule prediction error:
+##### ![Index Page](https://github.com/JenifferWuUCLA/pulmonary-nodules-segmentation/blob/master/image-coordinate/Lung%20nodule%20prediction%20error.png)
+
 
 ---
 

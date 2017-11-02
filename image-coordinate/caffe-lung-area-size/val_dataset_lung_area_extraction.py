@@ -30,9 +30,6 @@ val_data_path = os.path.join(tianchi_path, subset)
 val_images = glob(val_data_path + "*.mhd")
 # print(val_images)
 
-tmp_workspace = os.path.join(output_path, "val/")
-tmp_jpg_workspace = os.path.join(output_path, "ROI/val/")
-
 
 ########################################################################################################################
 # Helper function to get rows in data frame associated

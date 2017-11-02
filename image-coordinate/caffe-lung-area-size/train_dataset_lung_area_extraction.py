@@ -30,9 +30,6 @@ train_data_path = os.path.join(tianchi_path, subset)
 train_images = glob(train_data_path + "*.mhd")
 # print(train_images)
 
-tmp_workspace = os.path.join(output_path, "train/")
-tmp_jpg_workspace = os.path.join(output_path, "ROI/train/")
-
 
 ########################################################################################################################
 # Helper function to get rows in data frame associated

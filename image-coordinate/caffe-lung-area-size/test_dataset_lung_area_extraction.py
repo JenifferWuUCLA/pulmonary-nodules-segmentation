@@ -28,9 +28,6 @@ lung_slice_area_size_file = os.path.join(csv_path, "test_lung_slice_area_size.cs
 test_data_path = os.path.join(tianchi_path, subset)
 test_images = glob(test_data_path + "*.mhd")
 
-tmp_workspace = os.path.join(output_path, "test/")
-tmp_jpg_workspace = os.path.join(output_path, "ROI/test/")
-
 
 ########################################################################################################################
 # Helper function to get rows in data frame associated

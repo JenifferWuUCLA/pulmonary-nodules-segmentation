@@ -22,7 +22,7 @@ output_path = "/home/ucla/Downloads/tianchi-caffe/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 csv_path = output_path + "csv/"
-lung_slice_area_size_file = os.path.join(csv_path, "test_nodule_diameter_mm.csv")
+nodule_diameter_mm_file = os.path.join(csv_path, "test_nodule_diameter_mm.csv")
 
 ############
 test_data_path = os.path.join(tianchi_path, subset)
@@ -69,10 +69,31 @@ for fcount, img_file in enumerate(tqdm(test_images)):
             csv_nodule_diameter_mm_row(seriesuid, diam)
 
 # Write out the test_nodule_diameter_mm.csv file.
-print(lung_slice_area_size_file)
-csvFileObj = open(lung_slice_area_size_file, 'w')
+print(nodule_diameter_mm_file)
+csvFileObj = open(nodule_diameter_mm_file, 'w')
 csvWriter = csv.writer(csvFileObj)
 for row in csvRows:
+    # print row
+    csvWriter.writerow(row)
+csvFileObj.close()
+
+f = open(nodule_diameter_mm_file)
+result = []
+iter_f = iter(f)  # Iterate through each line in a file with an iterator
+index = 0
+for line in iter_f:
+    row = line.split(",")
+    new_row = []
+    new_row.append(float(row[1]).replace("\r\n", ""))
+    new_row.append(row[0])
+    result.append(new_row)
+f.close()
+
+result.sort()
+
+csvFileObj = open(nodule_diameter_mm_file, 'w')
+csvWriter = csv.writer(csvFileObj)
+for row in result:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()

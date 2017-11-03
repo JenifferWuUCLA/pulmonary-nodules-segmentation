@@ -82,3 +82,25 @@ for row in csvRows:
     # print row
     csvWriter.writerow(row)
 csvFileObj.close()
+
+f = open(lung_slice_area_size_file)
+result = []
+iter_f = iter(f)  # Iterate through each line in a file with an iterator
+index = 0
+for line in iter_f:
+    row = line.split(",")
+    new_row = []
+    new_row.append(float(row[1]))
+    new_row.append(float(row[2]).replace("\r\n", ""))
+    new_row.append(row[0])
+    result.append(new_row)
+f.close()
+
+result.sort()
+
+csvFileObj = open(lung_slice_area_size_file, 'w')
+csvWriter = csv.writer(csvFileObj)
+for row in result:
+    # print row
+    csvWriter.writerow(row)
+csvFileObj.close()

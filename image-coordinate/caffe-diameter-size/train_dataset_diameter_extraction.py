@@ -11,7 +11,7 @@ except:
     tqdm = lambda x: x
 
 
-subset = "tianchi_val_dataset/"
+subset = "tianchi_train_dataset/"
 # subset = "data_set/"
 tianchi_path = "/media/ucla/32CC72BACC727845/tianchi/"
 # tianchi_path = "/home/jenifferwu/LUNA2016/"
@@ -22,13 +22,13 @@ output_path = "/home/ucla/Downloads/tianchi-caffe/"
 # output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
 
 csv_path = output_path + "csv/"
-lung_slice_area_size_file = os.path.join(csv_path, "val_lung_slice_area_size.csv")
+lung_slice_area_size_file = os.path.join(csv_path, "train_nodule_diameter_mm.csv")
 
 ############
-val_data_path = os.path.join(tianchi_path, subset)
-# print("val_data_path: %s" % val_data_path)
-val_images = glob(val_data_path + "*.mhd")
-# print(val_images)
+train_data_path = os.path.join(tianchi_path, subset)
+# print("train_data_path: %s" % train_data_path)
+train_images = glob(train_data_path + "*.mhd")
+# print(train_images)
 
 
 ########################################################################################################################
@@ -43,38 +43,34 @@ def get_filename(file_list, case):
 csvRows = []
 
 
-def csv_lung_slice_area_size_row(seriesuid, height, width):
+def csv_nodule_diameter_mm_row(seriesuid, diameter):
     new_row = []
     new_row.append(seriesuid)
-    new_row.append(height)
-    new_row.append(width)
+    new_row.append(diameter)
     csvRows.append(new_row)
 
 
 ########################################################################################################################
 
 # The locations of the nodes
-df_node = pd.read_csv(tianchi_path + "csv/val/annotations.csv")
-df_node["file"] = df_node["seriesuid"].map(lambda file_name: get_filename(val_images, file_name))
+df_node = pd.read_csv(tianchi_path + "csv/train_all/annotations.csv")
+df_node["file"] = df_node["seriesuid"].map(lambda file_name: get_filename(train_images, file_name))
 df_node = df_node.dropna()
 
 #####
 #
-# Looping over the val image files
+# Looping over the train image files
 #
-for fcount, img_file in enumerate(tqdm(val_images)):
+for fcount, img_file in enumerate(tqdm(train_images)):
     mini_df = df_node[df_node["file"] == img_file]  # get all nodules associate with file
     if mini_df.shape[0] > 0:  # some files may not have a nodule--skipping those
-        # load the data once
-        itk_img = sitk.ReadImage(img_file)
-        img_array = sitk.GetArrayFromImage(itk_img)  # indexes are z,y,x (notice the ordering)
-        num_z, height, width = img_array.shape  # heightXwidth constitute the transverse plane
         # go through all nodes (why just the biggest?)
         for node_idx, cur_row in mini_df.iterrows():
             seriesuid = cur_row["seriesuid"]
-            csv_lung_slice_area_size_row(seriesuid, height, width)
+            diam = cur_row["diameter_mm"]
+            csv_nodule_diameter_mm_row(seriesuid, diam)
 
-# Write out the val_lung_slice_area_size.csv file.
+# Write out the train_nodule_diameter_mm.csv file.
 print(lung_slice_area_size_file)
 csvFileObj = open(lung_slice_area_size_file, 'w')
 csvWriter = csv.writer(csvFileObj)

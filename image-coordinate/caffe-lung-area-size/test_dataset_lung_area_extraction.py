@@ -72,7 +72,7 @@ for fcount, img_file in enumerate(tqdm(test_images)):
             seriesuid = cur_row["seriesuid"]
             csv_lung_slice_area_size_row(seriesuid, height, width)
 
-# Write out the lung_slice_area_size.csv file.
+# Write out the test_lung_slice_area_size.csv file.
 print(lung_slice_area_size_file)
 csvFileObj = open(lung_slice_area_size_file, 'w')
 csvWriter = csv.writer(csvFileObj)

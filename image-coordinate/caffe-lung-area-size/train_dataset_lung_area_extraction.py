@@ -74,7 +74,7 @@ for fcount, img_file in enumerate(tqdm(train_images)):
             seriesuid = cur_row["seriesuid"]
             csv_lung_slice_area_size_row(seriesuid, height, width)
 
-# Write out the lung_slice_area_size.csv file.
+# Write out the train_lung_slice_area_size.csv file.
 print(lung_slice_area_size_file)
 csvFileObj = open(lung_slice_area_size_file, 'w')
 csvWriter = csv.writer(csvFileObj)

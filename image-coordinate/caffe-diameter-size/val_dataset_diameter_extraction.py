@@ -86,7 +86,7 @@ index = 0
 for line in iter_f:
     row = line.split(",")
     new_row = []
-    new_row.append(float(row[1]).replace("\r\n", ""))
+    new_row.append(float(row[1].replace("\r\n", "")))
     new_row.append(row[0])
     result.append(new_row)
 f.close()

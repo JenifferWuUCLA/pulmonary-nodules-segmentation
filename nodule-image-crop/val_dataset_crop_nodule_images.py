@@ -4,13 +4,15 @@ import os
 import cv2
 
 
-# out_subset = "z-nerve/"
-output_path = "/home/ucla/Downloads/tianchi-caffe/"
-# output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/" + out_subset
+original_output_path = "/root/code/Pulmonary_nodules_data/"
+# original_output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/Pulmonary_nodules_data/"
+crop_output_path = "/root/code/Pulmonary_nodules_data_crop/"
+# crop_output_path = "/home/jenifferwu/IMAGE_MASKS_DATA/Pulmonary_nodules_data_crop/"
 
-tmp_jpg_workspace = os.path.join(output_path, "ROI/val/")
+original_nodule_path = os.path.join(original_output_path, "val/")
+crop_nodule_path = os.path.join(crop_output_path, "val/")
 
-val_images = glob(os.path.join(output_path, "ROI/val/nodule_images_*.jpg"))
+val_images = glob(os.path.join(original_output_path, "val/PULMONARY_NODULES_pred_p_*.jpg"))
 for img_file in val_images:
     image = cv2.imread(img_file)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -54,7 +56,6 @@ for img_file in val_images:
     width = x2 - x1
     cropImg = image[y1:y1+hight, x1:x1+width]
 
-    filename = img_file.replace(tmp_jpg_workspace, "").replace(".jpg", "")
-    new_filename = filename + "_crop.jpg"
-    cv2.imwrite(os.path.join(tmp_jpg_workspace, new_filename), cropImg)
+    filename = img_file.replace(original_nodule_path, "")
+    cv2.imwrite(os.path.join(crop_nodule_path, filename), cropImg)
     cv2.waitKey(0)
